@@ -1,24 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import { useEffect, useState } from "react";
+import { NowView } from "./components/DataTime";
+import { Header } from "./components/Header/Header";
+import { constants } from "./utils/constants.js";
+import { Main } from "./components/Main/Main.js";
+import { Intro } from "./components/Intro/Intro.js";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header constants={constants} />
+      <Main>
+        <Intro>
+          <NowView interval={1000} />
+        </Intro>
+      </Main>
+    </>
   );
 }
 

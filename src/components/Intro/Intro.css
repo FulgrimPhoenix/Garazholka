@@ -1,0 +1,7 @@
+.intro{
+  display: flex;
+  margin: 0 auto;
+  min-height: 600px; /*delete after filling content*/
+  width: 100%;
+  background: radial-gradient(circle 300px at 25% 50%, rgba(123, 164, 154, 0.3), rgba(4, 9, 20, 1));
+}
