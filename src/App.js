@@ -12,8 +12,8 @@ function App() {
     <>
       <Header constants={constants} />
       <Main>
-        <Intro>
-          <NowView interval={1000} />
+        <Intro constants={constants}>
+          {/* <NowView interval={1000} /> */}
         </Intro>
       </Main>
     </>
