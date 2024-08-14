@@ -1,3 +1,9 @@
+import tau from "../images/intro/tau.jpg";
+import marines from "../images/intro/marines.jpg";
+import abbadon from "../images/intro/abbadon.jpg";
+import tyranids from "../images/intro/tyranids.jpg";
+import guard from "../images/intro/Guard.jpg";
+
 export const constants = {
   header: {
     logo: "Garazholka",
@@ -14,5 +20,6 @@ export const constants = {
       { name: "Уже  учавствует", data: "4" },
       { name: "Время проведения", data: "14.00" },
     ],
+    interativeArts: [tau, marines, abbadon, tyranids, guard],
   },
 };

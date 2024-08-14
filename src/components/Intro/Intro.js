@@ -1,6 +1,7 @@
 import "./Intro.css";
+import { constants } from "../../utils/constants.js";
 
-export function Intro({ children, constants }) {
+export function Intro({ children }) {
   return (
     <section className="intro">
       <div className="intro__container">
@@ -23,11 +24,20 @@ export function Intro({ children, constants }) {
             })}
           </ul>
           <p className="intro__interative-location">
-            <p className="intro__interative-location_bold">Место проведения:</p> {constants.intro.interativeLocation}
+            <p className="intro__interative-location_bold">Место проведения:</p>{" "}
+            {constants.intro.interativeLocation}
           </p>
           {children}
         </div>
-        <div className="intro__picture-content"></div>
+        <ul className="intro__picture-content">
+          {constants.intro.interativeArts.map((el, i) => {
+            return (
+              <li key={`id${i}`} className="intro__picture-cage">
+                <img src={el} className="intro__picture" alt="арт" />
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </section>
   );

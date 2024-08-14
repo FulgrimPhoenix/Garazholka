@@ -12,7 +12,7 @@ function App() {
     <>
       <Header constants={constants} />
       <Main>
-        <Intro constants={constants}>
+        <Intro >
           {/* <NowView interval={1000} /> */}
         </Intro>
       </Main>
