@@ -3,11 +3,20 @@ import marines from "../images/intro/marines.jpg";
 import abbadon from "../images/intro/abbadon.jpg";
 import tyranids from "../images/intro/tyranids.jpg";
 import guard from "../images/intro/Guard.jpg";
+import logo from "../images/forms/xmark.svg"
 
 export const constants = {
   header: {
     logo: "Garazholka",
     buttons: ["Войти", "Регистрация"],
+  },
+  registerFormData: {
+    logo: logo,
+    title: "Регистрация",
+    buttonText: "Далее",
+    redirectLine: "Уже зарегестрированы?",
+    redirectLink: "/signin",
+    redirectText: "Войти",
   },
   intro: {
     title: "Мероприятие дня:",
