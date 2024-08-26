@@ -10,6 +10,7 @@ import { Route, Routes } from "react-router-dom";
 import { Page } from "../Page/Page.js";
 import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute.js";
 import { Register } from "../Register/Register.js";
+import { Login } from "../Login/Login.js";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -44,14 +45,23 @@ function App() {
         element={<ProtectedRoute isLoggedIn={!isLoggedIn} redirectPath="/" />}
       >
         <Route
-              path="/signup"
-              element={
-                <Register
-                  registerFormData={constants.registerFormData}
-                  // handleSetIsLoggedIn={handleSetIsLoggedIn}
-                />
-              }
+          path="/signup"
+          element={
+            <Register
+              registerFormData={constants.registerFormData}
+              // handleSetIsLoggedIn={handleSetIsLoggedIn}
             />
+          }
+        />
+        <Route
+          path="/signin"
+          element={
+            <Login
+              loginFormData={constants.loginFormData}
+              // handleSetIsLoggedIn={handleSetIsLoggedIn}
+            />
+          }
+        />
       </Route>
     </Routes>
   );

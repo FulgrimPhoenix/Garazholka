@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import "./LogRegForm.css";
 import { FormButton } from "../FormButton/FormButton";
+import { CustomLinkLogButton } from "../CustomLinkButton/CustomLinkLogButton";
 
 export function LogRegForm({
   children,
@@ -19,6 +20,10 @@ export function LogRegForm({
         </picture>
       </Link>
       <h1 className="log-reg-form__title">{formData.title}</h1>
+      <div className="log-reg-form__nav-container">
+        <CustomLinkLogButton title={"Регистрация"} to={"/signup"} styleMode={"log-reg-form__nav-button"}/>
+        <CustomLinkLogButton title={"Войти"} to={"/signin"} styleMode={"log-reg-form__nav-button"}/>
+      </div>
       {children}
       <span className="log-reg-form__server-error">{serverErrorMessage}</span>
       <FormButton

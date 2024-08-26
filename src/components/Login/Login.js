@@ -5,13 +5,11 @@ import { LogRegInput } from "../LogRegInput/LogRegInput";
 import { useForm } from "../../hooks/useForm";
 import { useUrlPathName } from "../../hooks/useUrlPathName";
 
-export function Register({ registerFormData }) {
+export function Login({ loginFormData }) {
   const { values, onChange, setValues } = useForm({});
   const [isValid, setIsValid] = useState({
-    login: false,
     email: false,
     password: false,
-    passwordRepeat: false
   });
   const [isButtonActive, setIsButtonActive] = useState(false);
   const [serverError, setServerError] = useState("");
@@ -20,14 +18,14 @@ export function Register({ registerFormData }) {
 
   useEffect(() => {
     setValues({});
-    setIsValid({ login: false, email: false, password: false, passwordRepeat: false });
+    setIsValid({email: false, password: false});
     setIsButtonActive(false);
   }, []);
 
   useEffect(() => {
     console.log(isValid);
     
-    if (Object.values(isValid).every((item) => item) && (values["password"] === values["passwordRepeat"])) {
+    if (Object.values(isValid).every((item) => item)) {
       setIsButtonActive(true);
     } else {
       setIsButtonActive(false);
@@ -44,26 +42,13 @@ export function Register({ registerFormData }) {
   return (
     <main>
       <LogRegForm
-        formData={registerFormData}
+        formData={loginFormData}
         isButtonActive={isButtonActive}
         redirectLink={"/"}
         onSubmit={handleSubmit}
         serverErrorMessage={serverError}
         isFormActive={isFormActive}
       >
-        <LogRegInput
-          name="login"
-          value={values["login"]}
-          onChange={onChange}
-          inputType="text"
-          minLength={2}
-          maxLength={30}
-          validateForm={validateForm}
-          placeholder={"Логин"}
-          regax={/[^a-z0-9\sё-]/gi}
-          advancedValidation={true}
-          isFormActive={isFormActive}
-        />
         <LogRegInput
           name="email"
           value={values["email"]}
@@ -92,21 +77,6 @@ export function Register({ registerFormData }) {
           regax={null}
           advancedValidation={false}
           isFormActive={isFormActive}
-        />
-        <LogRegInput
-          name="passwordRepeat"
-          value={values["passwordRepeat"]}
-          onChange={onChange}
-          title="Пароль"
-          inputType="password"
-          minLength={8}
-          maxLength={16}
-          validateForm={validateForm}
-          placeholder={"Повторите пароль"}
-          regax={null}
-          advancedValidation={true}
-          isFormActive={isFormActive}
-          password={values["password"]}
         />
       </LogRegForm>
     </main>

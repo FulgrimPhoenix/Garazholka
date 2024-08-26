@@ -14,9 +14,11 @@ export const constants = {
     logo: logo,
     title: "Регистрация",
     buttonText: "Далее",
-    redirectLine: "Уже зарегестрированы?",
-    redirectLink: "/signin",
-    redirectText: "Войти",
+  },
+  loginFormData: {
+    logo: logo,
+    title: "Войти",
+    buttonText: "Войти",
   },
   intro: {
     title: "Мероприятие дня:",

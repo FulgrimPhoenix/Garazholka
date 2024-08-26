@@ -3,7 +3,6 @@ import "./LogRegInput.css";
 import { UseValidation } from "../../hooks/useValidation";
 
 export function LogRegInput({
-  title,
   inputType,
   minLength,
   maxLength,
@@ -14,12 +13,14 @@ export function LogRegInput({
   validateForm,
   regax,
   advancedValidation,
-  isFormActive
+  isFormActive,
+  password
 }) {
   const { validationResult, onChangee, isValid } = UseValidation({
     initialValue: { isValid: false, error: "" },
     regax: regax,
     advancedValidation: advancedValidation,
+    password: password
   });
 
   useEffect(() => {
@@ -27,16 +28,17 @@ export function LogRegInput({
   }, [isValid]);
 
   function onInputChange(e) {
+    console.log(e.target.value, password);
+    
     onChange(e);
     onChangee(e);
   }
 
   return (
     <div className="log-reg-input">
-      <h2 className="log-reg-input__title">{title}</h2>
       <input
         name={name}
-        className="log-reg-input__input"
+        className={`log-reg-input__input ${validationResult.errorMessage === "" || !validationResult.errorMessage ? "" : "log-reg-input__input_error"}`}
         onChange={(e) => onInputChange(e)}
         value={value || ""}
         type={inputType}
