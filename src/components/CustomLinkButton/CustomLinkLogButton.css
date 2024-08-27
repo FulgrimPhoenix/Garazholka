@@ -1,0 +1,13 @@
+.link_active{
+  outline: none;
+  border: none;
+  color: var(--text-accent-color);
+  background-color: var(--accent-color);
+  border-radius: 12px;
+}
+
+.link_active:hover{
+  box-shadow: none;
+  color: var(--text-accent-color);
+  background-color: var(--accent-color);
+}
