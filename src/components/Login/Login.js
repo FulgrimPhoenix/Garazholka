@@ -23,8 +23,6 @@ export function Login({ loginFormData }) {
   }, []);
 
   useEffect(() => {
-    console.log(isValid);
-    
     if (Object.values(isValid).every((item) => item)) {
       setIsButtonActive(true);
     } else {
@@ -48,6 +46,7 @@ export function Login({ loginFormData }) {
         onSubmit={handleSubmit}
         serverErrorMessage={serverError}
         isFormActive={isFormActive}
+        buttonText={loginFormData.buttonText}
       >
         <LogRegInput
           name="email"

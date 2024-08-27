@@ -9,6 +9,7 @@ export const UseValidation = ({
   const [isValid, setIsValid] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [validationResult, setValidationResult] = useState(initialValue);
+  const optionalFields = ["name", "surname", "address", "id"]
 
   function inputAdvancedValidation(e) {
     const inputValue = e.target.value;
@@ -25,7 +26,7 @@ export const UseValidation = ({
     validationResult,
     onChangee: (e) => {
       if (e.target.validity.valid) {
-        if (e.target.value === "" || undefined) {
+        if (!optionalFields.includes(e.target.name) && (e.target.value === "" || undefined)) {
           setIsValid(false);
           setErrorMessage("Запоните это поле");
           setValidationResult({
@@ -49,10 +50,35 @@ export const UseValidation = ({
           return;
         } else if (e.target.name === "login") {
           setIsValid(false);
-          setErrorMessage("Поле заполнено неверно. Используйте только латинские буквы и цифры");
+          setErrorMessage(
+            "Поле заполнено неверно. Используйте только латинские буквы и цифры"
+          );
           setValidationResult({
             isValid: false,
-            errorMessage: "Поле заполнено неверно. Используйте только латинские буквы и цифры",
+            errorMessage:
+              "Поле заполнено неверно. Используйте только латинские буквы и цифры",
+          });
+          return;
+        } else if (e.target.name === "name" || e.target.name === "surname") {
+          setIsValid(false);
+          setErrorMessage(
+            "Поле заполнено неверно. Используйте только кириллицу"
+          );
+          setValidationResult({
+            isValid: false,
+            errorMessage:
+              "Поле заполнено неверно. Используйте только кириллицу",
+          });
+          return;
+        } else if (e.target.name === "id") {
+          setIsValid(false);
+          setErrorMessage(
+            "Поле заполнено неверно. Используйте только цифры"
+          );
+          setValidationResult({
+            isValid: false,
+            errorMessage:
+              "Поле заполнено неверно. Используйте только цифры",
           });
           return;
         } else {
@@ -65,7 +91,6 @@ export const UseValidation = ({
           return;
         }
       } else {
-        console.log(4);
         setIsValid(e.target.validity.valid);
         setErrorMessage(e.target.validationMessage);
         setValidationResult({

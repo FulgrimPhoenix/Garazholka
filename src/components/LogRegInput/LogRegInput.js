@@ -28,8 +28,6 @@ export function LogRegInput({
   }, [isValid]);
 
   function onInputChange(e) {
-    console.log(e.target.value, password);
-    
     onChange(e);
     onChangee(e);
   }

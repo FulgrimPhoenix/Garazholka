@@ -21,8 +21,29 @@
   opacity: 0.7;
 }
 
-.log-reg-form__title {
+.log-reg-form__title-container{
+  display: flex;
+  flex-direction: row;
+  max-height: 38px;
   margin: 40px 0 0;
+}
+
+.log-reg-form__back-button{
+  background: none;
+  border: none;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  margin: auto 5px auto 0;
+  transition: .2s linear;
+}
+
+.log-reg-form__back-button:hover{
+  opacity: .7;
+}
+
+.log-reg-form__title {
+  margin: 0;
   padding: 0;
   text-align: left;
   color: #000;

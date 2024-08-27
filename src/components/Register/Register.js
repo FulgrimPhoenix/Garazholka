@@ -11,23 +11,38 @@ export function Register({ registerFormData }) {
     login: false,
     email: false,
     password: false,
-    passwordRepeat: false
+    passwordRepeat: false,
+    name: "",
+    surname: "",
+    address: "",
+    id: null,
   });
   const [isButtonActive, setIsButtonActive] = useState(false);
   const [serverError, setServerError] = useState("");
   const [isFormActive, setIsFormActive] = useState(true);
+  const [currentRegPage, setCurrentRegPage] = useState(true);
   const currentPath = useUrlPathName();
 
   useEffect(() => {
     setValues({});
-    setIsValid({ login: false, email: false, password: false, passwordRepeat: false });
+    setIsValid({
+      login: false,
+      email: false,
+      password: false,
+      passwordRepeat: false,
+      name: true,
+      surname: true,
+      address: true,
+      id: true,
+    });
     setIsButtonActive(false);
   }, []);
 
   useEffect(() => {
-    console.log(isValid);
-    
-    if (Object.values(isValid).every((item) => item) && (values["password"] === values["passwordRepeat"])) {
+    if (
+      Object.values(isValid).every((item) => item) &&
+      values["password"] === values["passwordRepeat"]
+    ) {
       setIsButtonActive(true);
     } else {
       setIsButtonActive(false);
@@ -37,8 +52,19 @@ export function Register({ registerFormData }) {
   function validateForm(name, value) {
     setIsValid({ ...isValid, [name]: value });
   }
+  function handleRegistrationPage(e) {
+    e.preventDefault();
+    setCurrentRegPage(!currentRegPage);
+  }
 
-  function handleSubmit() {
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (currentRegPage) {
+      setCurrentRegPage(!currentRegPage);
+      return
+    }
+    console.log(values);
+    
     return;
   }
   return (
@@ -50,64 +76,143 @@ export function Register({ registerFormData }) {
         onSubmit={handleSubmit}
         serverErrorMessage={serverError}
         isFormActive={isFormActive}
+        titleButton={
+          currentRegPage ? (
+            ""
+          ) : (
+            <button
+              type="submit"
+              className="log-reg-form__back-button"
+              onClick={(e) => handleRegistrationPage(e)}
+            >
+              <img
+                className="log-reg-form__back-pic"
+                src={registerFormData.backButton}
+                alt="назад"
+              />
+            </button>
+          )
+        }
+        buttonText={
+          currentRegPage
+            ? registerFormData.buttonTextFirstPage
+            : registerFormData.buttonTextSecondPage
+        }
       >
-        <LogRegInput
-          name="login"
-          value={values["login"]}
-          onChange={onChange}
-          inputType="text"
-          minLength={2}
-          maxLength={30}
-          validateForm={validateForm}
-          placeholder={"Логин"}
-          regax={/[^a-z0-9\sё-]/gi}
-          advancedValidation={true}
-          isFormActive={isFormActive}
-        />
-        <LogRegInput
-          name="email"
-          value={values["email"]}
-          onChange={onChange}
-          inputType="email"
-          minLength={10}
-          maxLength={30}
-          validateForm={validateForm}
-          placeholder={"Почта"}
-          regax={
-            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i
-          }
-          advancedValidation={true}
-          isFormActive={isFormActive}
-        />
-        <LogRegInput
-          name="password"
-          value={values["password"]}
-          onChange={onChange}
-          title="Пароль"
-          inputType="password"
-          minLength={8}
-          maxLength={16}
-          validateForm={validateForm}
-          placeholder={"Пароль"}
-          regax={null}
-          advancedValidation={false}
-          isFormActive={isFormActive}
-        />
-        <LogRegInput
-          name="passwordRepeat"
-          value={values["passwordRepeat"]}
-          onChange={onChange}
-          title="Пароль"
-          inputType="password"
-          minLength={8}
-          maxLength={16}
-          validateForm={validateForm}
-          placeholder={"Повторите пароль"}
-          regax={null}
-          advancedValidation={true}
-          isFormActive={isFormActive}
-          password={values["password"]}
-        />
+        {currentRegPage ? (
+          <>
+            <LogRegInput
+              name="login"
+              value={values["login"]}
+              onChange={onChange}
+              inputType="text"
+              minLength={2}
+              maxLength={30}
+              validateForm={validateForm}
+              placeholder={"Логин"}
+              regax={/[^a-z0-9\sё-]/gi}
+              advancedValidation={true}
+              isFormActive={isFormActive}
+            />
+            <LogRegInput
+              name="email"
+              value={values["email"]}
+              onChange={onChange}
+              inputType="email"
+              minLength={10}
+              maxLength={30}
+              validateForm={validateForm}
+              placeholder={"Почта"}
+              regax={
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i
+              }
+              advancedValidation={true}
+              isFormActive={isFormActive}
+            />
+            <LogRegInput
+              name="password"
+              value={values["password"]}
+              onChange={onChange}
+              inputType="password"
+              minLength={8}
+              maxLength={16}
+              validateForm={validateForm}
+              placeholder={"Пароль"}
+              regax={null}
+              advancedValidation={false}
+              isFormActive={isFormActive}
+            />
+            <LogRegInput
+              name="passwordRepeat"
+              value={values["passwordRepeat"]}
+              onChange={onChange}
+              inputType="password"
+              minLength={8}
+              maxLength={16}
+              validateForm={validateForm}
+              placeholder={"Повторите пароль"}
+              regax={null}
+              advancedValidation={true}
+              isFormActive={isFormActive}
+              password={values["password"]}
+            />
+          </>
+        ) : (
+          <>
+            <LogRegInput
+              name="name"
+              value={values["name"]}
+              onChange={onChange}
+              inputType="text"
+              minLength={2}
+              maxLength={30}
+              validateForm={validateForm}
+              placeholder={"Имя (необязательно)"}
+              regax={/[^а-я\sё-]/gi}
+              advancedValidation={true}
+              isFormActive={isFormActive}
+            />
+            <LogRegInput
+              name="surname"
+              value={values["surname"]}
+              onChange={onChange}
+              inputType="text"
+              minLength={2}
+              maxLength={30}
+              validateForm={validateForm}
+              placeholder={"Фамилия (необязательно)"}
+              regax={/[^а-я\sё-]/gi}
+              advancedValidation={true}
+              isFormActive={isFormActive}
+            />
+            <LogRegInput
+              name="address"
+              value={values["address"]}
+              onChange={onChange}
+              inputType="text"
+              minLength={2}
+              maxLength={60}
+              validateForm={validateForm}
+              placeholder={"Адрес проживания (необязательно)"}
+              regax={/[^а-я\sё-]/gi}
+              advancedValidation={false}
+              isFormActive={isFormActive}
+            />
+            <LogRegInput
+              name="id"
+              value={values["id"]}
+              onChange={onChange}
+              inputType="text"
+              minLength={9}
+              maxLength={9}
+              validateForm={validateForm}
+              placeholder={"id группы (необязательно)"}
+              regax={/[^0-9\s]/gi}
+              advancedValidation={true}
+              isFormActive={isFormActive}
+            />
+          </>
+        )}
       </LogRegForm>
     </main>
   );

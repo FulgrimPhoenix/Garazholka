@@ -4,6 +4,7 @@ import abbadon from "../images/intro/abbadon.jpg";
 import tyranids from "../images/intro/tyranids.jpg";
 import guard from "../images/intro/Guard.jpg";
 import logo from "../images/forms/xmark.svg"
+import backButton from "../images/forms/backButton.svg"
 
 export const constants = {
   header: {
@@ -13,7 +14,9 @@ export const constants = {
   registerFormData: {
     logo: logo,
     title: "Регистрация",
-    buttonText: "Далее",
+    buttonTextFirstPage: "Далее",
+    buttonTextSecondPage: "Зарегистрироваться",
+    backButton
   },
   loginFormData: {
     logo: logo,
