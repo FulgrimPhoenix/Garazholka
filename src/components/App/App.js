@@ -11,16 +11,18 @@ import { Page } from "../Page/Page.js";
 import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute.js";
 import { Register } from "../Register/Register.js";
 import { Login } from "../Login/Login.js";
+import { Profile } from "../Profile/Profile.js";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [currentHeaderTitle, setCurrentHeaderTitle] = useState('Профиль')
   return (
     <Routes>
       <Route
         path="/"
         element={
           <>
-            <Header constants={constants} />
+            <Header constants={constants} title={currentHeaderTitle} />
             <Page />
           </>
         }
@@ -29,40 +31,40 @@ function App() {
           index
           element={
             <Main>
-              {/* <Intro >
+              <Intro >
             {<NowView interval={1000} />}
-          </Intro> */}
+          </Intro> 
             </Main>
           }
         />
         <Route
           path="/"
-          element={<ProtectedRoute isLoggedIn={isLoggedIn} redirectPath="/" />}
-        ></Route>
+          element={
+            <ProtectedRoute isLoggedIn={isLoggedIn} redirectPath="/xs" />
+          }
+        >
+          <Route path="/profile" element={<Profile profileData={constants.profile} />} />
+        </Route>
       </Route>
+
       <Route
-        path="/"
-        element={<ProtectedRoute isLoggedIn={!isLoggedIn} redirectPath="/" />}
-      >
-        <Route
-          path="/signup"
-          element={
-            <Register
-              registerFormData={constants.registerFormData}
-              // handleSetIsLoggedIn={handleSetIsLoggedIn}
-            />
-          }
-        />
-        <Route
-          path="/signin"
-          element={
-            <Login
-              loginFormData={constants.loginFormData}
-              // handleSetIsLoggedIn={handleSetIsLoggedIn}
-            />
-          }
-        />
-      </Route>
+        path="/signup"
+        element={
+          <Register
+            registerFormData={constants.registerFormData}
+            // handleSetIsLoggedIn={handleSetIsLoggedIn}
+          />
+        }
+      />
+      <Route
+        path="/signin"
+        element={
+          <Login
+            loginFormData={constants.loginFormData}
+            // handleSetIsLoggedIn={handleSetIsLoggedIn}
+          />
+        }
+      />
     </Routes>
   );
 }

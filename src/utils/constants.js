@@ -3,13 +3,15 @@ import marines from "../images/intro/marines.jpg";
 import abbadon from "../images/intro/abbadon.jpg";
 import tyranids from "../images/intro/tyranids.jpg";
 import guard from "../images/intro/Guard.jpg";
-import logo from "../images/forms/xmark.svg"
-import backButton from "../images/forms/backButton.svg"
+import logo from "../images/forms/xmark.svg";
+import backButton from "../images/forms/backButton.svg";
+import menuIcon from "../images/header/menuIcon.svg"
 
 export const constants = {
   header: {
     logo: "Garazholka",
     buttons: ["Войти", "Регистрация"],
+    menuIcon
   },
   registerFormData: {
     logo: logo,
@@ -22,6 +24,11 @@ export const constants = {
     logo: logo,
     title: "Войти",
     buttonText: "Войти",
+  },
+  profile:{
+    name: "Райан Гослинг",
+    aboutMe: "Кенодостаточен. Известен по ролям в независимых фильмах и крупных студийных проектах разных жанров.",
+    avatar: "https://cdna.artstation.com/p/assets/images/images/037/619/882/large/sean-kelly-officer-k1.jpg"
   },
   intro: {
     title: "Мероприятие дня:",

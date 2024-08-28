@@ -1,0 +1,58 @@
+.profile {
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  margin: 47px auto;
+  max-width: 404px;
+}
+
+.profile__about-me {
+  min-height: 140px;
+  width: 100%;
+  background-color: var(--frame-color);
+  mask: url(../../images/profile/profileMask.png);
+  mask-position: center;
+  mask-size: 100% 100%;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  margin: -28px auto 0;
+}
+
+.profile__photo-container {
+  margin: 0 auto;
+  width: 18%;
+  background-color: var(--frame-color);
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile__photo-container:before{
+  content: "";
+  display: block;
+  padding-top: 100%;  /* initial ratio of 1:1*/
+}
+
+.profile__photo {
+  margin: auto;
+  max-width: 112px;
+  max-height: 56px;
+  margin: 0 auto;
+  background-size: cover;
+}
+
+.profile__name {
+  font-size: 20px;
+  line-height: 20px;
+  margin: 35px auto 0;
+  max-width: 95%;
+}
+
+.profile__my-description {
+  margin: 12px auto;
+  width: 95%;
+}
