@@ -1,14 +1,28 @@
 .header{
-  margin: auto;
+  margin: 64px auto 0;
+  padding: 0 8px;
   display: flex;
   justify-content: space-between;
   max-width: 1280px;
+  height: 38px;
+  align-items: center;
+  max-width: 404px;
 }
 
-.header__logo{
-  color: #fff;
+.header__title{
+  margin: auto 0;
+  color: var(--text-color);
   font-size: 32px;
-  padding: 15px 0;
+  font-weight: 600;
+  line-height: 28px;
+}
+
+.header__menu-button{
+  background: none;
+  border: none;
+  padding: 0;
+  height: 32px;
+  width: 32px;
 }
 
 .header__buttons-container{
@@ -17,8 +31,8 @@
 
 .header__button{
   margin: auto 0;
-  background-color: rgba(0, 0, 0, 0);
-  color: #fff;
+  background: none;
+  color: var(--text-color);
   border: none;
   font-size: 18px;
   padding: 15px;
