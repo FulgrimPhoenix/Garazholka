@@ -15,7 +15,7 @@ import { Profile } from "../Profile/Profile.js";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const [currentHeaderTitle, setCurrentHeaderTitle] = useState('Профиль')
+  const [currentHeaderTitle, setCurrentHeaderTitle] = useState("Профиль");
   return (
     <Routes>
       <Route
@@ -31,9 +31,7 @@ function App() {
           index
           element={
             <Main>
-              <Intro >
-            {<NowView interval={1000} />}
-          </Intro> 
+              <Intro>{<NowView interval={1000} />}</Intro>
             </Main>
           }
         />
@@ -43,7 +41,16 @@ function App() {
             <ProtectedRoute isLoggedIn={isLoggedIn} redirectPath="/xs" />
           }
         >
-          <Route path="/profile" element={<Profile profileData={constants.profile} />} />
+          <Route
+            path="/profile"
+            element={
+              <Profile
+                profileData={constants.profile}
+                groupListData={constants.groupListData}
+                eventListData={constants.eventListData}
+              />
+            }
+          />
         </Route>
       </Route>
 

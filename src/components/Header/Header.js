@@ -1,7 +1,6 @@
 import "./Header.css";
 
 export function Header({ constants, title }) {
-  console.log(constants.header.buttons);
   return (
     <header className="header">
       <h1 className="header__title">{title}</h1>
