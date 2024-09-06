@@ -5,7 +5,8 @@
   --frame-accent-selected-color: #696969;
   --text-color: #000;
   --accent-color: #6727ff;
-  --accent-hover-color: #8247FF;
+  --accent-hover-color: #8247ff;
+  --accent-hover-background-color: #fff;
   --text-accent-color: #fff;
   --text-error-color: #ff8181;
 }

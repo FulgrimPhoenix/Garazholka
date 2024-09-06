@@ -1,12 +1,20 @@
 import { useState } from "react";
 import "./Profile.css";
+import { NavLink } from "react-router-dom";
+import { GroupList } from "../GroupList/GroupList";
+import { EventList } from "../EventList/EventList";
 
-export function Profile({ profileData }) {
+export function Profile({ profileData, groupListData, eventListData }) {
   const [isGroupListOpen, setIsGroupListOpen] = useState(false);
+  const [currentChoice, setCurrentChoice] = useState();
 
   function handlGroupMenu(e) {
     e.preventDefault();
     setIsGroupListOpen(!isGroupListOpen);
+  }
+
+  function handleListChoice(e) {
+    setCurrentChoice(Number(e.target.id));
   }
 
   return (
@@ -22,40 +30,28 @@ export function Profile({ profileData }) {
         <h2 className="profile__name">{profileData.name}</h2>
         <p className="profile__my-description">{profileData.aboutMe}</p>
       </div>
-
-      <div className="profile__group-list"></div>
-      <form className="group__form">
-        <button
-          onClick={(e) => handlGroupMenu(e)}
-          className="profile__groupButton"
-        >
+      <button
+        onClick={(e) => handlGroupMenu(e)}
+        className="profile__group-menu-button"
+      >
+        <h3 className="profile__group-menu-button-text">
           {profileData.groupButtonText}
-        </button>
-        <div
-          className={`group-list__container ${
-            isGroupListOpen
-              ? "group-list__container_active"
-              : "group-list__container_inactive"
+        </h3>
+        <img
+          className={`profile__group-menu-status-arrow ${
+            isGroupListOpen ? "profile__group-menu-status-arrow_open" : ""
           }`}
-        >
-          {profileData.groupList.map((el) => {
-            return (
-              <>
-                <input
-                  key={el.id}
-                  id={el.id}
-                  className="group-list__item-input"
-                  type="radio"
-                  name="singleSelect"
-                />
-                <label htmlFor={el.id} className="group-list__item-label">
-                  {el.title}
-                </label>
-              </>
-            );
-          })}
-        </div>
-      </form>
+          src={profileData.groupButtonImg}
+          alt="стрелка статуса меню"
+        />
+      </button>
+      <GroupList
+        groupListData={groupListData}
+        isGroupListOpen={isGroupListOpen}
+        handleListChoice={handleListChoice}
+        currentListChoice={currentChoice}
+      />
+      <EventList eventListData={eventListData} />
     </section>
   );
 }
