@@ -65,8 +65,70 @@ export const constants = {
     ],
   },
   eventListData: {
-    title: "Мои мероприятия",
+    title: "Что хочешь?",
     linkMoreImg: show_more_arrow,
+    eventList: [
+      {
+        id: 11,
+        title: "Игра в Warhammer 40000",
+        avatar: null,
+        description: null,
+        followers: 10,
+        location: "ул. Советский проспект 2а",
+        duration: 600, //minutes
+        isOnline: false,
+        timeDiapason: "12.00 - 23.00",
+        minimumNumberOfUsers: 2,
+      },
+      {
+        id: 22,
+        title: "Покраскодиско",
+        avatar: null,
+        description: null,
+        followers: 10,
+        location: "ул. Советский проспект 2а",
+        duration: 300, //minutes
+        isOnline: false,
+        timeDiapason: "12.00 - 23.00",
+        minimumNumberOfUsers: 3,
+      },
+      {
+        id: 33,
+        title: "Прибухнуть в стиле олдскул",
+        avatar: null,
+        description: null,
+        followers: 6,
+        location: "ул. Советский проспект 2а",
+        duration: 240, //minutes
+        isOnline: false,
+        timeDiapason: "14.00 - 23.59",
+        minimumNumberOfUsers: 2,
+      },
+      {
+        id: 44,
+        title: "Поиграть в Space marine 2",
+        avatar: null,
+        description: null,
+        followers: 10,
+        location: null,
+        duration: 720, //minutes
+        isOnline: true,
+        timeDiapason: "11.00 - 23.59",
+        minimumNumberOfUsers: 3,
+      },
+      {
+        id: 55,
+        title: "Поход на шашлыки",
+        avatar: null,
+        description: null,
+        followers: 10,
+        location: null,
+        duration: 240, //minutes
+        isOnline: false,
+        timeDiapason: "11.00 - 23.59",
+        minimumNumberOfUsers: 4,
+      },
+    ],
   },
   intro: {
     title: "Мероприятие дня:",

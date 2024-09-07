@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import "./GroupList.css";
 
 export function GroupList({
   groupListData,
@@ -7,8 +8,8 @@ export function GroupList({
   currentListChoice,
 }) {
   return (
-    <form className="group-list__form">
-      <div
+    <div className="group-list__form">
+      <form
         className={`group-list__container ${
           isGroupListOpen ? "group-list__container_open" : ""
         }`}
@@ -16,14 +17,28 @@ export function GroupList({
         {groupListData.groupList.map((el) => {
           return (
             <>
-              <input
-                onClick={handleListChoice}
-                key={el.id}
-                id={el.id}
-                className="group-list__item-input"
-                type="radio"
-                name="singleSelect"
-              />
+              {el.id === currentListChoice ? (
+                <input
+                  onClick={handleListChoice}
+                  key={el.id}
+                  id={el.id}
+                  className="group-list__item-input"
+                  type="radio"
+                  name={"selected_group"}
+                  value={el.id}
+                  disabled
+                />
+              ) : (
+                <input
+                  onClick={handleListChoice}
+                  key={el.id}
+                  id={el.id}
+                  className="group-list__item-input"
+                  type="radio"
+                  name={"selected_group"}
+                  value={el.id}
+                />
+              )}
               <label htmlFor={el.id} className="group-list__item-label">
                 <img
                   className="group-list__item-avatar"
@@ -52,7 +67,7 @@ export function GroupList({
             </>
           );
         })}
-      </div>
-    </form>
+      </form>
+    </div>
   );
 }
