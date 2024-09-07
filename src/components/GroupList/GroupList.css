@@ -1,0 +1,125 @@
+.group-list__form {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  margin: 16px auto 0;
+}
+
+.group-list__container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0 auto;
+  overflow-y: auto;
+  min-height: 0px;
+  max-height: 0px;
+  overflow-y: auto;
+  animation: 0.3s forwards disappearance;
+}
+
+.group-list__container_open {
+  min-height: 100px;
+  max-height: 300px;
+  animation: 0.3s forwards appearance;
+  margin: 0 0 16px;
+}
+
+.group-list__item-input {
+  display: none;
+  &:checked + label {
+    background-color: var(--accent-hover-color);
+    color: var(--text-accent-color);
+  }
+
+  &:disabled + label {
+    background-color: var(--accent-hover-color);
+    color: var(--text-accent-color);
+    box-shadow: none;
+    pointer-events: none;
+  }
+}
+
+.group-list__item-label {
+  display: flex;
+  width: 88%;
+  align-items: center;
+  margin: 5px auto;
+  height: 44px;
+  padding: 8px;
+  background-color: var(--frame-color);
+  border-radius: 12px;
+  transition: all 0.2s ease-out;
+
+  cursor: pointer;
+
+  /* & + input + & {
+    border-top: 1px solid #c7ccd160;
+  } */
+  &:hover {
+    box-shadow: 0px 0px 0px 2px var(--accent-hover-color);
+    color: var(--accent-hover-color);
+    background-color: var(--accent-hover-background-color);
+  }
+}
+.group-list__item-avatar {
+  margin: auto 0;
+  height: 44px;
+  width: 44px;
+  border-radius: 8px;
+}
+
+.group-list__item-group-info {
+  display: flex;
+  flex-direction: column;
+  margin: auto auto auto 20px;
+}
+
+.group-list__item-title {
+  overflow: hidden;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0 0 8px;
+}
+
+.group-list__item-followers-counter {
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 274;
+  line-height: normal;
+  margin: 0;
+  padding: 0;
+  line-height: 12px;
+}
+
+.group-list__item-link {
+  height: 16px;
+  width: 16px;
+  margin: auto 0;
+  cursor: pointer;
+}
+
+@keyframes appearance {
+  from {
+    min-height: 0;
+    max-height: 0;
+  }
+
+  to {
+    min-height: 100px;
+    max-height: 300px;
+  }
+}
+
+@keyframes disappearance {
+  from {
+    min-height: 100px;
+    max-height: 300px;
+  }
+
+  to {
+    min-height: 0;
+    max-height: 0;
+  }
+}
