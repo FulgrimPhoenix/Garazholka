@@ -130,6 +130,13 @@ export const constants = {
       },
     ],
   },
+  mapBlockData: {
+    title: "Откуда я",
+  },
+  wayTimePreferenceBlockData: {
+    title: "Мобильность",
+    isOnlineCheckboxTitle: "Онлайн события",
+  },
   intro: {
     title: "Мероприятие дня:",
     interativeName: "Игра в Warhammer 40000!",

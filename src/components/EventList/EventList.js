@@ -17,7 +17,7 @@ export function EventList({ eventListData }) {
   return (
     <div className="event-list">
       <NavLink to={"#"} className={"event-list__link"}>
-        <h3 className="event-list__link-title">{eventListData.title}</h3>
+        <h3 className="block-title">{eventListData.title}</h3>
         <img
           className={`event-list__link-arrow`}
           src={eventListData.linkMoreImg}
