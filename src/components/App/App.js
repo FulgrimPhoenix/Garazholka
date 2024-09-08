@@ -6,7 +6,7 @@ import { Header } from "../Header/Header.js";
 import { constants } from "../../utils/constants.js";
 import { Main } from "../Main/Main.js";
 import { Intro } from "../Intro/Intro.js";
-import { Route, Routes } from "react-router-dom";
+import { NavLink, Route, Routes } from "react-router-dom";
 import { Page } from "../Page/Page.js";
 import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute.js";
 import { Register } from "../Register/Register.js";
@@ -22,6 +22,8 @@ function App() {
         path="/"
         element={
           <>
+            <NavLink to={"/signup"}>Регистрация</NavLink>
+            <NavLink to={"/profile"}>Профиль</NavLink>
             <Header constants={constants} title={currentHeaderTitle} />
             <Page />
           </>
@@ -48,6 +50,10 @@ function App() {
                 profileData={constants.profile}
                 groupListData={constants.groupListData}
                 eventListData={constants.eventListData}
+                mapBlockData={constants.mapBlockData}
+                wayTimePreferenceBlockData={
+                  constants.wayTimePreferenceBlockData
+                }
               />
             }
           />
@@ -57,10 +63,14 @@ function App() {
       <Route
         path="/signup"
         element={
-          <Register
-            registerFormData={constants.registerFormData}
-            // handleSetIsLoggedIn={handleSetIsLoggedIn}
-          />
+          <>
+            <NavLink to={"/signup"}>Регистрация</NavLink>
+            <NavLink to={"/profile"}>Профиль</NavLink>
+            <Register
+              registerFormData={constants.registerFormData}
+              // handleSetIsLoggedIn={handleSetIsLoggedIn}
+            />
+          </>
         }
       />
       <Route

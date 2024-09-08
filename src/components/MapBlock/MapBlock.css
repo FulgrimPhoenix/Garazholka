@@ -1,0 +1,24 @@
+.map-block {
+  margin: 20px 0 0;
+  background-color: var(--frame-color);
+  display: flex;
+  flex-direction: column;
+  width: 47%;
+  min-width: 144px;
+  max-width: 200px;
+  max-height: 200px;
+  position: relative;
+  box-sizing: border-box;
+  border-radius: 12px;
+  position: relative;
+  padding: 8px;
+  aspect-ratio: 1/1;
+}
+
+.map-block__map-frame {
+  /* pointer-events: none; */
+  margin: auto;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+}
