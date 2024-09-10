@@ -12,10 +12,16 @@ import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute.js";
 import { Register } from "../Register/Register.js";
 import { Login } from "../Login/Login.js";
 import { Profile } from "../Profile/Profile.js";
+import { Popup } from "../Popup/Popup.js";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [currentHeaderTitle, setCurrentHeaderTitle] = useState("Профиль");
+  const [isPopupOpen, setIsPopupOpen] = useState(true);
+
+  function handlePopup() {
+    setIsPopupOpen(!isPopupOpen);
+  }
   return (
     <Routes>
       <Route
@@ -26,6 +32,9 @@ function App() {
             <NavLink to={"/profile"}>Профиль</NavLink>
             <Header constants={constants} title={currentHeaderTitle} />
             <Page />
+            <Popup isPopupOpen={isPopupOpen} togglePopup={handlePopup}>
+              <p>test</p>
+            </Popup>
           </>
         }
       >

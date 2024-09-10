@@ -1,5 +1,6 @@
 :root {
   --backbround-color: #fff;
+  --background-overlay-color: rgba(0, 0, 0, 0.5);
   --frame-color: #d9d9d9;
   --frame-accent--unselected-color: #adadad;
   --frame-accent-selected-color: #696969;
