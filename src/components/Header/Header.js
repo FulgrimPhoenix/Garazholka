@@ -1,15 +1,17 @@
 import "./Header.css";
 
-export function Header({ constants }) {
-  console.log(constants.header.buttons);
+export function Header({ constants, title }) {
   return (
     <header className="header">
-      <div className="header__logo">{constants.header.logo}</div>
-      <div className="header__buttons-container">
+      <h1 className="header__title">{title}</h1>
+      <button className="header__menu-button">
+        <img className="header__menu-button-pic" src={constants.header.menuIcon} alt="иконка меню"/>
+      </button>
+      {/* <div className="header__buttons-container">
         {constants.header.buttons.map((el) => (
           <button className="header__button">{el}</button>
         ))}
-      </div>
+      </div> */}
     </header>
   );
 }
