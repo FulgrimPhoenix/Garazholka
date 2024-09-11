@@ -1,0 +1,113 @@
+.way-time-preference-block {
+  margin: 20px 0 0;
+  background-color: var(--frame-color);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+  box-sizing: border-box;
+  border-radius: 12px;
+  padding: 12px 8px;
+}
+
+.way-time-preference-block__is-online-container {
+  margin: 16px 0 0;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #595959;
+}
+
+.way-time-preference-block__item-input-checkbox {
+  display: none;
+
+  &:checked + label {
+    background: #bea2fe;
+  }
+  &:checked + label:after {
+    right: 0;
+  }
+}
+.way-time-preference-block__item-label-checkbox {
+  margin: auto 0;
+  width: 32px;
+  height: 16px;
+  background: #adadad;
+  position: relative;
+  top: 0;
+  display: block;
+  border-radius: 40px;
+  cursor: pointer;
+
+  &:after {
+    content: "";
+    margin: 2px;
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    background: #6727ff;
+    border-radius: 50%;
+
+    right: 16px;
+    -webkit-transition: right 0.5s;
+    transition: right 0.5s;
+  }
+}
+
+.way-time-preference-block__item-title {
+  margin: auto 0 auto 8px;
+  color: #000;
+
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px;
+}
+
+.way-time-preference-block__way-time-items {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.way-time-preference-block__way-time-item {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 8px;
+}
+
+.way-time-preference-block__way-time-input-item {
+  display: none;
+
+  &:checked + label {
+    background: #bea2fe;
+    background-image: url("../../images/profile/checkmark.svg");
+    background-size: 10px 7px;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}
+
+.way-time-preference-block__way-time-label-item {
+  background: #adadad;
+  height: 22px;
+  width: 22px;
+  display: block;
+  border-radius: 50%;
+  transition: background-color .4s linear;
+}
+
+.way-time-preference-block__way-time-title-item {
+  margin: auto auto auto 8px;
+  color: #000;
+
+  /* Bd phone/Bd2 16 Regular Phone */
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px;
+}
