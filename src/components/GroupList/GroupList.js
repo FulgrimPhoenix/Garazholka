@@ -8,8 +8,9 @@ export function GroupList({
   currentListChoice,
 }) {
   return (
-    <div className="group-list__form">
+    <div key={"group-list"} className="group-list__form">
       <form
+        key={"group-list__form"}
         className={`group-list__container ${
           isGroupListOpen ? "group-list__container_open" : ""
         }`}
@@ -20,7 +21,7 @@ export function GroupList({
               {el.id === currentListChoice ? (
                 <input
                   onClick={handleListChoice}
-                  key={el.id}
+                  key={`input${el.id}`}
                   id={el.id}
                   className="group-list__item-input"
                   type="radio"
@@ -31,7 +32,7 @@ export function GroupList({
               ) : (
                 <input
                   onClick={handleListChoice}
-                  key={el.id}
+                  key={`input${el.id}`}
                   id={el.id}
                   className="group-list__item-input"
                   type="radio"
@@ -39,8 +40,13 @@ export function GroupList({
                   value={el.id}
                 />
               )}
-              <label htmlFor={el.id} className="group-list__item-label">
+              <label
+                key={`label${el.id}`}
+                htmlFor={el.id}
+                className="group-list__item-label"
+              >
                 <img
+                  key={`img${el.id}`}
                   className="group-list__item-avatar"
                   src={el.avatar}
                   alt="аватар"
