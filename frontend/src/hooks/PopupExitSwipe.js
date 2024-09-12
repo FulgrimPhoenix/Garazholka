@@ -17,13 +17,13 @@ const PopupExitSwipe = () => {
       (modalRef.current.offsetHeight *
         (event.touches[0].clientY -
           modalRef.current.getBoundingClientRect().top)) /
-        window.innerHeight
+        window.innerHeight,
     );
 
-    if (translateY >= 0) {
+    if (translateY >= 0 || !isModalOpen) {
       modalRef.current.style.transform = `translateY(83vh)`;
       setTimeout(() => {
-        setIsModalOpen(isModalOpen);
+        setIsModalOpen(!isModalOpen);
       }, 400);
     }
   };
