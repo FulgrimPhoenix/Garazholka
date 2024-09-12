@@ -14,6 +14,7 @@ export function Profile({
   eventListData,
   mapBlockData,
   wayTimePreferenceBlockData,
+  handlePopup,
 }) {
   const [isGroupListOpen, setIsGroupListOpen] = useState(false);
   const [currentChoice, setCurrentChoice] = useState();
@@ -59,7 +60,7 @@ export function Profile({
         handleListChoice={handleListChoice}
         currentListChoice={currentChoice}
       />
-      <EventList eventListData={eventListData} />
+      <EventList eventListData={eventListData} handlePopup={handlePopup} />
       <MapBlock mapBlockData={mapBlockData} />
       {
         <div
