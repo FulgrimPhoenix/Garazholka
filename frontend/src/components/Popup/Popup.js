@@ -1,40 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Popup.css";
 import PopupExitSwipe from "../../hooks/PopupExitSwipe";
 
-export function Popup({ children, togglePopup, isPopupOpen }) {
+export function Popup({ children, handlePopup, isPopupOpen }) {
   const [isCloseAnimationPlay, setIsCloseAnimationPlay] = useState(false);
-  const { isModalOpen, setIsModalOpen, ref } = PopupExitSwipe();
+  const { isModalOpen, setIsModalOpen, ref, modalRef } = PopupExitSwipe();
 
   function closeModal() {
-    togglePopup();
     setIsModalOpen(!isModalOpen);
   }
 
-  function toggleCloseAnimationPlay() {
-    setIsModalOpen(!isModalOpen);
-    setIsCloseAnimationPlay(!isCloseAnimationPlay);
-  }
+  useEffect(() => {
+    setTimeout(() => {
+      handlePopup(isModalOpen);
+    }, 401);
+  }, [isModalOpen]);
 
   return (
     <div
-      className={`popup ${isModalOpen ? "popup_open" : ""} ${
-        isCloseAnimationPlay ? "popup_closing" : ""
-      }`}
+      className={`popup ${isModalOpen ? "popup_open" : ""}`}
       onClick={(e) => {
         if (e.target === document.querySelector(".popup")) {
           closeModal();
-          toggleCloseAnimationPlay();
-          setTimeout(() => {
-            toggleCloseAnimationPlay();
-          }, 400);
         }
       }}
       name="popupOverlay"
+      ref={modalRef}
     >
       <div
         className={`popup__container ${
-          isModalOpen ? "" : "popup__container_closing"
+          isModalOpen ? "popup__container_open" : ""
         }`}
         ref={ref}
       >

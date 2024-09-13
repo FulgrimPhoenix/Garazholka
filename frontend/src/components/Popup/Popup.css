@@ -6,16 +6,15 @@
   height: 100vh;
   bottom: 0;
   left: 0;
-  transition: 0.3s linear;
+  transition: 0.4s linear;
   z-index: -1;
+  /* opacity: 0; */
   background-color: rgba(0, 0, 0, 0);
-}
-
-.popup_closing {
 }
 
 .popup_open {
   background-color: var(--background-overlay-color);
+  /* opacity: 1; */
   visibility: visible;
   z-index: 1;
   touch-action: none;
@@ -29,9 +28,11 @@
   box-sizing: border-box;
   margin: auto auto 0;
   border-radius: 16px 16px 0 0;
+  /* opacity: 0; */
   background-color: var(--frame-color);
-  transition: 0.4s linear;
+  transition: 0.3s linear;
   touch-action: none;
+  z-index: -1;
   /* animation: openPopup 0.3s forwards ease-out; */
 
   &::before {
@@ -46,8 +47,11 @@
   }
 }
 
-.popup__container_closing {
-  /* animation: closePopup 0.3s forwards ease-out; */
+.popup__container_open {
+  /* opacity: 1; */
+  visibility: visible;
+  z-index: 1;
+  touch-action: none;
 }
 
 @keyframes openPopup {
