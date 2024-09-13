@@ -3,24 +3,31 @@ import { useState, useEffect, useRef } from "react";
 const PopupExitSwipe = () => {
   const [isModalOpen, setIsModalOpen] = useState(true);
   const modalRef = useRef();
+  const modalOverlay = useRef();
 
-  const handleTouchStart = (event) => {
-    event.preventDefault();
+  const handleTouchStart = (e) => {
+    e.preventDefault();
     modalRef.current.style.transform = "translateY(0px)";
     modalRef.current.style.transition = "0.4s linear";
+
+    if (e.target === document.querySelector(".popup")) {
+      modalRef.current.style.transform = `translateY(83vh)`;
+      setTimeout(() => {
+        setIsModalOpen(!isModalOpen);
+      }, 400);
+    }
   };
 
-  const handleTouchMove = (event) => {
-    event.preventDefault();
+  const handleTouchMove = (e) => {
+    e.preventDefault();
 
     let translateY = Math.round(
       (modalRef.current.offsetHeight *
-        (event.touches[0].clientY -
-          modalRef.current.getBoundingClientRect().top)) /
+        (e.touches[0].clientY - modalRef.current.getBoundingClientRect().top)) /
         window.innerHeight,
     );
 
-    if (translateY >= 0 || !isModalOpen) {
+    if (translateY >= 100) {
       modalRef.current.style.transform = `translateY(83vh)`;
       setTimeout(() => {
         setIsModalOpen(!isModalOpen);
@@ -35,6 +42,14 @@ const PopupExitSwipe = () => {
   };
 
   useEffect(() => {
+    modalRef.current.style.transform = "translateY(83vh)";
+    modalRef.current.style.transition = "0.4s linear";
+    setTimeout(() => {
+      modalRef.current.style.transform = `translateY(0)`;
+    }, 10);
+  }, []);
+
+  useEffect(() => {
     document.addEventListener("touchstart", handleTouchStart, false);
     document.addEventListener("touchmove", handleTouchMove, false);
     document.addEventListener("touchend", handleTouchEnd, false);
@@ -46,7 +61,7 @@ const PopupExitSwipe = () => {
     };
   });
 
-  return { isModalOpen, setIsModalOpen, ref: modalRef };
+  return { isModalOpen, setIsModalOpen, ref: modalRef, modalRef: modalOverlay };
 };
 
 export default PopupExitSwipe;

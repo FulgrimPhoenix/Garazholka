@@ -17,10 +17,11 @@ import { Popup } from "../Popup/Popup.js";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [currentHeaderTitle, setCurrentHeaderTitle] = useState("Профиль");
-  const [isPopupOpen, setIsPopupOpen] = useState(true);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [popupFormInfo, setPopupFormInfo] = useState({ title: "Popup" });
 
-  function handlePopup() {
-    setIsPopupOpen(!isPopupOpen);
+  function handlePopup(state) {
+    setIsPopupOpen(state);
   }
   return (
     <Routes>
@@ -32,9 +33,13 @@ function App() {
             <NavLink to={"/profile"}>Профиль</NavLink>
             <Header constants={constants} title={currentHeaderTitle} />
             <Page />
-            <Popup isPopupOpen={isPopupOpen} togglePopup={handlePopup}>
-              <p>test</p>
-            </Popup>
+            {isPopupOpen ? (
+              <Popup isPopupOpen={isPopupOpen} handlePopup={handlePopup}>
+                <p>test</p>
+              </Popup>
+            ) : (
+              ""
+            )}
           </>
         }
       >
@@ -63,6 +68,7 @@ function App() {
                 wayTimePreferenceBlockData={
                   constants.wayTimePreferenceBlockData
                 }
+                handlePopup={handlePopup}
               />
             }
           />

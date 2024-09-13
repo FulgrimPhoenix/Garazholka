@@ -6,17 +6,18 @@ export class YandexMapApi {
   }
 
   getMyLocation() {
-    return (
-      <YMaps>
-        <Map
-          defaultState={{ center: this.myLocation, zoom: 15 }}
-          defaultOptions={""}
-          style={{ width: "100%", aspectRatio: "128/82" }}
-        >
-          <Placemark geometry={this.myLocation} />
-        </Map>
-      </YMaps>
-    );
+    return;
+    // (
+    // <YMaps>
+    //   <Map
+    //     defaultState={{ center: this.myLocation, zoom: 15 }}
+    //     defaultOptions={""}
+    //     style={{ width: "100%", aspectRatio: "128/82" }}
+    //   >
+    //     <Placemark geometry={this.myLocation} />
+    //   </Map>
+    // </YMaps>
+    // );
   }
 }
 

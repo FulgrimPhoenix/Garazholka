@@ -2,9 +2,9 @@ import { NavLink } from "react-router-dom";
 import "./EventList.css";
 import { useState } from "react";
 
-export function EventList({ eventListData }) {
+export function EventList({ eventListData, handlePopup }) {
   const [abbreviatedEventList, setAbbreviatedEventList] = useState(
-    eventListData.eventList.filter((el, i) => i < 5)
+    eventListData.eventList.filter((el, i) => i < 5),
   );
   const [likedEventList, setLikedEventList] = useState([]);
 
@@ -13,17 +13,21 @@ export function EventList({ eventListData }) {
       ? likedEventList.splice(likedEventList.indexOf(e.target.id), 1)
       : setLikedEventList([...likedEventList, e.target.id]);
   }
+  function openMoreEvents(e) {
+    e.preventDefault();
+    handlePopup(true);
+  }
 
   return (
     <div className="event-list">
-      <NavLink to={"#"} className={"event-list__link"}>
+      <button onClick={(e) => openMoreEvents(e)} className={"event-list__link"}>
         <h3 className="block-title">{eventListData.title}</h3>
         <img
           className={`event-list__link-arrow`}
           src={eventListData.linkMoreImg}
           alt="стрелка статуса меню"
         />
-      </NavLink>
+      </button>
       <ul className="event-list__items">
         {abbreviatedEventList.map((el) => {
           return (
