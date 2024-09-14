@@ -18,10 +18,14 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [currentHeaderTitle, setCurrentHeaderTitle] = useState("Профиль");
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [popupFormInfo, setPopupFormInfo] = useState({ title: "Popup" });
+  const [popupMarkup, setPopupMarkup] = useState(<></>);
 
   function handlePopup(state) {
     setIsPopupOpen(state);
+  }
+
+  function pastePopupMarkup(markup) {
+    setPopupMarkup(markup);
   }
   return (
     <Routes>
@@ -35,7 +39,7 @@ function App() {
             <Page />
             {isPopupOpen ? (
               <Popup isPopupOpen={isPopupOpen} handlePopup={handlePopup}>
-                <p>test</p>
+                {popupMarkup}
               </Popup>
             ) : (
               ""
@@ -69,6 +73,8 @@ function App() {
                   constants.wayTimePreferenceBlockData
                 }
                 handlePopup={handlePopup}
+                pastePopupMarkup={pastePopupMarkup}
+                isPopupOpen={isPopupOpen}
               />
             }
           />

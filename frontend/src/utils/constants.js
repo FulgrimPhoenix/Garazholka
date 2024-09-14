@@ -82,7 +82,7 @@ export const constants = {
       },
       {
         id: 22,
-        title: "Покраскодиско",
+        title: "D&D",
         avatar: null,
         description: null,
         followers: 10,
@@ -137,10 +137,10 @@ export const constants = {
     title: "Мобильность",
     isOnlineCheckboxTitle: "Онлайн события",
     wayTimeItems: [
-      {wayTime: 20, id: 20, title: "В пределах 20 минут"},
-      {wayTime: 60, id: 60, title: "В пределах часа"},
-      {wayTime: null, id: 120, title: "Без ограничений"}
-    ]
+      { wayTime: 20, id: 20, title: "В пределах 20 минут" },
+      { wayTime: 60, id: 60, title: "В пределах часа" },
+      { wayTime: null, id: 120, title: "Без ограничений" },
+    ],
   },
   intro: {
     title: "Мероприятие дня:",
