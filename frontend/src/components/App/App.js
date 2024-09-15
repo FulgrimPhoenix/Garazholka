@@ -21,6 +21,10 @@ function App() {
   const [currentHeaderTitle, setCurrentHeaderTitle] = useState("Профиль");
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [popupMarkup, setPopupMarkup] = useState("");
+  const [popupOption, setPopupOption] = useState({
+    title: "Что хочешь?",
+    description: "Выберите интересующие вас мероприятия",
+  });
   const [eventList, setEventList] = useState(constants.eventListData.eventList);
   const [filteredEventList, setFilteredEventList] = useState(eventList);
   const [eventStatesList, setEventsStatesList] = useState(
@@ -69,7 +73,11 @@ function App() {
             <Header constants={constants} title={currentHeaderTitle} />
             <Page />
             {isPopupOpen ? (
-              <Popup isPopupOpen={isPopupOpen} handlePopup={handlePopup}>
+              <Popup
+                isPopupOpen={isPopupOpen}
+                handlePopup={handlePopup}
+                popupOption={popupOption}
+              >
                 {changePopupMarkup(popupMarkup)}
               </Popup>
             ) : (

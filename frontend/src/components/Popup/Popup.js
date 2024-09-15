@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./Popup.css";
 import PopupExitSwipe from "../../hooks/PopupExitSwipe";
 
-export function Popup({ children, handlePopup, isPopupOpen }) {
+export function Popup({ children, handlePopup, isPopupOpen, popupOption }) {
   const [isCloseAnimationPlay, setIsCloseAnimationPlay] = useState(false);
   const { isModalOpen, setIsModalOpen, ref, modalRef } = PopupExitSwipe();
 
@@ -33,8 +33,8 @@ export function Popup({ children, handlePopup, isPopupOpen }) {
         }`}
         ref={ref}
       >
-        <h3 className="popup__title">Hello</h3>
-        <p className="popup__description">Lalalalalala</p>
+        <h3 className="popup__title">{popupOption.title}</h3>
+        <p className="popup__description">{popupOption.description}</p>
         {children}
       </div>
     </div>
