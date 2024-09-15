@@ -13,12 +13,25 @@ import { Register } from "../Register/Register.js";
 import { Login } from "../Login/Login.js";
 import { Profile } from "../Profile/Profile.js";
 import { Popup } from "../Popup/Popup.js";
+import { EventList } from "../EventList/EventList.js";
+import SearchString from "../SearchString/SearchString.js";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [currentHeaderTitle, setCurrentHeaderTitle] = useState("Профиль");
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [popupMarkup, setPopupMarkup] = useState(<></>);
+  const [popupMarkup, setPopupMarkup] = useState("");
+  const [eventList, setEventList] = useState(constants.eventListData.eventList);
+  const [filteredEventList, setFilteredEventList] = useState(eventList);
+  const [eventStatesList, setEventsStatesList] = useState(
+    constants.eventListData.eventList.reduce((acc, el) => {
+      acc = [...acc, { id: el.id, selected: false }];
+      return acc;
+    }, [])
+  );
+  const [abbreviatedEventStatesList, setAbbreviatedEventStatesList] = useState(
+    constants.eventListData.eventList.filter((el, i) => i < 5)
+  );
 
   function handlePopup(state) {
     setIsPopupOpen(state);
@@ -26,6 +39,24 @@ function App() {
 
   function pastePopupMarkup(markup) {
     setPopupMarkup(markup);
+  }
+
+  function changePopupMarkup(calledMarkup) {
+    if (calledMarkup === "/eventList") {
+      return (
+        <SearchString
+          searchParameter={"title"}
+          itemList={eventList}
+          setEventList={setFilteredEventList}
+        >
+          <EventList
+            eventStatesList={eventStatesList}
+            eventListData={filteredEventList}
+            setEventsStatesList={setEventsStatesList}
+          />
+        </SearchString>
+      );
+    }
   }
   return (
     <Routes>
@@ -39,7 +70,7 @@ function App() {
             <Page />
             {isPopupOpen ? (
               <Popup isPopupOpen={isPopupOpen} handlePopup={handlePopup}>
-                {popupMarkup}
+                {changePopupMarkup(popupMarkup)}
               </Popup>
             ) : (
               ""
@@ -67,7 +98,7 @@ function App() {
               <Profile
                 profileData={constants.profile}
                 groupListData={constants.groupListData}
-                eventListData={constants.eventListData}
+                eventListData={abbreviatedEventStatesList}
                 mapBlockData={constants.mapBlockData}
                 wayTimePreferenceBlockData={
                   constants.wayTimePreferenceBlockData
@@ -75,6 +106,9 @@ function App() {
                 handlePopup={handlePopup}
                 pastePopupMarkup={pastePopupMarkup}
                 isPopupOpen={isPopupOpen}
+                eventStatesList={eventStatesList}
+                setEventsStatesList={setEventsStatesList}
+                setPopupMarkup={setPopupMarkup}
               />
             }
           />

@@ -7,6 +7,7 @@ import { locationApi } from "../../utils/YandexMapApi";
 import { MapBlock } from "../MapBlock/MapBlock";
 import { WayTimePreferenceBlock } from "../WayTimePreferenceBlock/WayTimePreferenceBlock";
 import fakeCalendar from "../../images/calendar.png";
+import { constants } from "../../utils/constants";
 
 export function Profile({
   profileData,
@@ -15,8 +16,10 @@ export function Profile({
   mapBlockData,
   wayTimePreferenceBlockData,
   handlePopup,
-  pastePopupMarkup,
   isPopupOpen,
+  eventStatesList,
+  setEventsStatesList,
+  setPopupMarkup,
 }) {
   const [isGroupListOpen, setIsGroupListOpen] = useState(false);
   const [currentChoice, setCurrentChoice] = useState();
@@ -28,6 +31,12 @@ export function Profile({
 
   function handleListChoice(e) {
     setCurrentChoice(Number(e.target.id));
+  }
+
+  function openPopupWithMoreEvents(e) {
+    e.preventDefault();
+    setPopupMarkup("/eventList");
+    handlePopup(true);
   }
 
   return (
@@ -62,12 +71,25 @@ export function Profile({
         handleListChoice={handleListChoice}
         currentListChoice={currentChoice}
       />
-      <EventList
-        eventListData={eventListData}
-        handlePopup={handlePopup}
-        pastePopupMarkup={pastePopupMarkup}
-        isPopupOpen={isPopupOpen}
-      />
+      <div className="event-list">
+        <button
+          onClick={(e) => openPopupWithMoreEvents(e)}
+          className={"event-list__link"}
+        >
+          <h3 className="block-title">{constants.eventListData.title}</h3>
+          <img
+            className={`event-list__link-arrow`}
+            src={constants.eventListData.linkMoreImg}
+            alt="стрелка статуса меню"
+          />
+        </button>
+        <EventList
+          eventStatesList={eventStatesList}
+          eventListData={eventListData}
+          handlePopup={handlePopup}
+          setEventsStatesList={setEventsStatesList}
+        />
+      </div>
       <MapBlock mapBlockData={mapBlockData} />
       {
         <div
