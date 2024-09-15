@@ -69,7 +69,7 @@ export const constants = {
     linkMoreImg: show_more_arrow,
     eventList: [
       {
-        id: 11,
+        id: "11",
         title: "Игра в Warhammer 40000",
         avatar: null,
         description: null,
@@ -81,7 +81,7 @@ export const constants = {
         minimumNumberOfUsers: 2,
       },
       {
-        id: 22,
+        id: "22",
         title: "D&D",
         avatar: null,
         description: null,
@@ -93,7 +93,7 @@ export const constants = {
         minimumNumberOfUsers: 3,
       },
       {
-        id: 33,
+        id: "33",
         title: "Прибухнуть в стиле олдскул",
         avatar: null,
         description: null,
@@ -105,7 +105,7 @@ export const constants = {
         minimumNumberOfUsers: 2,
       },
       {
-        id: 44,
+        id: "44",
         title: "Поиграть в Space marine 2",
         avatar: null,
         description: null,
@@ -117,7 +117,7 @@ export const constants = {
         minimumNumberOfUsers: 3,
       },
       {
-        id: 55,
+        id: "55",
         title: "Поход на шашлыки",
         avatar: null,
         description: null,
@@ -127,6 +127,42 @@ export const constants = {
         isOnline: false,
         timeDiapason: "11.00 - 23.59",
         minimumNumberOfUsers: 4,
+      },
+      {
+        id: "66",
+        title: "Поиграть в другие настолки",
+        avatar: null,
+        description: null,
+        followers: 11,
+        location: null,
+        duration: 180, //minutes
+        isOnline: false,
+        timeDiapason: "11.00 - 23.59",
+        minimumNumberOfUsers: 2,
+      },
+      {
+        id: "77",
+        title: "Поход в бар",
+        avatar: null,
+        description: null,
+        followers: 19,
+        location: null,
+        duration: 300, //minutes
+        isOnline: false,
+        timeDiapason: "11.00 - 23.59",
+        minimumNumberOfUsers: 3,
+      },
+      {
+        id: "88",
+        title: "Покраскодиско",
+        avatar: null,
+        description: null,
+        followers: 10,
+        location: null,
+        duration: 300, //minutes
+        isOnline: false,
+        timeDiapason: "11.00 - 23.59",
+        minimumNumberOfUsers: 3,
       },
     ],
   },
