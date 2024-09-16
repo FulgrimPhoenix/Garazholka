@@ -22,3 +22,19 @@
   border-radius: 12px;
   overflow: hidden;
 }
+
+.map-block__link {
+  display: flex;
+  flex-direction: row;
+  text-decoration: none;
+  justify-content: space-between;
+  width: 100%;
+  background: none;
+  border: none;
+  margin: 0 auto 14px;
+  padding: 0;
+}
+
+.map-block__link-arrow {
+  margin: auto 0;
+}

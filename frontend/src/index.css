@@ -10,10 +10,21 @@
   --accent-hover-background-color: #fff;
   --text-accent-color: #fff;
   --text-error-color: #ff8181;
+  /*   --background-color: #070707;
+  --background-overlay-color: rgba(0, 0, 0, 0.5);
+  --frame-color: #232323;
+  --frame-accent--unselected-color: #adadad;
+  --frame-accent-selected-color: #696969;
+  --text-color: #fff;
+  --accent-color: #ae302c;
+  --accent-hover-color: #ae302c;
+  --accent-hover-background-color: #fff;
+  --text-accent-color: #fff;
+  --text-error-color: #ff8181; */
 }
 
 body {
-  background-color: var(--backbround-color);
+  background-color: var(--background-color);
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",

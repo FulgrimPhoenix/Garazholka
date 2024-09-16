@@ -16,10 +16,10 @@ export function Profile({
   mapBlockData,
   wayTimePreferenceBlockData,
   handlePopup,
-  isPopupOpen,
   eventStatesList,
   setEventsStatesList,
   setPopupMarkup,
+  setCurrentPopupMarkupTitle,
 }) {
   const [isGroupListOpen, setIsGroupListOpen] = useState(false);
   const [currentChoice, setCurrentChoice] = useState();
@@ -36,6 +36,13 @@ export function Profile({
   function openPopupWithMoreEvents(e) {
     e.preventDefault();
     setPopupMarkup("/eventList");
+    setCurrentPopupMarkupTitle("/eventList");
+    handlePopup(true);
+  }
+  function openPopupWithBigMap(e) {
+    e.preventDefault();
+    setPopupMarkup("/bigMap");
+    setCurrentPopupMarkupTitle("/bigMap");
     handlePopup(true);
   }
 
@@ -90,7 +97,10 @@ export function Profile({
           setEventsStatesList={setEventsStatesList}
         />
       </div>
-      <MapBlock mapBlockData={mapBlockData} />
+      <MapBlock
+        mapBlockData={mapBlockData}
+        openPopupWithBigMap={openPopupWithBigMap}
+      />
       {
         <div
           style={{

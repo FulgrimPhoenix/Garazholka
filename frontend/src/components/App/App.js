@@ -15,6 +15,7 @@ import { Profile } from "../Profile/Profile.js";
 import { Popup } from "../Popup/Popup.js";
 import { EventList } from "../EventList/EventList.js";
 import SearchString from "../SearchString/SearchString.js";
+import { locationApi } from "../../utils/YandexMapApi.js";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -25,6 +26,7 @@ function App() {
     title: "Что хочешь?",
     description: "Выберите интересующие вас мероприятия",
   });
+  const [currentPopupMarkupTitle, setCurrentPopupMarkupTitle] = useState("");
   const [eventList, setEventList] = useState(constants.eventListData.eventList);
   const [filteredEventList, setFilteredEventList] = useState(eventList);
   const [eventStatesList, setEventsStatesList] = useState(
@@ -60,8 +62,26 @@ function App() {
           />
         </SearchString>
       );
+    } else if (calledMarkup === "/bigMap") {
+      return <>{locationApi.getMyLocation()}</>;
     }
   }
+
+  useEffect(() => {
+    if (currentPopupMarkupTitle === "/eventList") {
+      setPopupOption({
+        title: "Что хочешь?",
+        description: "Выберите интересующие вас мероприятия",
+      });
+    } else if (currentPopupMarkupTitle === "/bigMap") {
+      setPopupOption({
+        title: "Откуда я",
+        description:
+          "Выберете место откуда вам было бы удобно добираться до мероприятий",
+      });
+    }
+  }, [popupMarkup]);
+
   return (
     <Routes>
       <Route
@@ -113,10 +133,10 @@ function App() {
                 }
                 handlePopup={handlePopup}
                 pastePopupMarkup={pastePopupMarkup}
-                isPopupOpen={isPopupOpen}
                 eventStatesList={eventStatesList}
                 setEventsStatesList={setEventsStatesList}
                 setPopupMarkup={setPopupMarkup}
+                setCurrentPopupMarkupTitle={setCurrentPopupMarkupTitle}
               />
             }
           />

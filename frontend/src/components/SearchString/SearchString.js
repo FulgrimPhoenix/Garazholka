@@ -18,7 +18,7 @@ const SearchString = ({
       setEventList(itemList);
     }
     setEventList(filteredItems);
-  }, [filteredItems]);
+  }, [searchValue]);
 
   return (
     <>

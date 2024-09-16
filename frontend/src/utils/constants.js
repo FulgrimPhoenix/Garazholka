@@ -168,6 +168,7 @@ export const constants = {
   },
   mapBlockData: {
     title: "Откуда я",
+    linkOpenBigMap: show_more_arrow,
   },
   wayTimePreferenceBlockData: {
     title: "Мобильность",

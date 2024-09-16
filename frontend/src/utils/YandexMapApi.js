@@ -1,4 +1,5 @@
 import { Map, Placemark, YMaps } from "@pbe/react-yandex-maps";
+import "./YandexMapApi.css";
 
 export class YandexMapApi {
   constructor({ myLocation }) {
@@ -6,18 +7,20 @@ export class YandexMapApi {
   }
 
   getMyLocation() {
-    return;
-    // (
-    // <YMaps>
-    //   <Map
-    //     defaultState={{ center: this.myLocation, zoom: 15 }}
-    //     defaultOptions={""}
-    //     style={{ width: "100%", aspectRatio: "128/82" }}
-    //   >
-    //     <Placemark geometry={this.myLocation} />
-    //   </Map>
-    // </YMaps>
-    // );
+    return (
+      <div id={222} className="yandex-map">
+        <YMaps>
+          <Map
+            defaultState={{ center: this.myLocation, zoom: 15 }}
+            defaultOptions={""}
+            style={{ width: "100%", aspectRatio: "128/128" }}
+            modules={["control.ZoomControl", "control.FullscreenControl"]}
+          >
+            <Placemark geometry={this.myLocation} />
+          </Map>
+        </YMaps>
+      </div>
+    );
   }
 }
 
