@@ -1,5 +1,7 @@
-import { locationApi } from "../../utils/YandexMapApi";
+import { useEffect } from "react";
+// import { Map, Placemark, YMaps } from "@pbe/react-yandex-maps";
 import "./MapBlock.css";
+import YandexMapApi from "../../utils/YandexMapApi";
 
 export function MapBlock({ mapBlockData, openPopupWithBigMap }) {
   return (
@@ -15,7 +17,21 @@ export function MapBlock({ mapBlockData, openPopupWithBigMap }) {
           alt="стрелка статуса меню"
         />
       </button>
-      <div className="map-block__map-frame">{locationApi.getMyLocation()}</div>
+      <div className="map-block__map-frame">
+        <YandexMapApi />
+        {/* <YMaps>
+          <Map
+            defaultState={{
+              center: [55.75, 37.57],
+              zoom: 9,
+              controls: ["zoomControl", "fullscreenControl"],
+            }}
+            modules={["control.ZoomControl", "control.FullscreenControl"]}
+          >
+            <Placemark defaultGeometry={[55.75, 37.57]} />
+          </Map>
+        </YMaps> */}
+      </div>
     </div>
   );
 }

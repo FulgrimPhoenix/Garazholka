@@ -1,29 +1,51 @@
-import { Map, Placemark, YMaps } from "@pbe/react-yandex-maps";
+import React, { useState, useEffect } from "react";
+import * as ymaps from "ymaps";
 import "./YandexMapApi.css";
 
-export class YandexMapApi {
-  constructor({ myLocation }) {
-    this.myLocation = myLocation;
-  }
+const YandexMapApi = ({ isPopupOpen }) => {
+  const [map, setMap] = useState(null);
+  const [center, setCenter] = useState([55.76, 37.64]); // Координаты центра карты
+  const [zoom, setZoom] = useState(15); // Уровень масштабирования
 
-  getMyLocation() {
-    return (
-      <div id={222} className="yandex-map">
-        <YMaps>
-          <Map
-            defaultState={{ center: this.myLocation, zoom: 15 }}
-            defaultOptions={""}
-            style={{ width: "100%", aspectRatio: "128/128" }}
-            modules={["control.ZoomControl", "control.FullscreenControl"]}
-          >
-            <Placemark geometry={this.myLocation} />
-          </Map>
-        </YMaps>
-      </div>
-    );
-  }
-}
+  useEffect(() => {
+    const initializeMap = () => {
+      ymaps.default.load().then((res) => {
+        const myMap = new res.Map(
+          "map",
+          {
+            center,
+            zoom,
+          },
+          {
+            searchControlProvider: "yandex#search",
+          }
+        );
 
-export const locationApi = new YandexMapApi({
-  myLocation: [55.975254, 37.906902],
-});
+        res.geolocation
+          .get({
+            provider: "yandex",
+          })
+          .then((coords) => {
+            console.log(coords);
+
+            if (!isNaN(coords.longitude) && !isNaN(coords.latitude)) {
+              myMap.setCenter([coords.longitude, coords.latitude]);
+              console.log(
+                `My position: ${coords.longitude}, ${coords.latitude}`
+              );
+            } else {
+              console.error("Error, cant take position");
+            }
+          });
+
+        setMap(myMap);
+      });
+    };
+
+    initializeMap();
+  }, []);
+
+  return <div className="yandex-map" id="map"></div>;
+};
+
+export default YandexMapApi;

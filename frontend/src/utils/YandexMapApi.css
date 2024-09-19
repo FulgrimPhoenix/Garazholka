@@ -1,4 +1,7 @@
 .yandex-map {
   border-radius: 16px;
   overflow: hidden;
+  height: 128px;
+  width: 100%;
+  z-index: 4;
 }
