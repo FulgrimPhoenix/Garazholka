@@ -4,48 +4,91 @@ import "./YandexMapApi.css";
 
 const YandexMapApi = ({ isPopupOpen }) => {
   const [map, setMap] = useState(null);
-  const [center, setCenter] = useState([55.76, 37.64]); // Координаты центра карты
-  const [zoom, setZoom] = useState(15); // Уровень масштабирования
+  const [center, setCenter] = useState([55.912304, 37.810425]); // Координаты центра карты
+  const [zoom, setZoom] = useState(15);
+  const [multiRoute, setMultiRoute] = useState(null); // Уровень масштабирования
 
   useEffect(() => {
     const initializeMap = () => {
-      ymaps.default.load().then((res) => {
-        const myMap = new res.Map(
-          "map",
-          {
-            center,
-            zoom,
-          },
-          {
-            searchControlProvider: "yandex#search",
-          }
-        );
+      ymaps.default
+        .load(
+          "https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=2636e3d7-04df-4dd4-b10e-8076fc792cce"
+        )
+        .then((res) => {
+          let myPos;
+          let coord;
+          res.geolocation
+            .get({
+              provider: "yandex",
+            })
+            .then((coords) => {
+              myPos = coords.geoObjects.get(0).properties.get("text");
+              coord = [
+                coords.geoObjects.position[0],
+                coords.geoObjects.position[1],
+              ];
+              if (
+                !isNaN(coords.geoObjects.position[0]) &&
+                !isNaN(coords.geoObjects.position[1])
+              ) {
+                setCenter(myPos);
 
-        res.geolocation
-          .get({
-            provider: "yandex",
-          })
-          .then((coords) => {
-            console.log(coords);
-
-            if (!isNaN(coords.longitude) && !isNaN(coords.latitude)) {
-              myMap.setCenter([coords.longitude, coords.latitude]);
-              console.log(
-                `My position: ${coords.longitude}, ${coords.latitude}`
+                console.log(
+                  `My position: ${coords.geoObjects.position[0]}, ${coords.geoObjects.position[1]}`
+                );
+              } else {
+                console.error("Error, cant take position");
+              }
+              return coord;
+            })
+            .then((coord) => {
+              console.log(2, coord, res);
+              const myMap = new res.Map(
+                "map",
+                {
+                  coord,
+                  zoom,
+                },
+                {
+                  searchControlProvider: "yandex#search",
+                }
               );
-            } else {
-              console.error("Error, cant take position");
-            }
-          });
-
-        setMap(myMap);
-      });
+              console.log(2, coord);
+              setMap(myMap);
+            });
+        });
     };
 
     initializeMap();
   }, []);
 
-  return <div className="yandex-map" id="map"></div>;
+  return (
+    <>
+      <button
+        onClick={() => {
+          ymaps.default.load().then((res) => {
+            const currentRoute = new res.multiRouter.MultiRoute(
+              {
+                referencePoints: [center, "Москва, метро Арбатская"],
+                params: {
+                  // Тип маршрута: на общественном транспорте.
+                  routingMode: "masstransit",
+                },
+              },
+              {
+                // Автоматически устанавливать границы карты так,
+                // чтобы маршрут был виден целиком.
+                boundsAutoApply: true,
+              }
+            );
+            map.geoObjects.add(currentRoute);
+          });
+          console.log(map, center);
+        }}
+      ></button>
+      <div className="yandex-map" id="map"></div>
+    </>
+  );
 };
 
 export default YandexMapApi;
