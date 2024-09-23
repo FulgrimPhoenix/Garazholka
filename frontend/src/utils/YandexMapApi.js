@@ -46,14 +46,18 @@ const YandexMapApi = ({ isPopupOpen }) => {
               const myMap = new res.Map(
                 "map",
                 {
-                  coord,
+                  center: coord,
                   zoom,
                 },
                 {
                   searchControlProvider: "yandex#search",
                 }
               );
-              console.log(2, coord);
+              setCenter(coord);
+              return myMap;
+            })
+            .then((myMap) => {
+              console.log(22, myMap);
               setMap(myMap);
             });
         });
