@@ -1,16 +1,24 @@
 import React, { useEffect, useState } from "react";
+import { ReactElement } from "react";
 import "./SearchString.css";
 
-const SearchString = ({
+interface SearchStringParam {
+  searchParameter: string;
+  itemList: Record<string, string>[];
+  setEventList: (newValue: Record<string, string>[]) => void;
+  children: ReactElement;
+}
+
+export function SearchString({
   searchParameter,
   itemList,
   setEventList,
   children,
-}) => {
+}: SearchStringParam): ReactElement {
   const [searchValue, setSearchValue] = useState("");
 
   const filteredItems = itemList.filter((item) =>
-    item[searchParameter].toLowerCase().includes(searchValue.toLowerCase())
+    item[searchParameter].toLowerCase().includes(searchValue.toLowerCase()),
   );
 
   useEffect(() => {
@@ -34,6 +42,4 @@ const SearchString = ({
       {children}
     </>
   );
-};
-
-export default SearchString;
+}

@@ -14,7 +14,7 @@ import { Login } from "../Login/Login.js";
 import { Profile } from "../Profile/Profile.js";
 import { Popup } from "../Popup/Popup.js";
 import { EventList } from "../EventList/EventList.js";
-import SearchString from "../SearchString/SearchString.js";
+import { SearchString } from "../SearchString/SearchString.tsx";
 import YandexMapApi from "../../utils/YandexMapApi.js";
 
 function App() {
