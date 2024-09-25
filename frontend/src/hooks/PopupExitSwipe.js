@@ -6,32 +6,39 @@ const PopupExitSwipe = () => {
   const modalOverlay = useRef();
 
   const handleTouchStart = (e) => {
-    e.preventDefault();
-    modalRef.current.style.transform = "translateY(0px)";
-    modalRef.current.style.transition = "0.4s linear";
+    if (!e.target.classList.contains("ymaps-2-1-79-events-pane")) {
+      e.preventDefault();
+      modalRef.current.style.transform = "translateY(0px)";
+      modalRef.current.style.transition = "0.4s linear";
 
-    if (e.target === document.querySelector(".popup")) {
-      modalRef.current.style.transform = `translateY(83vh)`;
-      setTimeout(() => {
-        setIsModalOpen(!isModalOpen);
-      }, 400);
+      if (e.target === document.querySelector(".popup")) {
+        modalRef.current.style.transform = `translateY(83vh)`;
+        setTimeout(() => {
+          setIsModalOpen(!isModalOpen);
+        }, 400);
+      }
     }
   };
 
   const handleTouchMove = (e) => {
-    e.preventDefault();
+    if (!e.target.classList.contains("ymaps-2-1-79-events-pane")) {
+      e.preventDefault();
 
-    let translateY = Math.round(
-      (modalRef.current.offsetHeight *
-        (e.touches[0].clientY - modalRef.current.getBoundingClientRect().top)) /
-        window.innerHeight,
-    );
+      if (e.target) {
+      }
+      let translateY = Math.round(
+        (modalRef.current.offsetHeight *
+          (e.touches[0].clientY -
+            modalRef.current.getBoundingClientRect().top)) /
+          window.innerHeight
+      );
 
-    if (translateY >= 100) {
-      modalRef.current.style.transform = `translateY(83vh)`;
-      setTimeout(() => {
-        setIsModalOpen(!isModalOpen);
-      }, 400);
+      if (translateY >= 100) {
+        modalRef.current.style.transform = `translateY(83vh)`;
+        setTimeout(() => {
+          setIsModalOpen(!isModalOpen);
+        }, 400);
+      }
     }
   };
 

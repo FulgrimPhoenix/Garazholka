@@ -1,54 +1,55 @@
-import { NavLink } from "react-router-dom";
 import "./EventList.css";
-import { useState } from "react";
 
-export function EventList({ eventListData, handlePopup }) {
-  const [abbreviatedEventList, setAbbreviatedEventList] = useState(
-    eventListData.eventList.filter((el, i) => i < 5),
-  );
-  const [likedEventList, setLikedEventList] = useState([]);
+export function EventList({
+  eventListData,
+  eventStatesList,
+  setEventsStatesList,
+}) {
+  const eventList = eventListData;
 
-  function takeFormValues(e) {
-    likedEventList.includes(e.target.id)
-      ? likedEventList.splice(likedEventList.indexOf(e.target.id), 1)
-      : setLikedEventList([...likedEventList, e.target.id]);
-  }
-  function openMoreEvents(e) {
-    e.preventDefault();
-    handlePopup(true);
+  function takeFormValues(el) {
+    for (let key in eventStatesList) {
+      if (String(key) === el.id) {
+        setEventsStatesList({
+          ...eventStatesList,
+          [key]: !eventStatesList[key],
+        });
+        return;
+      }
+    }
+    const newData = eventStatesList.map((item) => {
+      if (item.id === el.id) {
+        item.selected = !item.selected;
+      }
+      return item;
+    });
+    setEventsStatesList(newData);
   }
 
   return (
-    <div className="event-list">
-      <button onClick={(e) => openMoreEvents(e)} className={"event-list__link"}>
-        <h3 className="block-title">{eventListData.title}</h3>
-        <img
-          className={`event-list__link-arrow`}
-          src={eventListData.linkMoreImg}
-          alt="стрелка статуса меню"
-        />
-      </button>
-      <ul className="event-list__items">
-        {abbreviatedEventList.map((el) => {
-          return (
-            <li className="event-list__item">
-              <input
-                onClick={(e) => {
-                  takeFormValues(e);
-                }}
-                key={el.id}
-                id={el.id}
-                className="event-list__item-input"
-                type="checkbox"
-                name={el.title}
-              />
-              <label htmlFor={el.id} className="event-list__item-label">
-                <span className="event-list__item-title">{el.title}</span>
-              </label>
-            </li>
-          );
-        })}
-      </ul>
-    </div>
+    <ul className="event-list__items">
+      {eventList.map((el) => {
+        return (
+          <li className="event-list__item">
+            <button
+              onClick={() => {
+                takeFormValues(el);
+              }}
+              key={el.id}
+              id={el.id}
+              className={`event-list__item-button ${
+                eventStatesList.find((item) => item.id === el.id).selected
+                  ? "event-list__item-button_checked"
+                  : ""
+              }`}
+              name={el.id}
+              value={el.title}
+            >
+              {el.title}
+            </button>
+          </li>
+        );
+      })}
+    </ul>
   );
 }

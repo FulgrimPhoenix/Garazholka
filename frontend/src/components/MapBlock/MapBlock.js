@@ -1,11 +1,37 @@
-import { locationApi } from "../../utils/YandexMapApi";
+import { useEffect } from "react";
+// import { Map, Placemark, YMaps } from "@pbe/react-yandex-maps";
 import "./MapBlock.css";
+import YandexMapApi from "../../utils/YandexMapApi";
 
-export function MapBlock({ mapBlockData }) {
+export function MapBlock({ mapBlockData, openPopupWithBigMap }) {
   return (
     <div className="map-block">
-      <h3 className="block-title">{mapBlockData.title}</h3>
-      <div className="map-block__map-frame">{locationApi.getMyLocation()}</div>
+      <button
+        onClick={(e) => openPopupWithBigMap(e)}
+        className={"map-block__link"}
+      >
+        <h3 className="block-title">{mapBlockData.title}</h3>
+        <img
+          className={`map-block__link-arrow`}
+          src={mapBlockData.linkOpenBigMap}
+          alt="стрелка статуса меню"
+        />
+      </button>
+      <div className="map-block__map-frame">
+        <YandexMapApi />
+        {/* <YMaps>
+          <Map
+            defaultState={{
+              center: [55.75, 37.57],
+              zoom: 9,
+              controls: ["zoomControl", "fullscreenControl"],
+            }}
+            modules={["control.ZoomControl", "control.FullscreenControl"]}
+          >
+            <Placemark defaultGeometry={[55.75, 37.57]} />
+          </Map>
+        </YMaps> */}
+      </div>
     </div>
   );
 }

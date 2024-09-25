@@ -7,12 +7,15 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@types/yandex-maps": "^2.1.36",
     "react": "^18.3.1",
+    "react-big-calendar": "^1.14.1",
     "react-calendar": "^5.0.0",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.26.1",
     "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "ymaps": "^0.2.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -39,6 +42,7 @@
     ]
   },
   "devDependencies": {
+    "@yandex/ymaps3-types": "^0.0.28",
     "eslint": "^8.52.0",
     "prettier": "^3.1.0",
     "prettier-eslint": "^16.1.2"

@@ -13,16 +13,79 @@ import { Register } from "../Register/Register.js";
 import { Login } from "../Login/Login.js";
 import { Profile } from "../Profile/Profile.js";
 import { Popup } from "../Popup/Popup.js";
+import { EventList } from "../EventList/EventList.js";
+import SearchString from "../SearchString/SearchString.js";
+import YandexMapApi from "../../utils/YandexMapApi.js";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [currentHeaderTitle, setCurrentHeaderTitle] = useState("Профиль");
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [popupFormInfo, setPopupFormInfo] = useState({ title: "Popup" });
+  const [popupMarkup, setPopupMarkup] = useState("");
+  const [popupOption, setPopupOption] = useState({
+    title: "Что хочешь?",
+    description: "Выберите интересующие вас мероприятия",
+  });
+  const [currentPopupMarkupTitle, setCurrentPopupMarkupTitle] = useState("");
+  const [eventList, setEventList] = useState(constants.eventListData.eventList);
+  const [filteredEventList, setFilteredEventList] = useState(eventList);
+  const [eventStatesList, setEventsStatesList] = useState(
+    constants.eventListData.eventList.reduce((acc, el) => {
+      acc = [...acc, { id: el.id, selected: false }];
+      return acc;
+    }, [])
+  );
+  const [abbreviatedEventStatesList, setAbbreviatedEventStatesList] = useState(
+    constants.eventListData.eventList.filter((el, i) => i < 5)
+  );
 
   function handlePopup(state) {
     setIsPopupOpen(state);
   }
+
+  function pastePopupMarkup(markup) {
+    setPopupMarkup(markup);
+  }
+
+  function changePopupMarkup(calledMarkup) {
+    if (calledMarkup === "/eventList") {
+      return (
+        <SearchString
+          searchParameter={"title"}
+          itemList={eventList}
+          setEventList={setFilteredEventList}
+        >
+          <EventList
+            eventStatesList={eventStatesList}
+            eventListData={filteredEventList}
+            setEventsStatesList={setEventsStatesList}
+          />
+        </SearchString>
+      );
+    } else if (calledMarkup === "/bigMap") {
+      return (
+        <>
+          <YandexMapApi isPopupOpen={isPopupOpen} />
+        </>
+      );
+    }
+  }
+
+  useEffect(() => {
+    if (currentPopupMarkupTitle === "/eventList") {
+      setPopupOption({
+        title: "Что хочешь?",
+        description: "Выберите интересующие вас мероприятия",
+      });
+    } else if (currentPopupMarkupTitle === "/bigMap") {
+      setPopupOption({
+        title: "Откуда я",
+        description:
+          "Выберете место откуда вам было бы удобно добираться до мероприятий",
+      });
+    }
+  }, [popupMarkup]);
+
   return (
     <Routes>
       <Route
@@ -34,8 +97,12 @@ function App() {
             <Header constants={constants} title={currentHeaderTitle} />
             <Page />
             {isPopupOpen ? (
-              <Popup isPopupOpen={isPopupOpen} handlePopup={handlePopup}>
-                <p>test</p>
+              <Popup
+                isPopupOpen={isPopupOpen}
+                handlePopup={handlePopup}
+                popupOption={popupOption}
+              >
+                {changePopupMarkup(popupMarkup)}
               </Popup>
             ) : (
               ""
@@ -63,12 +130,17 @@ function App() {
               <Profile
                 profileData={constants.profile}
                 groupListData={constants.groupListData}
-                eventListData={constants.eventListData}
+                eventListData={abbreviatedEventStatesList}
                 mapBlockData={constants.mapBlockData}
                 wayTimePreferenceBlockData={
                   constants.wayTimePreferenceBlockData
                 }
                 handlePopup={handlePopup}
+                pastePopupMarkup={pastePopupMarkup}
+                eventStatesList={eventStatesList}
+                setEventsStatesList={setEventsStatesList}
+                setPopupMarkup={setPopupMarkup}
+                setCurrentPopupMarkupTitle={setCurrentPopupMarkupTitle}
               />
             }
           />
