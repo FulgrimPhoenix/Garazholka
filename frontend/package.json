@@ -21,7 +21,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "buildTS": "tsc src/index.ts --declaration --incremental",
+    "build:dev": "tsc src/index.ts --sourceMap",
+    "watch": "tsc src/index.ts --watch"
   },
   "eslintConfig": {
     "extends": [
@@ -45,6 +48,7 @@
     "@yandex/ymaps3-types": "^0.0.28",
     "eslint": "^8.52.0",
     "prettier": "^3.1.0",
-    "prettier-eslint": "^16.1.2"
+    "prettier-eslint": "^16.1.2",
+    "typescript": "^5.6.2"
   }
 }
