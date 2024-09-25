@@ -7,6 +7,7 @@ import { locationApi } from "../../utils/YandexMapApi";
 import { MapBlock } from "../MapBlock/MapBlock";
 import { WayTimePreferenceBlock } from "../WayTimePreferenceBlock/WayTimePreferenceBlock";
 import fakeCalendar from "../../images/calendar.png";
+import { constants } from "../../utils/constants";
 
 export function Profile({
   profileData,
@@ -15,6 +16,10 @@ export function Profile({
   mapBlockData,
   wayTimePreferenceBlockData,
   handlePopup,
+  eventStatesList,
+  setEventsStatesList,
+  setPopupMarkup,
+  setCurrentPopupMarkupTitle,
 }) {
   const [isGroupListOpen, setIsGroupListOpen] = useState(false);
   const [currentChoice, setCurrentChoice] = useState();
@@ -26,6 +31,19 @@ export function Profile({
 
   function handleListChoice(e) {
     setCurrentChoice(Number(e.target.id));
+  }
+
+  function openPopupWithMoreEvents(e) {
+    e.preventDefault();
+    setPopupMarkup("/eventList");
+    setCurrentPopupMarkupTitle("/eventList");
+    handlePopup(true);
+  }
+  function openPopupWithBigMap(e) {
+    e.preventDefault();
+    setPopupMarkup("/bigMap");
+    setCurrentPopupMarkupTitle("/bigMap");
+    handlePopup(true);
   }
 
   return (
@@ -60,8 +78,29 @@ export function Profile({
         handleListChoice={handleListChoice}
         currentListChoice={currentChoice}
       />
-      <EventList eventListData={eventListData} handlePopup={handlePopup} />
-      <MapBlock mapBlockData={mapBlockData} />
+      <div className="event-list">
+        <button
+          onClick={(e) => openPopupWithMoreEvents(e)}
+          className={"event-list__link"}
+        >
+          <h3 className="block-title">{constants.eventListData.title}</h3>
+          <img
+            className={`event-list__link-arrow`}
+            src={constants.eventListData.linkMoreImg}
+            alt="стрелка статуса меню"
+          />
+        </button>
+        <EventList
+          eventStatesList={eventStatesList}
+          eventListData={eventListData}
+          handlePopup={handlePopup}
+          setEventsStatesList={setEventsStatesList}
+        />
+      </div>
+      <MapBlock
+        mapBlockData={mapBlockData}
+        openPopupWithBigMap={openPopupWithBigMap}
+      />
       {
         <div
           style={{
