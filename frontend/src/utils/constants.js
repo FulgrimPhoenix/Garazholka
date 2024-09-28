@@ -71,8 +71,8 @@ export const constants = {
       {
         id: "11",
         title: "Игра в Warhammer 40000",
-        avatar: null,
-        description: null,
+        avatar: undefined,
+        description: undefined,
         followers: 10,
         location: "ул. Советский проспект 2а",
         duration: 600, //minutes
@@ -83,8 +83,8 @@ export const constants = {
       {
         id: "22",
         title: "D&D",
-        avatar: null,
-        description: null,
+        avatar: undefined,
+        description: undefined,
         followers: 10,
         location: "ул. Советский проспект 2а",
         duration: 300, //minutes
@@ -95,8 +95,8 @@ export const constants = {
       {
         id: "33",
         title: "Прибухнуть в стиле олдскул",
-        avatar: null,
-        description: null,
+        avatar: undefined,
+        description: undefined,
         followers: 6,
         location: "ул. Советский проспект 2а",
         duration: 240, //minutes
@@ -107,10 +107,10 @@ export const constants = {
       {
         id: "44",
         title: "Поиграть в Space marine 2",
-        avatar: null,
-        description: null,
+        avatar: undefined,
+        description: undefined,
         followers: 10,
-        location: null,
+        location: undefined,
         duration: 720, //minutes
         isOnline: true,
         timeDiapason: "11.00 - 23.59",
@@ -119,10 +119,10 @@ export const constants = {
       {
         id: "55",
         title: "Поход на шашлыки",
-        avatar: null,
-        description: null,
+        avatar: undefined,
+        description: undefined,
         followers: 10,
-        location: null,
+        location: undefined,
         duration: 240, //minutes
         isOnline: false,
         timeDiapason: "11.00 - 23.59",
@@ -131,10 +131,10 @@ export const constants = {
       {
         id: "66",
         title: "Поиграть в другие настолки",
-        avatar: null,
-        description: null,
+        avatar: undefined,
+        description: undefined,
         followers: 11,
-        location: null,
+        location: undefined,
         duration: 180, //minutes
         isOnline: false,
         timeDiapason: "11.00 - 23.59",
@@ -143,10 +143,10 @@ export const constants = {
       {
         id: "77",
         title: "Поход в бар",
-        avatar: null,
-        description: null,
+        avatar: undefined,
+        description: undefined,
         followers: 19,
-        location: null,
+        location: undefined,
         duration: 300, //minutes
         isOnline: false,
         timeDiapason: "11.00 - 23.59",
@@ -155,10 +155,10 @@ export const constants = {
       {
         id: "88",
         title: "Покраскодиско",
-        avatar: null,
-        description: null,
+        avatar: undefined,
+        description: undefined,
         followers: 10,
-        location: null,
+        location: undefined,
         duration: 300, //minutes
         isOnline: false,
         timeDiapason: "11.00 - 23.59",

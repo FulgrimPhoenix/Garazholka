@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ReactElement } from "react";
 import "./SearchString.css";
 
-interface SearchStringParam {
+interface ISearchString {
   searchParameter: string;
   itemList: Record<string, string>[];
   setEventList: (newValue: Record<string, string>[]) => void;
@@ -14,7 +14,7 @@ export function SearchString({
   itemList,
   setEventList,
   children,
-}: SearchStringParam): ReactElement {
+}: ISearchString): ReactElement {
   const [searchValue, setSearchValue] = useState("");
 
   const filteredItems = itemList.filter((item) =>
