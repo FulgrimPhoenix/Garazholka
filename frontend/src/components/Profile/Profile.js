@@ -12,7 +12,7 @@ import { constants } from "../../utils/constants";
 export function Profile({
   profileData,
   groupListData,
-  eventListData,
+  eventList,
   mapBlockData,
   wayTimePreferenceBlockData,
   handlePopup,
@@ -92,7 +92,7 @@ export function Profile({
         </button>
         <EventList
           eventStatesList={eventStatesList}
-          eventListData={eventListData}
+          eventList={eventList}
           handlePopup={handlePopup}
           setEventsStatesList={setEventsStatesList}
         />
