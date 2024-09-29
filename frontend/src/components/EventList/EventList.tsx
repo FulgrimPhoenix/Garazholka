@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { ReactElement } from "react";
+import React, { useEffect, ReactElement } from "react";
 import "./EventList.css";
 
 type EventItem = {

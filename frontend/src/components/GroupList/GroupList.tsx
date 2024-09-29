@@ -1,12 +1,29 @@
 import { NavLink } from "react-router-dom";
+import React, { ReactElement } from "react";
 import "./GroupList.css";
+
+type GroupList = {
+  avatar: string;
+  id: number;
+  title: string;
+  followers: number;
+}[];
+
+type groupLinkImg = (arg?: string) => string;
+
+interface IGroupList {
+  groupListData: { groupLinkImg: groupLinkImg; groupList: GroupList };
+  isGroupListOpen: boolean;
+  handleListChoice: (e: React.SyntheticEvent<EventTarget>) => void;
+  currentListChoice: number;
+}
 
 export function GroupList({
   groupListData,
   isGroupListOpen,
   handleListChoice,
   currentListChoice,
-}) {
+}: IGroupList): ReactElement {
   return (
     <div key={"group-list"} className="group-list__form">
       <form
@@ -22,7 +39,7 @@ export function GroupList({
                 <input
                   onClick={handleListChoice}
                   key={`input${el.id}`}
-                  id={el.id}
+                  id={el.id.toString()}
                   className="group-list__item-input"
                   type="radio"
                   name={"selected_group"}
@@ -33,7 +50,7 @@ export function GroupList({
                 <input
                   onClick={handleListChoice}
                   key={`input${el.id}`}
-                  id={el.id}
+                  id={el.id.toString()}
                   className="group-list__item-input"
                   type="radio"
                   name={"selected_group"}
@@ -42,7 +59,7 @@ export function GroupList({
               )}
               <label
                 key={`label${el.id}`}
-                htmlFor={el.id}
+                htmlFor={el.id.toString()}
                 className="group-list__item-label"
               >
                 <img

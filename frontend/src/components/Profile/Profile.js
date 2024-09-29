@@ -30,7 +30,7 @@ export function Profile({
   }
 
   function handleListChoice(e) {
-    setCurrentChoice(Number(e.target.id));
+    setCurrentChoice(e.target.id);
   }
 
   function openPopupWithMoreEvents(e) {
