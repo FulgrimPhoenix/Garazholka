@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import React, { ReactElement } from "react";
 import "./GroupList.css";
 
-type GroupList = {
+type TGroupList = {
   avatar: string;
   id: number;
   title: string;
@@ -12,7 +12,7 @@ type GroupList = {
 type groupLinkImg = (arg?: string) => string;
 
 interface IGroupList {
-  groupListData: { groupLinkImg: groupLinkImg; groupList: GroupList };
+  groupListData: { groupLinkImg: groupLinkImg; groupList: TGroupList };
   isGroupListOpen: boolean;
   handleListChoice: (e: React.SyntheticEvent<EventTarget>) => void;
   currentListChoice: number;
