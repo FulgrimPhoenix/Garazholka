@@ -1,4 +1,4 @@
-import React, { useEffect, ReactElement } from "react";
+import React, { ReactElement } from "react";
 import "./EventList.css";
 
 type EventItem = {
@@ -27,10 +27,6 @@ export function EventList({
   eventStatesList,
   setEventsStatesList,
 }: IEventList): ReactElement {
-  useEffect(() => {
-    eventList.forEach((i) => console.log(i));
-  }, []);
-
   function takeFormValues(el: EventItem) {
     const newData = eventStatesList.map((item) => {
       if (item.id === el.id) {
