@@ -13,8 +13,8 @@ import { Register } from "../Register/Register.js";
 import { Login } from "../Login/Login.js";
 import { Profile } from "../Profile/Profile.js";
 import { Popup } from "../Popup/Popup.js";
-import { EventList } from "../EventList/EventList.js";
-import SearchString from "../SearchString/SearchString.js";
+import { EventList } from "../EventList/EventList.tsx";
+import { SearchString } from "../SearchString/SearchString.tsx";
 import YandexMapApi from "../../utils/YandexMapApi.js";
 
 function App() {
@@ -57,7 +57,7 @@ function App() {
         >
           <EventList
             eventStatesList={eventStatesList}
-            eventListData={filteredEventList}
+            eventList={filteredEventList}
             setEventsStatesList={setEventsStatesList}
           />
         </SearchString>
@@ -130,7 +130,7 @@ function App() {
               <Profile
                 profileData={constants.profile}
                 groupListData={constants.groupListData}
-                eventListData={abbreviatedEventStatesList}
+                eventList={abbreviatedEventStatesList}
                 mapBlockData={constants.mapBlockData}
                 wayTimePreferenceBlockData={
                   constants.wayTimePreferenceBlockData

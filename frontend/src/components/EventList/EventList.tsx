@@ -1,22 +1,33 @@
+import React, { ReactElement } from "react";
 import "./EventList.css";
 
+type EventItem = {
+  id: string;
+  title: string;
+  avatar: string | undefined;
+  description: string | undefined;
+  followers: number;
+  location: string | undefined;
+  duration: number; //minutes
+  isOnline: boolean;
+  timeDiapason: string;
+  minimumNumberOfUsers: number;
+};
+
+type EventStatus = { id: string; selected: boolean };
+
+interface IEventList {
+  eventList: EventItem[];
+  eventStatesList: EventStatus[];
+  setEventsStatesList: (newValue: EventStatus[]) => void;
+}
+
 export function EventList({
-  eventListData,
+  eventList,
   eventStatesList,
   setEventsStatesList,
-}) {
-  const eventList = eventListData;
-
-  function takeFormValues(el) {
-    for (let key in eventStatesList) {
-      if (String(key) === el.id) {
-        setEventsStatesList({
-          ...eventStatesList,
-          [key]: !eventStatesList[key],
-        });
-        return;
-      }
-    }
+}: IEventList): ReactElement {
+  function takeFormValues(el: EventItem) {
     const newData = eventStatesList.map((item) => {
       if (item.id === el.id) {
         item.selected = !item.selected;
@@ -38,7 +49,7 @@ export function EventList({
               key={el.id}
               id={el.id}
               className={`event-list__item-button ${
-                eventStatesList.find((item) => item.id === el.id).selected
+                eventStatesList.find((item) => item.id === el.id)?.selected
                   ? "event-list__item-button_checked"
                   : ""
               }`}
