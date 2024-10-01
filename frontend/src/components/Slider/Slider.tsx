@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { useEffect, useRef, useState } from 'react';
+import * as React from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface SlideProps {
   slides: Array<any>; // Замените это на подходящий тип данных для ваших слайдов
@@ -10,19 +10,22 @@ interface SlideProps {
 const Slider = ({ slides, activeIndex, onChange }: SlideProps) => {
   const [currentIndex, setCurrentIndex] = useState(activeIndex);
   const ref = useRef<HTMLDivElement>(null);
-  
+
   useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        setCurrentIndex(Math.min(entries.length - 1, currentIndex + 1));
-      });
-    }, { threshold: 0.9 });
-    
-    if (ref.current && !observer.observe(ref.current)) {
-      observer.disconnect();
-    }
-    
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          setCurrentIndex(Math.min(entries.length - 1, currentIndex + 1));
+        });
+      },
+      { threshold: 0.9 },
+    );
+
+    // if (ref.current && !observer.observe(ref.current)) {
+    //   observer.disconnect();
+    // }
+
     return () => observer.disconnect();
   }, []);
 
@@ -35,7 +38,13 @@ const Slider = ({ slides, activeIndex, onChange }: SlideProps) => {
     <div className="slider">
       <ul className="pagination">
         {Array.from({ length: slides.length }).map((_, i) => (
-          <li key={i} className={i === currentIndex ? 'active' : ''} onClick={() => handleChange(i)}>{i + 1}</li>
+          <li
+            key={i}
+            className={i === currentIndex ? "active" : ""}
+            onClick={() => handleChange(i)}
+          >
+            {i + 1}
+          </li>
         ))}
       </ul>
       <div className="slides" ref={ref}>
