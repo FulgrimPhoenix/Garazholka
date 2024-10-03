@@ -7,51 +7,81 @@ interface SlideProps {
   onChange: (index: number) => boolean;
 }
 
-const Slider = ({ slides, activeIndex, onChange }: SlideProps) => {
-  const [currentIndex, setCurrentIndex] = useState(activeIndex);
-  const ref = useRef<HTMLDivElement>(null);
+class Slider extends React.Component<SlideProps> {
+  state = {
+    currentIndex: this.props.activeIndex,
+  };
 
-  useEffect(() => {
+  private ref = useRef<HTMLDivElement>(null);
+
+  componentDidMount() {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
-          setCurrentIndex(Math.min(entries.length - 1, currentIndex + 1));
+          this.setState({
+            currentIndex: Math.min(
+              entries.length - 1,
+              this.state.currentIndex + 1,
+            ),
+          });
         });
       },
       { threshold: 0.9 },
     );
 
-    // if (ref.current && !observer.observe(ref.current)) {
+    // if (this.ref.current && !observer.observe(this.ref.current)) {
     //   observer.disconnect();
     // }
+  }
 
-    return () => observer.disconnect();
-  }, []);
+  componentWillUnmount() {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          this.setState({
+            currentIndex: Math.min(
+              entries.length - 1,
+              this.state.currentIndex + 1,
+            ),
+          });
+        });
+      },
+      { threshold: 0.9 },
+    );
 
-  const handleChange = (index: number) => {
-    setCurrentIndex(index);
-    onChange(index);
+    observer.disconnect();
+  }
+
+  handleChange = (index: number) => {
+    this.setState({ currentIndex: index });
+    this.props.onChange(index);
   };
 
-  return (
-    <div className="slider">
-      <ul className="pagination">
-        {Array.from({ length: slides.length }).map((_, i) => (
-          <li
-            key={i}
-            className={i === currentIndex ? "active" : ""}
-            onClick={() => handleChange(i)}
-          >
-            {i + 1}
-          </li>
-        ))}
-      </ul>
-      <div className="slides" ref={ref}>
-        {slides[currentIndex]}
+  render() {
+    const { slides, activeIndex, onChange } = this.props;
+    const { currentIndex } = this.state;
+
+    return (
+      <div className="slider">
+        <ul className="pagination">
+          {Array.from({ length: slides.length }).map((_, i) => (
+            <li
+              key={i}
+              className={i === currentIndex ? "active" : ""}
+              onClick={() => this.handleChange(i)}
+            >
+              {i + 1}
+            </li>
+          ))}
+        </ul>
+        <div className="slides" ref={this.ref}>
+          {slides[currentIndex]}
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 export default Slider;
