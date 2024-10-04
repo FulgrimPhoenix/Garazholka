@@ -2,6 +2,21 @@ import React, { useEffect } from "react";
 import "./LogRegInput.css";
 import { UseValidation } from "../../hooks/useValidation";
 
+type TLogRegInputq = {
+  inputType: string;
+  minLength: number;
+  maxLength: number;
+  onChange: (e: React.SyntheticEvent<EventTarget>) => void;
+  value: string;
+  name: string;
+  placeholder: string;
+  validateForm: (name: string, valid: boolean) => void;
+  regax: string;
+  advancedValidation: boolean;
+  isFormActive: boolean;
+  password: string;
+};
+
 export function LogRegInput({
   inputType,
   minLength,
@@ -14,20 +29,20 @@ export function LogRegInput({
   regax,
   advancedValidation,
   isFormActive,
-  password
-}) {
+  password,
+}: TLogRegInputq) {
   const { validationResult, onChangee, isValid } = UseValidation({
     initialValue: { isValid: false, error: "" },
     regax: regax,
     advancedValidation: advancedValidation,
-    password: password
+    password: password,
   });
 
   useEffect(() => {
     validateForm(name, isValid);
   }, [isValid]);
 
-  function onInputChange(e) {
+  function onInputChange(e: React.SyntheticEvent<EventTarget>) {
     onChange(e);
     onChangee(e);
   }
@@ -36,7 +51,11 @@ export function LogRegInput({
     <div className="log-reg-input">
       <input
         name={name}
-        className={`log-reg-input__input ${validationResult.errorMessage === "" || !validationResult.errorMessage ? "" : "log-reg-input__input_error"}`}
+        className={`log-reg-input__input ${
+          validationResult.errorMessage === "" || !validationResult.errorMessage
+            ? ""
+            : "log-reg-input__input_error"
+        }`}
         onChange={(e) => onInputChange(e)}
         value={value || ""}
         type={inputType}
@@ -44,7 +63,7 @@ export function LogRegInput({
         maxLength={maxLength}
         placeholder={placeholder}
         autoComplete="new-password"
-        disabled = {(isFormActive)? "" : "disabled"}
+        disabled={isFormActive ? false : true}
       />
       <span
         className={`log-reg-input__error-message ${
