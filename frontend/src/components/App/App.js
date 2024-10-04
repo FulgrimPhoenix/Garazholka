@@ -16,6 +16,7 @@ import { Popup } from "../Popup/Popup.js";
 import { EventList } from "../EventList/EventList.tsx";
 import { SearchString } from "../SearchString/SearchString.tsx";
 import YandexMapApi from "../../utils/YandexMapApi.js";
+import { api } from "../../utils/MainApi";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -38,6 +39,18 @@ function App() {
   const [abbreviatedEventStatesList, setAbbreviatedEventStatesList] = useState(
     constants.eventListData.eventList.filter((el, i) => i < 5)
   );
+
+  function signup({ email, username, password }) {
+    api.signup({ email, username, password }).then((res) => {
+      console.log(res);
+    });
+  }
+
+  function signin({ username, password }) {
+    api.signin({ username, password }).then((res) => {
+      console.log(res);
+    });
+  }
 
   function handlePopup(state) {
     setIsPopupOpen(state);
@@ -154,6 +167,7 @@ function App() {
             <NavLink to={"/signup"}>Регистрация</NavLink>
             <NavLink to={"/profile"}>Профиль</NavLink>
             <Register
+              signup={signup}
               registerFormData={constants.registerFormData}
               // handleSetIsLoggedIn={handleSetIsLoggedIn}
             />
@@ -164,6 +178,7 @@ function App() {
         path="/signin"
         element={
           <Login
+            signin={signin}
             loginFormData={constants.loginFormData}
             // handleSetIsLoggedIn={handleSetIsLoggedIn}
           />

@@ -5,10 +5,10 @@ import { LogRegInput } from "../LogRegInput/LogRegInput";
 import { useForm } from "../../hooks/useForm";
 import { useUrlPathName } from "../../hooks/useUrlPathName";
 
-export function Login({ loginFormData }) {
+export function Login({ loginFormData, signin }) {
   const { values, onChange, setValues } = useForm({});
   const [isValid, setIsValid] = useState({
-    email: false,
+    username: false,
     password: false,
   });
   const [isButtonActive, setIsButtonActive] = useState(false);
@@ -18,7 +18,7 @@ export function Login({ loginFormData }) {
 
   useEffect(() => {
     setValues({});
-    setIsValid({email: false, password: false});
+    setIsValid({ username: false, password: false });
     setIsButtonActive(false);
   }, []);
 
@@ -34,7 +34,9 @@ export function Login({ loginFormData }) {
     setIsValid({ ...isValid, [name]: value });
   }
 
-  function handleSubmit() {
+  function handleSubmit(e) {
+    e.preventDefault();
+    signin(values);
     return;
   }
   return (
@@ -49,17 +51,15 @@ export function Login({ loginFormData }) {
         buttonText={loginFormData.buttonText}
       >
         <LogRegInput
-          name="email"
-          value={values["email"]}
+          name="username"
+          value={values["username"]}
           onChange={onChange}
-          inputType="email"
-          minLength={10}
+          inputType="text"
+          minLength={2}
           maxLength={30}
           validateForm={validateForm}
-          placeholder={"Почта"}
-          regax={
-            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i
-          }
+          placeholder={"Логин"}
+          regax={/[^a-z0-9\sё-]/gi}
           advancedValidation={true}
           isFormActive={isFormActive}
         />

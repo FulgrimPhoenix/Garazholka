@@ -5,10 +5,10 @@ import { LogRegInput } from "../LogRegInput/LogRegInput";
 import { useForm } from "../../hooks/useForm";
 import { useUrlPathName } from "../../hooks/useUrlPathName";
 
-export function Register({ registerFormData }) {
+export function Register({ registerFormData, signup }) {
   const { values, onChange, setValues } = useForm({});
   const [isValid, setIsValid] = useState({
-    login: false,
+    username: false,
     email: false,
     password: false,
     passwordRepeat: false,
@@ -26,7 +26,7 @@ export function Register({ registerFormData }) {
   useEffect(() => {
     setValues({});
     setIsValid({
-      login: false,
+      username: false,
       email: false,
       password: false,
       passwordRepeat: false,
@@ -61,10 +61,10 @@ export function Register({ registerFormData }) {
     e.preventDefault();
     if (currentRegPage) {
       setCurrentRegPage(!currentRegPage);
-      return
+      return;
     }
-    console.log(values);
-    
+    signup(values);
+
     return;
   }
   return (
@@ -102,8 +102,8 @@ export function Register({ registerFormData }) {
         {currentRegPage ? (
           <>
             <LogRegInput
-              name="login"
-              value={values["login"]}
+              name="username"
+              value={values["username"]}
               onChange={onChange}
               inputType="text"
               minLength={2}
