@@ -17,6 +17,7 @@ import { EventList } from "../EventList/EventList.tsx";
 import { SearchString } from "../SearchString/SearchString.tsx";
 import YandexMapApi from "../../utils/YandexMapApi.js";
 import { api } from "../../utils/MainApi";
+import CustomCalendar from "../CustomCalendar/CustomCalendar";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -81,6 +82,12 @@ function App() {
           <YandexMapApi isPopupOpen={isPopupOpen} />
         </>
       );
+    } else if (calledMarkup === "/bigCalendar") {
+      return (
+        <>
+          <CustomCalendar />
+        </>
+      );
     }
   }
 
@@ -95,6 +102,12 @@ function App() {
         title: "Откуда я",
         description:
           "Выберете место откуда вам было бы удобно добираться до мероприятий",
+      });
+    } else if (currentPopupMarkupTitle === "/bigCalendar") {
+      setPopupOption({
+        title: "Когда я свободен",
+        description:
+          "Выберете даты и время в которое вам удобно посещать мероприятия",
       });
     }
   }, [popupMarkup]);
@@ -143,6 +156,7 @@ function App() {
               <Profile
                 profileData={constants.profile}
                 groupListData={constants.groupListData}
+                calendarBlockData={constants.calendarBlockData}
                 eventList={abbreviatedEventStatesList}
                 mapBlockData={constants.mapBlockData}
                 wayTimePreferenceBlockData={
