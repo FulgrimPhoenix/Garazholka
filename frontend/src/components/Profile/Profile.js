@@ -1,17 +1,16 @@
 import { useState } from "react";
 import "./Profile.css";
-import { NavLink } from "react-router-dom";
 import { GroupList } from "../GroupList/GroupList";
 import { EventList } from "../EventList/EventList";
-import { locationApi } from "../../utils/YandexMapApi";
 import { MapBlock } from "../MapBlock/MapBlock";
 import { WayTimePreferenceBlock } from "../WayTimePreferenceBlock/WayTimePreferenceBlock";
-import fakeCalendar from "../../images/calendar.png";
 import { constants } from "../../utils/constants";
+import { CalendarBlock } from "../CalendarBlock/CalendarBlock";
 
 export function Profile({
   profileData,
   groupListData,
+  calendarBlockData,
   eventList,
   mapBlockData,
   wayTimePreferenceBlockData,
@@ -43,6 +42,13 @@ export function Profile({
     e.preventDefault();
     setPopupMarkup("/bigMap");
     setCurrentPopupMarkupTitle("/bigMap");
+    handlePopup(true);
+  }
+
+  function openPopupWithBigCalendar(e) {
+    e.preventDefault();
+    setPopupMarkup("/bigCalendar");
+    setCurrentPopupMarkupTitle("/bigCalendar");
     handlePopup(true);
   }
 
@@ -101,20 +107,10 @@ export function Profile({
         mapBlockData={mapBlockData}
         openPopupWithBigMap={openPopupWithBigMap}
       />
-      {
-        <div
-          style={{
-            margin: "20px 0 0",
-            width: "49%",
-            aspectRatio: "1 / 1",
-            background: "#D9D9D9",
-            display: "flex",
-            borderRadius: "12px",
-          }}
-        >
-          <img style={{ width: "89%", margin: "auto" }} src={fakeCalendar} />
-        </div>
-      }
+      <CalendarBlock
+        calendarBlockData={calendarBlockData}
+        openPopupWithBigCalendar={openPopupWithBigCalendar}
+      />
       <WayTimePreferenceBlock
         wayTimePreferenceBlockData={wayTimePreferenceBlockData}
       />

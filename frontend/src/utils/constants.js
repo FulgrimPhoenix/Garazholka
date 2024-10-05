@@ -170,6 +170,10 @@ export const constants = {
     title: "Откуда я",
     linkOpenBigMap: show_more_arrow,
   },
+  calendarBlockData: {
+    title: "Когда свободен",
+    linkOpenBigCalendar: show_more_arrow,
+  },
   wayTimePreferenceBlockData: {
     title: "Мобильность",
     isOnlineCheckboxTitle: "Онлайн события",
