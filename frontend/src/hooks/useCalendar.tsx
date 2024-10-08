@@ -1,7 +1,10 @@
 import React from "react";
 import { createDate } from "../utils/helpers/date/createDate";
+import { getWeekDaysNames } from "../utils/helpers/date/getWeekDaysNames";
+import { createMonth } from "../utils/helpers/date/createMonth";
 
-interface TuseCalendaarParams {
+interface TUseCalendaarParams {
+  firstWeekDay?: number;
   locale?: string;
   date: Date;
 }
@@ -24,11 +27,11 @@ const getMonthNames = (locale: string = "default") => {
   return monthesNames
 };
 
-export const useCalendar = ({ locale = "default", date }: TuseCalendaarParams) => {
+export const useCalendar = ({ locale = "default", date, firstWeekDay }: TUseCalendaarParams) => {
   const [mode, setMode] = React.useState<"days" | "monthes" | "years">("days");
   const [selectedDay, setSelecteDay] = React.useState(createDate({ date }));
   const [selectedMonth, setSelectedMonth] = React.useState(
-    createDate({
+    createMonth({
       date: new Date(selectedDay.year, selectedDay.monthIndex),
       locale,
     })
@@ -38,6 +41,11 @@ export const useCalendar = ({ locale = "default", date }: TuseCalendaarParams) =
   );
 
   const monthesNames = React.useMemo(() => getMonthNames(locale), []);  
+  const weekDaysName = React.useMemo(() => getWeekDaysNames({firstWeekDay, locale}), []);  
 
+  const days = React.useMemo(() => selectedMonth.createMonthDays(), [selectedDay, selectedMonth])
+
+  console.log('days', days);
+  
   return {monthesNames};
 };

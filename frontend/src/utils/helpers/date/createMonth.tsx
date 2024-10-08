@@ -24,7 +24,7 @@ export const createMonth = (params?: CreateMonthParams) => {
   const createMonthDays = () => {
     const days = [];
     for (let i = 0; i < getMonthNumberOfDays(monthIndex + 1, year); i++) {
-      days[i] = getDay(i + 1);
+      days[i] = getDay(i + 1);      
     }
     return days;
   };
