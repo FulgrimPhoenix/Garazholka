@@ -33,16 +33,16 @@ const YandexMapApi = ({ isPopupOpen }) => {
               ) {
                 setCenter(myPos);
 
-                console.log(
-                  `My position: ${coords.geoObjects.position[0]}, ${coords.geoObjects.position[1]}`
-                );
+                // console.log(
+                //   `My position: ${coords.geoObjects.position[0]}, ${coords.geoObjects.position[1]}`
+                // );
               } else {
                 console.error("Error, cant take position");
               }
               return coord;
             })
             .then((coord) => {
-              console.log(2, coord, res);
+              // console.log(2, coord, res);
               const myMap = new res.Map(
                 "map",
                 {
@@ -57,7 +57,7 @@ const YandexMapApi = ({ isPopupOpen }) => {
               return myMap;
             })
             .then((myMap) => {
-              console.log(22, myMap);
+              // console.log(22, myMap);
               setMap(myMap);
             });
         });
@@ -87,7 +87,7 @@ const YandexMapApi = ({ isPopupOpen }) => {
             );
             map.geoObjects.add(currentRoute);
           });
-          console.log(map, center);
+          // console.log(map, center);
         }}
       ></button>
       <div className="yandex-map" id="map"></div>

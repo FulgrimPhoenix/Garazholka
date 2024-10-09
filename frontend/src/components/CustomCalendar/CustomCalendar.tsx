@@ -9,10 +9,8 @@ interface TCustomCalendar {
 }
 
 const CustomCalendar = ({ locale }: TCustomCalendar): React.ReactElement => {
-  console.log("date", createYear().createYearMonthes());
   const [selectedDate, setSelectedDate] = React.useState(new Date());
-  const { monthesNames } = useCalendar({ locale, date: selectedDate });
-  console.log(monthesNames);
+  const { monthesNames } = useCalendar({ firstWeekDay: 1, locale, date: selectedDate });
 
   return <div className="calendar"></div>;
 };
