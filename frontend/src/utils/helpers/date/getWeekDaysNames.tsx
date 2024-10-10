@@ -1,30 +1,33 @@
 import { createDate } from "./createDate";
 
-interface TGetWeekDaysNames {
-  firstWeekDay?: number;
-  locale: string;
+interface IgetWeekDayNamesReturnedData {
+  day: string;
+  dayShort: string;
 }
 
-interface TWeekDayNames {
-  day: ReturnType<typeof createDate>["day"];
-  dayShort: ReturnType<typeof createDate>["dayShort"];
+interface IgetWeekDaysNames {
+  (params: {
+    firstWeekDay?: number;
+    locale?: string;
+  }): IgetWeekDayNamesReturnedData[];
 }
 
-export const getWeekDaysNames = ({
-  firstWeekDay = 1,
-  locale = "default",
-}: TGetWeekDaysNames): TWeekDayNames[] => {
-  const weekDayNames: TWeekDayNames[] = Array.from({ length: 7 });
+export const getWeekDaysNames: IgetWeekDaysNames = (params) => {
+  const { firstWeekDay = 1, locale = "default" } = params;
+  const weekDayNames: IgetWeekDayNamesReturnedData[] = Array.from({
+    length: 7,
+  });
 
   const date = new Date();
 
-  weekDayNames.forEach((_, i) => {
+  for (let i = 0; i < weekDayNames.length; ++i) {
     const { day, dayNumberInWeek, dayShort } = createDate({
       locale,
       date: new Date(date.getFullYear(), date.getMonth(), date.getDay() + i),
     });
+
     weekDayNames[dayNumberInWeek - 1] = { day, dayShort };
-  });
+  }
 
   return [
     ...weekDayNames.slice(firstWeekDay),
