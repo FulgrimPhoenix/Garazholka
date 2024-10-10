@@ -1,16 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import { createYear } from "../../utils/helpers/date/createYear";
 import { useCalendar } from "../../hooks/useCalendar";
 
-interface TCustomCalendar {
+interface ICustomCalendar {
   locale?: string;
   selectedDate: Date;
   selectDate: (date: Date) => void;
 }
 
-const CustomCalendar = ({ locale }: TCustomCalendar): React.ReactElement => {
+const CustomCalendar = ({ locale }: ICustomCalendar): React.ReactElement => {
   const [selectedDate, setSelectedDate] = React.useState(new Date());
-  const { monthesNames } = useCalendar({ firstWeekDay: 1, locale, date: selectedDate });
+
+  const { monthesNames } = useCalendar({
+    firstWeekDay: 2,
+    locale,
+    date: selectedDate,
+  });
 
   return <div className="calendar"></div>;
 };

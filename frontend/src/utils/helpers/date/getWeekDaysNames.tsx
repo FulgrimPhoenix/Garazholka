@@ -26,11 +26,11 @@ export const getWeekDaysNames: IgetWeekDaysNames = (params) => {
       date: new Date(date.getFullYear(), date.getMonth(), date.getDay() + i),
     });
 
-    weekDayNames[dayNumberInWeek - 1] = { day, dayShort };
+    weekDayNames[dayNumberInWeek] = { day, dayShort };
   }
 
   return [
-    ...weekDayNames.slice(firstWeekDay),
-    ...weekDayNames.slice(firstWeekDay - 1, firstWeekDay),
+    ...weekDayNames.slice(firstWeekDay - 1),
+    ...weekDayNames.slice(firstWeekDay - 2, firstWeekDay - 1),
   ];
 };

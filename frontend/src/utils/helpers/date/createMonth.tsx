@@ -14,14 +14,14 @@ interface IcreateMonth {
 }
 
 interface IgetMonthNumberOfDays {
-  (monthIndex: number, yearNumber: number): number;
+  (monthNumber: number, yearNumber: number): number;
 }
 
 export const getMonthNumberOfDays: IgetMonthNumberOfDays = (
-  monthIndex,
+  monthNumber,
   yearNumber,
 ) => {
-  return new Date(yearNumber, monthIndex, 0).getDate();
+  return new Date(yearNumber, monthNumber, 0).getDate();
 };
 
 export const createMonth: IcreateMonth = (params) => {
