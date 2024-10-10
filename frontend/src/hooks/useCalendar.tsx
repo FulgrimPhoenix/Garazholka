@@ -20,32 +20,47 @@ const getMonthNames = (locale: string = "default") => {
   const d = new Date();
 
   monthesNames.forEach((_, i) => {
-    const {month, monthShort, monthIndex, date} = createDate({ locale, date: new Date(d.getFullYear(), d.getMonth() + i, d.getDate()) });
+    const { month, monthShort, monthIndex, date } = createDate({
+      locale,
+      date: new Date(d.getFullYear(), d.getMonth() + i, d.getDate()),
+    });
 
-    monthesNames[monthIndex] = {month, monthShort, monthIndex, date}
+    monthesNames[monthIndex] = { month, monthShort, monthIndex, date };
   });
-  return monthesNames
+  return monthesNames;
 };
 
-export const useCalendar = ({ locale = "default", date, firstWeekDay }: TUseCalendaarParams) => {
+export const useCalendar = ({
+  locale = "default",
+  date,
+  firstWeekDay,
+}: TUseCalendaarParams) => {
   const [mode, setMode] = React.useState<"days" | "monthes" | "years">("days");
   const [selectedDay, setSelecteDay] = React.useState(createDate({ date }));
   const [selectedMonth, setSelectedMonth] = React.useState(
     createMonth({
       date: new Date(selectedDay.year, selectedDay.monthIndex),
       locale,
-    })
+    }),
   );
   const [selectedYear, setSelectedYear] = React.useState(
-    createDate({ date: new Date(selectedDay.year), locale })
+    createDate({ date: new Date(selectedDay.year), locale }),
   );
 
-  const monthesNames = React.useMemo(() => getMonthNames(locale), []);  
-  const weekDaysName = React.useMemo(() => getWeekDaysNames({firstWeekDay, locale}), []);  
+  const monthesNames = React.useMemo(() => getMonthNames(locale), []);
+  const weekDaysName = React.useMemo(
+    () => getWeekDaysNames({ firstWeekDay, locale }),
+    [],
+  );
 
-  const days = React.useMemo(() => selectedMonth.createMonthDays(), [selectedDay, selectedMonth])
+  const days = React.useMemo(
+    () => selectedMonth.createMonthDays(),
+    [selectedDay, selectedMonth],
+  );
 
-  console.log('days', days);
-  
-  return {monthesNames};
+  const calendarDays = React.useMemo(() => {
+    const monthNumberOfDays = 0;
+  }, [selectedMonth.year, selectedMonth.monthIndex, selectedYear]);
+
+  return { monthesNames };
 };

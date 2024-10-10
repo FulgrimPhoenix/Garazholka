@@ -1,18 +1,30 @@
-import { createDate } from "./createDate";
+import { createDate, IFullDateData } from "./createDate";
 
-interface CreateMonthParams {
-  locale?: string;
-  date?: Date;
+export interface IcreateMonthReturnedData {
+  getDay: (dayNumber: number) => IFullDateData;
+  monthName: string;
+  monthIndex: number;
+  monthNumber: number;
+  year: number;
+  createMonthDays: () => IFullDateData[];
 }
 
-export const getMonthNumberOfDays = (
-  monthIndex: number,
-  yearNumber = new Date().getFullYear()
-): number => {
+interface IcreateMonth {
+  (params: { locale?: string; date?: Date }): IcreateMonthReturnedData;
+}
+
+interface IgetMonthNumberOfDays {
+  (monthIndex: number, yearNumber: number): number;
+}
+
+export const getMonthNumberOfDays: IgetMonthNumberOfDays = (
+  monthIndex,
+  yearNumber,
+) => {
   return new Date(yearNumber, monthIndex, 0).getDate();
 };
 
-export const createMonth = (params?: CreateMonthParams) => {
+export const createMonth: IcreateMonth = (params) => {
   const date = params?.date ?? new Date();
   const locale = params?.locale ?? "default";
 
@@ -24,10 +36,12 @@ export const createMonth = (params?: CreateMonthParams) => {
   const createMonthDays = () => {
     const days = [];
     for (let i = 0; i < getMonthNumberOfDays(monthIndex + 1, year); i++) {
-      days[i] = getDay(i + 1);      
+      days[i] = getDay(i + 1);
     }
+
     return days;
   };
+
   return {
     getDay,
     monthName,
