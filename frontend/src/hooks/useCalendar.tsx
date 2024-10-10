@@ -1,7 +1,10 @@
 import React from "react";
 import { createDate } from "../utils/helpers/date/createDate";
 import { getWeekDaysNames } from "../utils/helpers/date/getWeekDaysNames";
-import { createMonth } from "../utils/helpers/date/createMonth";
+import {
+  createMonth,
+  getMonthNumberOfDays,
+} from "../utils/helpers/date/createMonth";
 
 interface TUseCalendaarParams {
   firstWeekDay?: number;
@@ -36,16 +39,14 @@ export const useCalendar = ({
   firstWeekDay,
 }: TUseCalendaarParams) => {
   const [mode, setMode] = React.useState<"days" | "monthes" | "years">("days");
-  const [selectedDay, setSelecteDay] = React.useState(createDate({ date }));
+  const [selectedDate, setSelecteDay] = React.useState(createDate({ date }));
   const [selectedMonth, setSelectedMonth] = React.useState(
     createMonth({
-      date: new Date(selectedDay.year, selectedDay.monthIndex),
+      date: new Date(selectedDate.year, selectedDate.monthIndex),
       locale,
     }),
   );
-  const [selectedYear, setSelectedYear] = React.useState(
-    createDate({ date: new Date(selectedDay.year), locale }),
-  );
+  //Удалили selectedYear тут
 
   const monthesNames = React.useMemo(() => getMonthNames(locale), []);
   const weekDaysName = React.useMemo(
@@ -55,12 +56,40 @@ export const useCalendar = ({
 
   const days = React.useMemo(
     () => selectedMonth.createMonthDays(),
-    [selectedDay, selectedMonth],
+    [selectedDate, selectedMonth],
   );
 
   const calendarDays = React.useMemo(() => {
-    const monthNumberOfDays = 0;
-  }, [selectedMonth.year, selectedMonth.monthIndex, selectedYear]);
+    const monthNumberOfDays = getMonthNumberOfDays(
+      selectedDate.monthNumber,
+      selectedDate.year,
+    );
+    const prevMonthDays = createMonth({
+      date: new Date(selectedDate.year, selectedMonth.monthIndex - 1),
+      locale,
+    }).createMonthDays();
+    const nextMonthDays = createMonth({
+      date: new Date(selectedDate.year, selectedMonth.monthIndex + 1),
+      locale,
+    }).createMonthDays();
+
+    const firstDay = days[0];
+    const lastDay = days[monthNumberOfDays - 1];
+
+    const shiftIndex = (firstWeekDay || 1) - 1; //костыль от undefinded
+
+    const numberOfPrevDays =
+      firstDay.dayNumberInWeek - shiftIndex < 0
+        ? 7 - ((firstWeekDay || 1) - firstDay.dayNumberInWeek) // костыль от undefinded
+        : firstDay.dayNumberInWeek - shiftIndex;
+
+    console.log("numberOfPrevDays", numberOfPrevDays);
+
+    const numbgrOfNextDays =
+      7 - lastDay.dayNumberInWeek + shiftIndex > 6
+        ? 7 - lastDay.dayNumberInWeek - (7 - shiftIndex)
+        : 7 - lastDay.dayNumberInWeek + shiftIndex;
+  }, [selectedMonth.year, selectedMonth.monthIndex, selectedDate]);
 
   return { monthesNames };
 };

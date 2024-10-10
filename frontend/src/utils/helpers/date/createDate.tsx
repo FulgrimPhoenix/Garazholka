@@ -24,7 +24,7 @@ export const createDate: ICreateDate = (params) => {
   const d = params?.date ?? new Date();
   const dayNumber = d.getDate();
   const day = d.toLocaleDateString(locale, { weekday: "long" });
-  const dayNumberInWeek = d.getDay() + 1;
+  const dayNumberInWeek = d.getDay();
   const dayShort = d.toLocaleDateString(locale, { weekday: "short" });
   const year = d.getFullYear();
   const yearShort = d.toLocaleDateString(locale, { year: "2-digit" });
