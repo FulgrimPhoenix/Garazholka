@@ -6,7 +6,7 @@ import {
   getMonthNumberOfDays,
 } from "../utils/helpers/date/createMonth";
 
-interface TUseCalendaarParams {
+interface IUseCalendar {
   firstWeekDay?: number;
   locale?: string;
   date: Date;
@@ -33,11 +33,16 @@ const getMonthNames = (locale: string = "default") => {
   return monthesNames;
 };
 
+const getYaersInterval = (year: number): number[] => {
+  const startYear = Math.floor(year / 10) * 10;
+  return [...Array(10)].map((_, index) => startYear + index);
+};
+
 export const useCalendar = ({
   locale = "default",
   date,
   firstWeekDay,
-}: TUseCalendaarParams) => {
+}: IUseCalendar) => {
   const [mode, setMode] = React.useState<"days" | "monthes" | "years">("days");
   const [selectedDate, setSelecteDay] = React.useState(createDate({ date }));
   const [selectedMonth, setSelectedMonth] = React.useState(
@@ -45,6 +50,9 @@ export const useCalendar = ({
       date: new Date(selectedDate.year, selectedDate.monthIndex),
       locale,
     }),
+  );
+  const [selectedYearInterval, setSelectedYearInterval] = React.useState(
+    getYaersInterval(selectedDate.year),
   );
   //Удалили selectedYear тут
 
@@ -83,13 +91,47 @@ export const useCalendar = ({
         ? 7 - ((firstWeekDay || 1) - firstDay.dayNumberInWeek) // костыль от undefinded
         : firstDay.dayNumberInWeek - shiftIndex;
 
-    console.log("numberOfPrevDays", numberOfPrevDays);
-
-    const numbgrOfNextDays =
+    const numberOfNextDays =
       7 - lastDay.dayNumberInWeek + shiftIndex > 6
         ? 7 - lastDay.dayNumberInWeek - (7 - shiftIndex)
         : 7 - lastDay.dayNumberInWeek + shiftIndex;
+
+    const totalCalendarDays = days.length + numberOfPrevDays + numberOfNextDays;
+
+    const result = [];
+
+    for (let i = 0; i < numberOfPrevDays; i += 1) {
+      const inverted = numberOfPrevDays - i;
+      result[i] = prevMonthDays[prevMonthDays.length - inverted];
+    }
+
+    for (
+      let i = numberOfPrevDays;
+      i < totalCalendarDays - numberOfNextDays;
+      i += 1
+    ) {
+      result[i] = days[i - numberOfPrevDays];
+    }
+
+    for (
+      let i = totalCalendarDays - numberOfNextDays;
+      i < totalCalendarDays - 1;
+      i += 1
+    ) {
+      result[i] = days[i - totalCalendarDays + numberOfNextDays];
+    }
+    return result;
   }, [selectedMonth.year, selectedMonth.monthIndex, selectedDate]);
 
-  return { monthesNames };
+  return {
+    state: {
+      mode,
+      calendarDays,
+      weekDaysName,
+      monthesNames,
+      selectedDate,
+      selectedMonth,
+      selectedYearInterval,
+    },
+  };
 };
