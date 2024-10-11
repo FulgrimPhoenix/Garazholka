@@ -11,11 +11,13 @@ interface ICustomCalendar {
 const CustomCalendar = ({ locale }: ICustomCalendar): React.ReactElement => {
   const [selectedDate, setSelectedDate] = React.useState(new Date());
 
-  const { monthesNames } = useCalendar({
-    firstWeekDay: 2,
+  const { state } = useCalendar({
+    firstWeekDay: 2, //с какого дня начинается неделя
     locale,
     date: selectedDate,
   });
+
+  console.log(state);
 
   return <div className="calendar"></div>;
 };
