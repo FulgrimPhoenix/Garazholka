@@ -20,17 +20,17 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 95%;
+  width: 100%;
   border-radius: 3px;
   text-transform: capitalize;
-  background-color: #fff;
 }
 
 .calendar__header {
+  margin: 0;
   width: 93%;
-  border-radius: 5px 5px 0 0;
-  background-color: var(--frame-accent--unselected-color);
-  color: var(--text-color);
+  border-radius: 8px;
+  background-color: var(--accent-color-unselected);
+  color: var(--frame-text-color);
   padding: 10px;
   display: flex;
   flex-direction: row;
@@ -56,4 +56,78 @@
   background-image: url(../../images/groups/group_list/show_more_arrow.svg);
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.calendar__body {
+  width: 100%;
+  border-radius: 0 0 5px 5px;
+  box-sizing: border-box;
+}
+
+.calendar__week-days {
+  height: 20px;
+  margin: 16px auto;
+  font-weight: 600;
+  font-size: 16px;
+  color: #c04476;
+  text-align: center;
+  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px 1px;
+}
+
+.calendar__days {
+  /* color: var(--frame-text-color); */
+  margin: auto;
+  text-align: center;
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: 1fr;
+  gap: 12px 8px;
+}
+
+.calendar__day {
+  font-size: 16px;
+  font-weight: 400;
+  border-radius: 8px;
+  background-color: var(--accent-color-unselected);
+  color: var(--frame-text-color);
+  height: 36px;
+  width: 36px;
+  cursor: pointer;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.calendar__day-date {
+  margin: auto;
+}
+
+.calendar__day:hover {
+  background-color: var(--accent-hover-background-color);
+  border: 1px solid var(--accent-color);
+  color: var(--accent-color);
+}
+
+.calendar__additional-day {
+  font-weight: 300;
+  cursor: pointer;
+  background-color: #fff;
+  color: var(--accent-color);
+}
+
+.calendar__today-day {
+  background-color: black;
+  color: #fff;
+}
+
+.calendar__selected-day {
+  background-color: var(--accent-color);
+  color: var(--frame-text-color);
+}
+
+.calendar__selected-day:hover {
+  background-color: var(--accent-hover-background-color);
 }

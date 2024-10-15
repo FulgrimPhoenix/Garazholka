@@ -57,7 +57,7 @@ export const useCalendar = ({
   //Удалили selectedYear тут
 
   const monthesNames = React.useMemo(() => getMonthNames(locale), []);
-  const weekDaysName = React.useMemo(
+  const weekDaysNames = React.useMemo(
     () => getWeekDaysNames({ firstWeekDay, locale }),
     [],
   );
@@ -127,11 +127,14 @@ export const useCalendar = ({
     state: {
       mode,
       calendarDays,
-      weekDaysName,
+      weekDaysNames,
       monthesNames,
       selectedDate,
       selectedMonth,
       selectedYearInterval,
+    },
+    functions: {
+      setMode,
     },
   };
 };
