@@ -12,6 +12,10 @@ interface IUseCalendar {
   date: Date;
 }
 
+interface IonClickArrow {
+  (params: { direction: "right" | "left" }): void;
+}
+
 const getMonthNames = (locale: string = "default") => {
   const monthesNames: {
     month: ReturnType<typeof createDate>["month"];
@@ -44,33 +48,33 @@ export const useCalendar = ({
   firstWeekDay,
 }: IUseCalendar) => {
   const [mode, setMode] = React.useState<"days" | "monthes" | "years">("days");
-  const [selectedDate, setSelecteDay] = React.useState(createDate({ date }));
+  const [selectedDate, setSelecteDate] = React.useState(createDate({ date }));
   const [selectedMonth, setSelectedMonth] = React.useState(
     createMonth({
       date: new Date(selectedDate.year, selectedDate.monthIndex),
       locale,
-    }),
+    })
   );
   const [selectedYearInterval, setSelectedYearInterval] = React.useState(
-    getYaersInterval(selectedDate.year),
+    getYaersInterval(selectedDate.year)
   );
   //Удалили selectedYear тут
 
   const monthesNames = React.useMemo(() => getMonthNames(locale), []);
   const weekDaysNames = React.useMemo(
     () => getWeekDaysNames({ firstWeekDay, locale }),
-    [],
+    []
   );
 
   const days = React.useMemo(
     () => selectedMonth.createMonthDays(),
-    [selectedDate, selectedMonth],
+    [selectedDate, selectedMonth]
   );
 
   const calendarDays = React.useMemo(() => {
     const monthNumberOfDays = getMonthNumberOfDays(
-      selectedDate.monthNumber,
-      selectedDate.year,
+      selectedMonth.monthNumber,
+      selectedDate.year
     );
     const prevMonthDays = createMonth({
       date: new Date(selectedDate.year, selectedMonth.monthIndex - 1),
@@ -88,14 +92,13 @@ export const useCalendar = ({
 
     const numberOfPrevDays =
       firstDay.dayNumberInWeek - shiftIndex < 0
-        ? 7 - ((firstWeekDay || 1) - firstDay.dayNumberInWeek) // костыль от undefinded
+        ? 7 - ((firstWeekDay || 1) - firstDay.dayNumberInWeek - 1) // костыль от undefinded
         : firstDay.dayNumberInWeek - shiftIndex;
 
     const numberOfNextDays =
-      7 - lastDay.dayNumberInWeek + shiftIndex > 6
+      7 - lastDay.dayNumberInWeek + shiftIndex > 7
         ? 7 - lastDay.dayNumberInWeek - (7 - shiftIndex)
         : 7 - lastDay.dayNumberInWeek + shiftIndex;
-
     const totalCalendarDays = days.length + numberOfPrevDays + numberOfNextDays;
 
     const result = [];
@@ -118,11 +121,44 @@ export const useCalendar = ({
       i < totalCalendarDays - 1;
       i += 1
     ) {
-      result[i] = days[i - totalCalendarDays + numberOfNextDays];
+      result[i] = nextMonthDays[i - totalCalendarDays + numberOfNextDays];
     }
+
     return result;
   }, [selectedMonth.year, selectedMonth.monthIndex, selectedDate]);
 
+  const onClickArrow: IonClickArrow = (params) => {
+    if (mode === "days") {
+      const monthIndex =
+        params.direction === "left"
+          ? selectedMonth.monthIndex - 1
+          : selectedMonth.monthIndex + 1;
+
+      if (monthIndex === -1) {
+        const year = selectedDate.year - 1;
+        selectedDate.year = year;
+        if (!selectedYearInterval.includes(year))
+          setSelectedYearInterval(getYaersInterval(year));
+        return setSelectedMonth(
+          createMonth({ date: new Date(year, 11), locale })
+        );
+      }
+
+      if (monthIndex === 12) {
+        const year = selectedDate.year + 1;
+        selectedDate.year = year;
+        if (!selectedYearInterval.includes(year))
+          setSelectedYearInterval(getYaersInterval(year));
+        return setSelectedMonth(
+          createMonth({ date: new Date(year, 0), locale })
+        );
+      }
+
+      setSelectedMonth(
+        createMonth({ date: new Date(selectedDate.year, monthIndex), locale })
+      );
+    }
+  };
   return {
     state: {
       mode,
@@ -135,6 +171,8 @@ export const useCalendar = ({
     },
     functions: {
       setMode,
+      setSelecteDate,
+      onClickArrow,
     },
   };
 };

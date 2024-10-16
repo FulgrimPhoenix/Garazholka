@@ -28,7 +28,7 @@ export const getWeekDaysNames: IgetWeekDaysNames = (params) => {
 
     weekDayNames[dayNumberInWeek] = { day, dayShort };
   }
-
+  
   return [
     ...weekDayNames.slice(firstWeekDay - 1),
     ...weekDayNames.slice(firstWeekDay - 2, firstWeekDay - 1),

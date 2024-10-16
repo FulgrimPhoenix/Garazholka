@@ -74,7 +74,7 @@
   align-items: center;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 1px 1px;
+  gap: 0px 8px;
 }
 
 .calendar__days {
@@ -99,6 +99,7 @@
   cursor: pointer;
   box-sizing: border-box;
   display: flex;
+  margin: auto;
 }
 
 .calendar__day-date {
