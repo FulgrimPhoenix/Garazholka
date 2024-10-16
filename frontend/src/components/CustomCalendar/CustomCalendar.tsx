@@ -21,8 +21,6 @@ const CustomCalendar = ({ locale }: ICustomCalendar): React.ReactElement => {
     date: selectedDate,
   });
 
-  console.log(state);
-
   return (
     <div className="calendar">
       <div className="caledar__date-container">
@@ -30,7 +28,11 @@ const CustomCalendar = ({ locale }: ICustomCalendar): React.ReactElement => {
       </div>
       <div className="calendar__container">
         <h2 className="calendar__header">
-          <div aria-hidden className="calentar__header-arrow-left" />
+          <div
+            aria-hidden
+            onClick={() => functions.onClickArrow({ direction: "left" })}
+            className="calentar__header-arrow-left"
+          />
           {state.mode === "days" && (
             <div onClick={() => functions.setMode("monthes")}>
               {state.monthesNames[state.selectedMonth.monthIndex].monthShort}{" "}
@@ -42,7 +44,11 @@ const CustomCalendar = ({ locale }: ICustomCalendar): React.ReactElement => {
               {state.selectedDate.year}
             </div>
           )}
-          <div aria-hidden className="calentar__header-arrow-right" />
+          <div
+            aria-hidden
+            onClick={() => functions.onClickArrow({ direction: "right" })}
+            className="calentar__header-arrow-right"
+          />
         </h2>
         <div className="calendar__body">
           {state.mode === "days" && (
@@ -61,11 +67,14 @@ const CustomCalendar = ({ locale }: ICustomCalendar): React.ReactElement => {
                   });
                   const isAdditionalDay =
                     day.monthIndex !== state.selectedMonth.monthIndex;
-                  console.log(day);
 
                   return (
                     <div
                       key={`${day.dayNumber}-${day.monthIndex}-${day.year}`}
+                      onClick={() => {
+                        functions.setSelecteDate(day);
+                        setSelectedDate(day.date);
+                      }}
                       className={[
                         "calendar__day",
                         isToday ? "calendar__today-day" : "",
