@@ -135,6 +135,7 @@
 
 .calendar__time-container {
   display: flex;
+  flex-wrap: wrap;
   margin: 32px auto 0;
   justify-content: space-between;
   width: 100%;
@@ -148,8 +149,11 @@
   cursor: pointer;
   color: var(--frame-text-color);
   color: var(--Text-White-Medium-White-Back, #fff);
-  font-size: 13px;
+  font-size: 12px;
   font-style: normal;
   font-weight: 300;
   line-height: normal;
+  width: 90px;
+  height: 32px;
+  margin: 0 16px 16px 0;
 }
