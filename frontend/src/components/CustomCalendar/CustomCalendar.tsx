@@ -5,6 +5,9 @@ import { formateDate } from "../../utils/helpers/date/formateDate";
 import "./CustomCalendar.css";
 import { checkToday } from "../../utils/helpers/date/checkToday";
 import { checkDateIsEqual } from "../../utils/helpers/date/checkDateIsEqual";
+import { IgetWeekDayNamesReturnedData } from "../../utils/helpers/date/getWeekDaysNames";
+import { IFullDateData } from "../../utils/helpers/date/createDate";
+import { constants } from "../../utils/constants";
 
 interface ICustomCalendar {
   locale?: string;
@@ -54,44 +57,69 @@ const CustomCalendar = ({ locale }: ICustomCalendar): React.ReactElement => {
           {state.mode === "days" && (
             <>
               <div className="calendar__week-days">
-                {state.weekDaysNames.map((weekDaysName) => (
-                  <div key={weekDaysName.dayShort}>{weekDaysName.dayShort}</div>
-                ))}
+                {state.weekDaysNames.map(
+                  (
+                    weekDaysName: IgetWeekDayNamesReturnedData
+                  ): React.ReactElement => (
+                    <div key={weekDaysName.dayShort}>
+                      {weekDaysName.dayShort}
+                    </div>
+                  )
+                )}
               </div>
               <div className="calendar__days">
-                {state.calendarDays.map((day) => {
-                  const isToday = checkToday(day.date);
-                  const isSelectedDay = checkDateIsEqual({
-                    date1: day.date,
-                    date2: state.selectedDate.date,
-                  });
-                  const isAdditionalDay =
-                    day.monthIndex !== state.selectedMonth.monthIndex;
+                {state.calendarDays.map(
+                  (day: IFullDateData): React.ReactElement => {
+                    const isToday = checkToday(day.date);
+                    const isSelectedDay = checkDateIsEqual({
+                      date1: day.date,
+                      date2: state.selectedDate.date,
+                    });
+                    const isAdditionalDay =
+                      day.monthIndex !== state.selectedMonth.monthIndex;
 
-                  return (
-                    <div
-                      key={`${day.dayNumber}-${day.monthIndex}-${day.year}`}
-                      onClick={() => {
-                        functions.setSelecteDate(day);
-                        setSelectedDate(day.date);
-                      }}
-                      className={[
-                        "calendar__day",
-                        isToday ? "calendar__today-day" : "",
-                        isSelectedDay ? "calendar__selected-day" : "",
-                        isAdditionalDay ? "calendar__additional-day" : "",
-                      ].join(" ")}
-                    >
-                      <span className="calendar__day-date">
-                        {day.dayNumber}
-                      </span>
-                    </div>
-                  );
-                })}
+                    return (
+                      <div
+                        key={`${day.dayNumber}-${day.monthIndex}-${day.year}`}
+                        onClick={() => {
+                          functions.setSelecteDate(day);
+                          setSelectedDate(day.date);
+                        }}
+                        className={[
+                          "calendar__day",
+                          isToday ? "calendar__today-day" : "",
+                          isSelectedDay ? "calendar__selected-day" : "",
+                          isAdditionalDay ? "calendar__additional-day" : "",
+                        ].join(" ")}
+                      >
+                        <span className="calendar__day-date">
+                          {day.dayNumber}
+                        </span>
+                      </div>
+                    );
+                  }
+                )}
               </div>
             </>
           )}
         </div>
+      </div>
+      <div className="calendar__time-container">
+        {constants.calendarBlockData.timeRanges.ranges.map((_, i) => {
+          return (
+            <button
+              onClick={() => {
+                console.log(constants.calendarBlockData.timeRanges.generateTimeRangeDates({
+                  selectedDate: selectedDate,
+                  range: _.value,
+                }))
+              }}
+              className="calendar__time-range-button"
+            >
+              {_.title}
+            </button>
+          );
+        })}
       </div>
     </div>
   );
