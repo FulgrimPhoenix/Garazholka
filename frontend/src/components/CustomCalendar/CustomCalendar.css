@@ -132,3 +132,24 @@
 .calendar__selected-day:hover {
   background-color: var(--accent-hover-background-color);
 }
+
+.calendar__time-container {
+  display: flex;
+  margin: 32px auto 0;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.calendar__time-range-button {
+  border-radius: 8px;
+  background-color: var(--accent-color-unselected);
+  padding: 8px;
+  border: none;
+  cursor: pointer;
+  color: var(--frame-text-color);
+  color: var(--Text-White-Medium-White-Back, #fff);
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+}

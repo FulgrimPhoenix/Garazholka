@@ -3,7 +3,7 @@ import "./App.css";
 import { useEffect, useState } from "react";
 import { NowView } from "../DataTime.js";
 import { Header } from "../Header/Header.js";
-import { constants } from "../../utils/constants.js";
+import { constants } from "../../utils/constants";
 import { Main } from "../Main/Main.js";
 import { Intro } from "../Intro/Intro.js";
 import { NavLink, Route, Routes } from "react-router-dom";

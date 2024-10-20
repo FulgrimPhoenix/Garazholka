@@ -1,6 +1,6 @@
 import { createDate } from "./createDate";
 
-interface IgetWeekDayNamesReturnedData {
+export interface IgetWeekDayNamesReturnedData {
   day: string;
   dayShort: string;
 }
