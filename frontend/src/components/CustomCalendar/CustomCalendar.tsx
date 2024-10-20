@@ -15,8 +15,16 @@ interface ICustomCalendar {
   selectDate: (date: Date) => void;
 }
 
+interface Iranges {
+  title: string;
+  value: number[][];
+}
+
 const CustomCalendar = ({ locale }: ICustomCalendar): React.ReactElement => {
   const [selectedDate, setSelectedDate] = React.useState(new Date());
+  const [listOfUserSelectedDates, setListOfUserSelectedDates] = React.useState(
+    {}
+  );
 
   const { state, functions } = useCalendar({
     firstWeekDay: 2, //с какого дня начинается неделя
@@ -105,18 +113,26 @@ const CustomCalendar = ({ locale }: ICustomCalendar): React.ReactElement => {
         </div>
       </div>
       <div className="calendar__time-container">
-        {constants.calendarBlockData.timeRanges.ranges.map((_, i) => {
+        {constants.calendarBlockData.timeRanges.ranges.map((range: Iranges) => {
+          const currentRange = constants.calendarBlockData.timeRanges.generateTimeRangeDates(
+            {
+              selectedDate: selectedDate,
+              range: range.value,
+            }
+          )
           return (
             <button
+              // value={range.value} поколдовать с велью
               onClick={() => {
-                console.log(constants.calendarBlockData.timeRanges.generateTimeRangeDates({
-                  selectedDate: selectedDate,
-                  range: _.value,
-                }))
+                setListOfUserSelectedDates({
+                  ...listOfUserSelectedDates,
+                  [`${selectedDate.getFullYear()}.${selectedDate.getMonth()}.${selectedDate.getDate()}`]: [...currentRange, currentRange]
+                });
+                console.log(listOfUserSelectedDates);
               }}
               className="calendar__time-range-button"
             >
-              {_.title}
+              {range.title}
             </button>
           );
         })}
