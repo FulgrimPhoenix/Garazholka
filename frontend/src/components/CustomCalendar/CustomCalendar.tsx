@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { createYear } from "../../utils/helpers/date/createYear";
 import { useCalendar } from "../../hooks/useCalendar";
 import { formateDate } from "../../utils/helpers/date/formateDate";
@@ -90,6 +90,17 @@ const CustomCalendar = ({ locale }: ICustomCalendar): React.ReactElement => {
                     const isAdditionalDay =
                       day.monthIndex !== state.selectedMonth.monthIndex;
 
+                    const dayNameKey = [
+                      day.date.getFullYear(),
+                      day.date.getMonth(),
+                      day.date.getDate(),
+                    ].join("-");
+
+                      const isDayRangesAreSelected = Boolean(Object.keys(listOfUserSelectedDates).find(
+                        (key) => key === dayNameKey
+                      )) ?? false;
+                      // решить вопрос с проблемами выбранных дат                      
+
                     return (
                       <div
                         key={`${day.dayNumber}-${day.monthIndex}-${day.year}`}
@@ -102,6 +113,9 @@ const CustomCalendar = ({ locale }: ICustomCalendar): React.ReactElement => {
                           isToday ? "calendar__today-day" : "",
                           isSelectedDay ? "calendar__selected-day" : "",
                           isAdditionalDay ? "calendar__additional-day" : "",
+                          isDayRangesAreSelected
+                            ? "calendar__day-with-selected-ranges"
+                            : "",
                         ].join(" ")}
                       >
                         <span className="calendar__day-date">
@@ -128,6 +142,11 @@ const CustomCalendar = ({ locale }: ICustomCalendar): React.ReactElement => {
             selectedDate.getMonth(),
             selectedDate.getDate(),
           ].join("-");
+          const isSelectedRange = listOfUserSelectedDates[dateKey]
+            ? listOfUserSelectedDates[dateKey].find(
+                (element) => element[0].getTime() === currentRange[0].getTime()
+              )
+            : false;
           return (
             <button
               onClick={() => {
@@ -143,10 +162,21 @@ const CustomCalendar = ({ locale }: ICustomCalendar): React.ReactElement => {
                     ].filter(
                       (el) => el[0].getTime() !== currentRange[0].getTime()
                     );
-                    setListOfUserSelectedDates({
-                      ...listOfUserSelectedDates,
-                      [dateKey]: listWithoutRemovedItem,
-                    });
+                    if (listWithoutRemovedItem.length === 0) {
+                      const copyOfListOfUserSelectedDates =
+                        listOfUserSelectedDates;
+                      delete copyOfListOfUserSelectedDates[dateKey];
+                      setListOfUserSelectedDates(copyOfListOfUserSelectedDates);
+                      console.log(
+                        "ListOfUserSelectedDates",
+                        listOfUserSelectedDates
+                      );
+                    } else {
+                      setListOfUserSelectedDates({
+                        ...listOfUserSelectedDates,
+                        [dateKey]: listWithoutRemovedItem,
+                      });
+                    }
                   } else {
                     setListOfUserSelectedDates({
                       ...listOfUserSelectedDates,
@@ -163,7 +193,10 @@ const CustomCalendar = ({ locale }: ICustomCalendar): React.ReactElement => {
                   });
                 }
               }}
-              className="calendar__time-range-button"
+              className={[
+                "calendar__time-range-button",
+                isSelectedRange ? "calendar__time-range-button_selected" : "",
+              ].join(" ")}
             >
               {range.title}
             </button>
