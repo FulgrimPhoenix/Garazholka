@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { createYear } from "../../utils/helpers/date/createYear";
 import { useCalendar } from "../../hooks/useCalendar";
 import { formateDate } from "../../utils/helpers/date/formateDate";
@@ -22,15 +22,19 @@ interface Iranges {
 
 const CustomCalendar = ({ locale }: ICustomCalendar): React.ReactElement => {
   const [selectedDate, setSelectedDate] = React.useState(new Date());
-  const [listOfUserSelectedDates, setListOfUserSelectedDates] = React.useState(
-    {}
-  );
+  const [listOfUserSelectedDates, setListOfUserSelectedDates] = React.useState<
+    Record<string, Date[][]>
+  >({});
 
   const { state, functions } = useCalendar({
     firstWeekDay: 2, //с какого дня начинается неделя
     locale,
     date: selectedDate,
   });
+
+  useEffect(() => {
+    console.log(listOfUserSelectedDates);
+  }, [listOfUserSelectedDates]);
 
   return (
     <div className="calendar">
@@ -114,21 +118,50 @@ const CustomCalendar = ({ locale }: ICustomCalendar): React.ReactElement => {
       </div>
       <div className="calendar__time-container">
         {constants.calendarBlockData.timeRanges.ranges.map((range: Iranges) => {
-          const currentRange = constants.calendarBlockData.timeRanges.generateTimeRangeDates(
-            {
+          const currentRange: Date[] =
+            constants.calendarBlockData.timeRanges.generateTimeRangeDates({
               selectedDate: selectedDate,
               range: range.value,
-            }
-          )
+            });
+          const dateKey: string = [
+            selectedDate.getFullYear(),
+            selectedDate.getMonth(),
+            selectedDate.getDate(),
+          ].join("-");
           return (
             <button
-              // value={range.value} поколдовать с велью
               onClick={() => {
-                setListOfUserSelectedDates({
-                  ...listOfUserSelectedDates,
-                  [`${selectedDate.getFullYear()}.${selectedDate.getMonth()}.${selectedDate.getDate()}`]: [...currentRange, currentRange]
-                });
-                console.log(listOfUserSelectedDates);
+                if (listOfUserSelectedDates[dateKey]) {
+                  if (
+                    listOfUserSelectedDates[dateKey].find(
+                      (element) =>
+                        element[0].getTime() === currentRange[0].getTime()
+                    )
+                  ) {
+                    const listWithoutRemovedItem = listOfUserSelectedDates[
+                      dateKey
+                    ].filter(
+                      (el) => el[0].getTime() !== currentRange[0].getTime()
+                    );
+                    setListOfUserSelectedDates({
+                      ...listOfUserSelectedDates,
+                      [dateKey]: listWithoutRemovedItem,
+                    });
+                  } else {
+                    setListOfUserSelectedDates({
+                      ...listOfUserSelectedDates,
+                      [dateKey]: [
+                        ...listOfUserSelectedDates[dateKey],
+                        currentRange,
+                      ],
+                    });
+                  }
+                } else {
+                  setListOfUserSelectedDates({
+                    ...listOfUserSelectedDates,
+                    [dateKey]: [...[], currentRange],
+                  });
+                }
               }}
               className="calendar__time-range-button"
             >
