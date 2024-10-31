@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 // import { Map, Placemark, YMaps } from "@pbe/react-yandex-maps";
 import "./MapBlock.css";
 import YandexMapApi from "../../utils/YandexMapApi";
@@ -14,7 +13,7 @@ export function MapBlock({ mapBlockData, openPopupWithBigMap }) {
         <img
           className={`map-block__link-arrow`}
           src={mapBlockData.linkOpenBigMap}
-          alt="стрелка статуса меню"
+          alt="стрелка сслки на модальное окно карты"
         />
       </button>
       <div className="map-block__map-frame">

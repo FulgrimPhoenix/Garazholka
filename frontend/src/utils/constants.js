@@ -170,6 +170,69 @@ export const constants = {
     title: "Откуда я",
     linkOpenBigMap: show_more_arrow,
   },
+  calendarBlockData: {
+    title: "Когда свободен",
+    linkOpenBigCalendar: show_more_arrow,
+    // setTimeRange: (selectedDate, [...timeRanges]) => {
+    //   timeRanges.length > 1 &&
+    //     timeRanges
+    //       .sort((a, b) => a[0] - b[0])
+    //       .reduce((acc, timeRange, i) => {
+    //         i === 0 && [...acc, timeRange];
+    //         timeRange[0].getFullYear() === timeRange[1].getFullYear() &&
+    //           timeRange[0].getMonth() === timeRange[1].getMonth() &&
+    //           timeRange[0].getDate() === timeRange[1].getDate();
+    //       }, []);
+    timeRanges: {
+      generateTimeRangeDates: ({ selectedDate, range }) => [
+        new Date(
+          selectedDate.getFullYear(),
+          selectedDate.getMonth(),
+          selectedDate.getDate(),
+          range[0][0],
+          range[0][1]
+        ),
+        new Date(
+          selectedDate.getFullYear(),
+          selectedDate.getMonth(),
+          selectedDate.getDate(),
+          range[1][0],
+          range[1][1]
+        ),
+      ],
+      ranges: [
+        {
+          title: "10.00 - 14.00",
+          value: [
+            [10, 0],
+            [14, 0],
+          ],
+        },
+        {
+          title: "12.00 - 16.00",
+          value: [
+            [12, 0],
+            [16, 0],
+          ],
+        },
+        {
+          title: "16.00 - 20.00",
+          value: [
+            [16, 0],
+            [20, 0],
+          ],
+        },
+        {
+          title: "20.00 - 23.59",
+          value: [
+            [20, 0],
+            [23, 59],
+          ],
+        },
+      ],
+    },
+  },
+
   wayTimePreferenceBlockData: {
     title: "Мобильность",
     isOnlineCheckboxTitle: "Онлайн события",
