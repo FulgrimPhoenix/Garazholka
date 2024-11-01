@@ -38,9 +38,6 @@ const CustomCalendar = ({ locale }: ICustomCalendar): React.ReactElement => {
 
   return (
     <div className="calendar">
-      <div className="caledar__date-container">
-        {formateDate({ date: selectedDate, format: "DD MM YYYY" })}
-      </div>
       <div className="calendar__container">
         <h2 className="calendar__header">
           <div

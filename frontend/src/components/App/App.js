@@ -1,5 +1,7 @@
 import logo from "../../logo.svg";
 import "./App.css";
+// import "../../vendor/fonts/fonts.css";
+// import "../../vendor/normalize.css";
 import { useEffect, useState } from "react";
 import { NowView } from "../DataTime.js";
 import { Header } from "../Header/Header.js";

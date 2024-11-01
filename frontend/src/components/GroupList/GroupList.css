@@ -27,12 +27,12 @@
 .group-list__item-input {
   display: none;
   &:checked + label {
-    background-color: var(--accent-hover-color);
+    background-color: var(--accent-hover-color-crimson);
     color: var(--text-accent-color);
   }
 
   &:disabled + label {
-    background-color: var(--accent-hover-color);
+    background-color: var(--accent-hover-color-crimson);
     color: var(--text-accent-color);
     box-shadow: none;
     pointer-events: none;
@@ -56,8 +56,8 @@
     border-top: 1px solid #c7ccd160;
   } */
   &:hover {
-    box-shadow: 0px 0px 0px 2px var(--accent-hover-color);
-    color: var(--accent-hover-color);
+    box-shadow: 0px 0px 0px 2px var(--accent-hover-color-crimson);
+    color: var(--accent-hover-color-crimson);
     background-color: var(--accent-hover-background-color);
   }
 }

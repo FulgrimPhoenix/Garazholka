@@ -20,7 +20,7 @@
 
   &:focus {
     border: none;
-    outline: 2px solid var(--accent-color);
+    outline: 2px solid var(--accent-color-crimson);
   }
   &::placeholder {
     color: #9c9c9c;
