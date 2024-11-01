@@ -1,5 +1,6 @@
 .event-list {
   background-color: var(--frame-color);
+  box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.15);
   padding: 12px 8px;
   border-radius: 12px;
   min-height: 80px;
@@ -16,15 +17,7 @@
   width: 100%;
   background: none;
   border: none;
-}
-
-.event-list__link-title {
   color: var(--text-color);
-  font-size: 20px;
-  font-style: normal;
-  font-weight: bold;
-  line-height: 23px;
-  margin: 0;
 }
 
 .event-list__items {
@@ -44,7 +37,7 @@
 .event-list__item-input {
   display: none;
   &:checked + label {
-    background-color: var(--accent-hover-color);
+    background-color: var(--accent-hover-color-crimson);
     color: var(--text-accent-color);
   }
 }
@@ -52,26 +45,24 @@
 .event-list__item-button {
   display: inline-block;
   margin: 8px 8px 0 auto;
-  height: 32px;
+  height: 34px;
   padding: 8px;
-  background-color: var(--frame-accent--unselected-color);
+  background-color: var(--accent-color-crimson-unselected);
   border-radius: 8px;
   transition: all 0.2s ease-out;
   box-sizing: border-box;
   cursor: pointer;
   border: 1px solid var(--text-color);
-  color: var(--text-color);
-
+  color: var(--text-accent-color);
   font-size: 13px;
   font-style: normal;
-  font-weight: 300;
+  font-weight: 400;
   line-height: normal;
   align-items: center;
 }
 
 .event-list__item-button_checked {
-  background-color: var(--accent-hover-color);
-  color: var(--text-accent-color);
+  background-color: var(--accent-color-crimson-selected);
 }
 
 .event-list__item-title {

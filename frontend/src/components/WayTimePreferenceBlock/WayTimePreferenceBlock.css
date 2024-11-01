@@ -1,6 +1,7 @@
 .way-time-preference-block {
   margin: 20px 0 0;
   background-color: var(--frame-color);
+  box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -23,7 +24,7 @@
   display: none;
 
   &:checked + label {
-    background: #bea2fe;
+    background: var(--accent-color-crimson-unselected);
   }
   &:checked + label:after {
     right: 0;
@@ -31,9 +32,9 @@
 }
 .way-time-preference-block__item-label-checkbox {
   margin: auto 0;
-  width: 32px;
-  height: 16px;
-  background: #adadad;
+  width: 40px;
+  height: 20px;
+  background: #e3e3e3;
   position: relative;
   top: 0;
   display: block;
@@ -43,13 +44,13 @@
   &:after {
     content: "";
     margin: 2px;
-    width: 12px;
-    height: 12px;
+    width: 16px;
+    height: 16px;
     position: absolute;
-    background: #6727ff;
+    background: var(--accent-color-crimson);
     border-radius: 50%;
 
-    right: 16px;
+    right: 20px;
     -webkit-transition: right 0.5s;
     transition: right 0.5s;
   }
@@ -83,8 +84,9 @@
   display: none;
 
   &:checked + label {
-    background: #bea2fe;
+    background: var(--accent-color-crimson);
     background-image: url("../../images/profile/checkmark.svg");
+    fill: var(--text-accent-color);
     background-size: 10px 7px;
     background-repeat: no-repeat;
     background-position: center;
@@ -92,12 +94,15 @@
 }
 
 .way-time-preference-block__way-time-label-item {
-  background: #adadad;
+  border: 1px solid var(--accent-color-crimson);
   height: 22px;
   width: 22px;
   display: block;
   border-radius: 50%;
-  transition: background-color .4s linear;
+  transition: background-color 0.4s linear;
+}
+
+.way-time-preference-block__way-time-label-item svg {
 }
 
 .way-time-preference-block__way-time-title-item {

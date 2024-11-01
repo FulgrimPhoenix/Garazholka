@@ -1,4 +1,4 @@
-.header{
+.header {
   margin: 64px auto 0;
   padding: 0 8px;
   display: flex;
@@ -9,15 +9,16 @@
   max-width: 404px;
 }
 
-.header__title{
+.header__title {
   margin: auto 0;
+  font-family: "Exo 2";
   color: var(--text-color);
   font-size: 32px;
-  font-weight: 600;
+  font-weight: 900;
   line-height: 28px;
 }
 
-.header__menu-button{
+.header__menu-button {
   background: none;
   border: none;
   padding: 0;
@@ -25,11 +26,11 @@
   width: 32px;
 }
 
-.header__buttons-container{
+.header__buttons-container {
   display: flex;
 }
 
-.header__button{
+.header__button {
   margin: auto 0;
   background: none;
   color: var(--text-color);
@@ -37,9 +38,9 @@
   font-size: 18px;
   padding: 15px;
   cursor: pointer;
-  transition: .2s;
+  transition: 0.2s;
 }
 
-.header__button:hover{
-  opacity: .8;
+.header__button:hover {
+  opacity: 0.8;
 }
