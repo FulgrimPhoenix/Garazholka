@@ -2,7 +2,7 @@ import logo from "../../logo.svg";
 import "./App.css";
 // import "../../vendor/fonts/fonts.css";
 // import "../../vendor/normalize.css";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NowView } from "../DataTime.js";
 import { Header } from "../Header/Header.js";
 import { constants } from "../../utils/constants";
@@ -20,6 +20,8 @@ import { SearchString } from "../SearchString/SearchString.tsx";
 import YandexMapApi from "../../utils/YandexMapApi.js";
 import { api } from "../../utils/MainApi";
 import CustomCalendar from "../CustomCalendar/CustomCalendar";
+import { GroupProfile } from "../GroupProfile/GroupProfile";
+import { useUrlPathName } from "../../hooks/useUrlPathName";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -42,6 +44,7 @@ function App() {
   const [abbreviatedEventStatesList, setAbbreviatedEventStatesList] = useState(
     constants.eventListData.eventList.filter((el, i) => i < 5)
   );
+  const currentPath = useUrlPathName();
 
   function signup({ email, username, password }) {
     api.signup({ email, username, password }).then((res) => {
@@ -72,6 +75,8 @@ function App() {
           setEventList={setFilteredEventList}
         >
           <EventList
+            currentPath={currentPath}
+            isPopupOpen={isPopupOpen}
             eventStatesList={eventStatesList}
             eventList={filteredEventList}
             setEventsStatesList={setEventsStatesList}
@@ -91,6 +96,13 @@ function App() {
         </>
       );
     }
+  }
+
+  function openPopupWithMoreEvents(e) {
+    e.preventDefault();
+    setPopupMarkup("/eventList");
+    setCurrentPopupMarkupTitle("/eventList");
+    handlePopup(true);
   }
 
   useEffect(() => {
@@ -122,6 +134,7 @@ function App() {
           <>
             <NavLink to={"/signup"}>Регистрация</NavLink>
             <NavLink to={"/profile"}>Профиль</NavLink>
+            <NavLink to={"/group-profile"}>Профиль группы</NavLink>
             <Header constants={constants} title={currentHeaderTitle} />
             <Page />
             {isPopupOpen ? (
@@ -170,10 +183,27 @@ function App() {
                 setEventsStatesList={setEventsStatesList}
                 setPopupMarkup={setPopupMarkup}
                 setCurrentPopupMarkupTitle={setCurrentPopupMarkupTitle}
+                openPopupWithMoreEvents={openPopupWithMoreEvents}
+                currentPath={currentPath}
               />
             }
           />
         </Route>
+        <Route
+          path="/group-profile"
+          element={
+            <GroupProfile
+              title={constants.groupProfile.title}
+              aboutGroup={constants.groupProfile.aboutGroup}
+              avatar={constants.groupProfile.avatar}
+              eventList={abbreviatedEventStatesList}
+              eventStatesList={eventStatesList}
+              setEventsStatesList={setEventsStatesList}
+              openPopupWithMoreEvents={openPopupWithMoreEvents}
+              currentPath={currentPath}
+            />
+          }
+        />
       </Route>
 
       <Route
@@ -182,6 +212,7 @@ function App() {
           <>
             <NavLink to={"/signup"}>Регистрация</NavLink>
             <NavLink to={"/profile"}>Профиль</NavLink>
+            <NavLink to={"/group-profile"}>Профиль группы</NavLink>
             <Register
               signup={signup}
               registerFormData={constants.registerFormData}

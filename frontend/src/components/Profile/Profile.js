@@ -4,7 +4,6 @@ import { GroupList } from "../GroupList/GroupList";
 import { EventList } from "../EventList/EventList";
 import { MapBlock } from "../MapBlock/MapBlock";
 import { WayTimePreferenceBlock } from "../WayTimePreferenceBlock/WayTimePreferenceBlock";
-import { constants } from "../../utils/constants";
 import { CalendarBlock } from "../CalendarBlock/CalendarBlock";
 
 export function Profile({
@@ -19,6 +18,9 @@ export function Profile({
   setEventsStatesList,
   setPopupMarkup,
   setCurrentPopupMarkupTitle,
+  openPopupWithMoreEvents,
+  currentPath,
+  isPopupOpen,
 }) {
   const [isGroupListOpen, setIsGroupListOpen] = useState(false);
   const [currentChoice, setCurrentChoice] = useState();
@@ -32,12 +34,6 @@ export function Profile({
     setCurrentChoice(e.target.id);
   }
 
-  function openPopupWithMoreEvents(e) {
-    e.preventDefault();
-    setPopupMarkup("/eventList");
-    setCurrentPopupMarkupTitle("/eventList");
-    handlePopup(true);
-  }
   function openPopupWithBigMap(e) {
     e.preventDefault();
     setPopupMarkup("/bigMap");
@@ -84,25 +80,15 @@ export function Profile({
         handleListChoice={handleListChoice}
         currentListChoice={currentChoice}
       />
-      <div className="event-list">
-        <button
-          onClick={(e) => openPopupWithMoreEvents(e)}
-          className={"event-list__link"}
-        >
-          <h3 className="block-title">{constants.eventListData.title}</h3>
-          <img
-            className={`event-list__link-arrow`}
-            src={constants.eventListData.linkMoreImg}
-            alt="стрелка статуса меню"
-          />
-        </button>
-        <EventList
-          eventStatesList={eventStatesList}
-          eventList={eventList}
-          handlePopup={handlePopup}
-          setEventsStatesList={setEventsStatesList}
-        />
-      </div>
+
+      <EventList
+        isPopupOpen={isPopupOpen}
+        currentPath={currentPath}
+        eventStatesList={eventStatesList}
+        eventList={eventList}
+        setEventsStatesList={setEventsStatesList}
+        openPopupWithMoreEvents={openPopupWithMoreEvents}
+      />
       <MapBlock
         mapBlockData={mapBlockData}
         openPopupWithBigMap={openPopupWithBigMap}

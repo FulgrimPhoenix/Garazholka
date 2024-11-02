@@ -14,6 +14,7 @@ import elec from "../images/groups/group_list/avatars/elec.PNG";
 import goblin from "../images/groups/group_list/avatars/goblin.PNG";
 import octo from "../images/groups/group_list/avatars/octo.PNG";
 import venom from "../images/groups/group_list/avatars/venom.PNG";
+import billieAvatar from "../images/groupProfile/BillieAvatar.jpg";
 
 export const constants = {
   header: {
@@ -241,6 +242,11 @@ export const constants = {
       { wayTime: 60, id: 60, title: "В пределах часа" },
       { wayTime: null, id: 120, title: "Без ограничений" },
     ],
+  },
+  groupProfile: {
+    title: "Gachi Club",
+    aboutGroup: "Welcome to the club buddy",
+    avatar: billieAvatar,
   },
   intro: {
     title: "Мероприятие дня:",
