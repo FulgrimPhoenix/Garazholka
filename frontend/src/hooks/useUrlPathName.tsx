@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom"
 
-export const useUrlPathName = () => {
+export const useUrlPathName = (): string => {
   const currentLocation = useLocation();
   return currentLocation.pathname
 }
