@@ -15,8 +15,92 @@ import goblin from "../images/groups/group_list/avatars/goblin.PNG";
 import octo from "../images/groups/group_list/avatars/octo.PNG";
 import venom from "../images/groups/group_list/avatars/venom.PNG";
 import billieAvatar from "../images/groupProfile/BillieAvatar.jpg";
+import { IEventItem, IGroupData, IProfileData } from "../types";
 
-export const constants = {
+export interface Iranges {
+  title: string;
+  value: number[][];
+}
+
+export interface IWayTimePreferenceBlockData {
+  title: string;
+  isOnlineCheckboxTitle: string;
+  wayTimeItems: [
+    { wayTime: number; id: string; title: string },
+    { wayTime: number; id: string; title: string },
+    { wayTime: null; id: string; title: string },
+  ];
+}
+
+export interface IGroupListData {
+  groupLinkImg: (arg?: string) => string;
+  groupList: IGroupData[];
+}
+
+export interface ICalendarBlockData {
+  title: string;
+  linkOpenBigCalendar: string;
+  timeRanges: {
+    generateTimeRangeDates: (arg: {
+      selectedDate: Date;
+      range: number[][];
+    }) => [Date, Date];
+    ranges: Iranges[];
+  };
+}
+
+export interface IMapBlockData {
+  title: string;
+  linkOpenBigMap: string;
+}
+
+interface IConstants {
+  header: {
+    logo: string;
+    buttons: string[];
+    menuIcon: string;
+  };
+  registerFormData: {
+    logo: string;
+    title: string;
+    buttonTextFirstPage: string;
+    buttonTextSecondPage: string;
+    backButton: string;
+  };
+  loginFormData: {
+    logo: string;
+    title: string;
+    buttonText: string;
+  };
+  profile: IProfileData;
+  eventListData: {
+    title: string;
+    linkMoreImg: string;
+    eventList: IEventItem[];
+  };
+  mapBlockData: IMapBlockData;
+  calendarBlockData: ICalendarBlockData;
+  wayTimePreferenceBlockData: IWayTimePreferenceBlockData;
+  groupProfile: {
+    title: string;
+    aboutGroup: string;
+    avatar: string;
+  };
+  intro: {
+    title: string;
+    interativeName: string;
+    interativeDescription: string;
+    interativeLocation: string;
+    interativeStatistic: [
+      { name: string; data: string },
+      { name: string; data: string },
+      { name: string; data: string },
+    ];
+    interativeArts: string[];
+  };
+}
+
+export const constants: IConstants = {
   header: {
     logo: "Garazholka",
     buttons: ["Войти", "Регистрация"],
@@ -44,26 +128,18 @@ export const constants = {
     groupButtonImg: show_more_arrow,
     groupLinkImg: (state) =>
       state === "selected" ? show_more_arrow_focused : show_more_arrow,
-    groupList: [
-      { avatar: rino, id: 1, title: "Первая", followers: 3 },
-      { avatar: sterv, id: 2, title: "Вторая", followers: 2 },
-      { avatar: elec, id: 3, title: "Третья", followers: 4 },
-      { avatar: goblin, id: 4, title: "Четвертая", followers: 0 },
-      { avatar: octo, id: 5, title: "Пятая", followers: 1 },
-      { avatar: venom, id: 6, title: "Шестая", followers: 7 },
-    ],
-  },
-  groupListData: {
-    groupLinkImg: (state) =>
-      state === "selected" ? show_more_arrow_focused : show_more_arrow,
-    groupList: [
-      { avatar: rino, id: 1, title: "Первая", followers: 3 },
-      { avatar: sterv, id: 2, title: "Вторая", followers: 2 },
-      { avatar: elec, id: 3, title: "Третья", followers: 4 },
-      { avatar: goblin, id: 4, title: "Четвертая", followers: 0 },
-      { avatar: octo, id: 5, title: "Пятая", followers: 1 },
-      { avatar: venom, id: 6, title: "Шестая", followers: 7 },
-    ],
+    groupListData: {
+      groupLinkImg: (state) =>
+        state === "selected" ? show_more_arrow_focused : show_more_arrow,
+      groupList: [
+        { avatar: rino, id: "1", title: "Первая", followersNumber: 3 },
+        { avatar: sterv, id: "2", title: "Вторая", followersNumber: 2 },
+        { avatar: elec, id: "3", title: "Третья", followersNumber: 4 },
+        { avatar: goblin, id: "4", title: "Четвертая", followersNumber: 0 },
+        { avatar: octo, id: "5", title: "Пятая", followersNumber: 1 },
+        { avatar: venom, id: "6", title: "Шестая", followersNumber: 7 },
+      ],
+    },
   },
   eventListData: {
     title: "Что хочешь?",
@@ -74,7 +150,7 @@ export const constants = {
         title: "Игра в Warhammer 40000",
         avatar: undefined,
         description: undefined,
-        followers: 10,
+        followersNumber: 10,
         location: "ул. Советский проспект 2а",
         duration: 600, //minutes
         isOnline: false,
@@ -86,7 +162,7 @@ export const constants = {
         title: "D&D",
         avatar: undefined,
         description: undefined,
-        followers: 10,
+        followersNumber: 10,
         location: "ул. Советский проспект 2а",
         duration: 300, //minutes
         isOnline: false,
@@ -98,7 +174,7 @@ export const constants = {
         title: "Прибухнуть в стиле олдскул",
         avatar: undefined,
         description: undefined,
-        followers: 6,
+        followersNumber: 6,
         location: "ул. Советский проспект 2а",
         duration: 240, //minutes
         isOnline: false,
@@ -110,7 +186,7 @@ export const constants = {
         title: "Поиграть в Space marine 2",
         avatar: undefined,
         description: undefined,
-        followers: 10,
+        followersNumber: 10,
         location: undefined,
         duration: 720, //minutes
         isOnline: true,
@@ -122,7 +198,7 @@ export const constants = {
         title: "Поход на шашлыки",
         avatar: undefined,
         description: undefined,
-        followers: 10,
+        followersNumber: 10,
         location: undefined,
         duration: 240, //minutes
         isOnline: false,
@@ -134,7 +210,7 @@ export const constants = {
         title: "Поиграть в другие настолки",
         avatar: undefined,
         description: undefined,
-        followers: 11,
+        followersNumber: 11,
         location: undefined,
         duration: 180, //minutes
         isOnline: false,
@@ -146,7 +222,7 @@ export const constants = {
         title: "Поход в бар",
         avatar: undefined,
         description: undefined,
-        followers: 19,
+        followersNumber: 19,
         location: undefined,
         duration: 300, //minutes
         isOnline: false,
@@ -158,7 +234,7 @@ export const constants = {
         title: "Покраскодиско",
         avatar: undefined,
         description: undefined,
-        followers: 10,
+        followersNumber: 10,
         location: undefined,
         duration: 300, //minutes
         isOnline: false,
@@ -238,9 +314,9 @@ export const constants = {
     title: "Мобильность",
     isOnlineCheckboxTitle: "Онлайн события",
     wayTimeItems: [
-      { wayTime: 20, id: 20, title: "В пределах 20 минут" },
-      { wayTime: 60, id: 60, title: "В пределах часа" },
-      { wayTime: null, id: 120, title: "Без ограничений" },
+      { wayTime: 20, id: "20", title: "В пределах 20 минут" },
+      { wayTime: 60, id: "60", title: "В пределах часа" },
+      { wayTime: null, id: "120", title: "Без ограничений" },
     ],
   },
   groupProfile: {

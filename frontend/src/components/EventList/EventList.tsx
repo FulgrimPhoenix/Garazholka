@@ -1,29 +1,13 @@
 import React, { ReactElement } from "react";
 import "./EventList.css";
 import { constants } from "../../utils/constants";
-import { useUrlPathName } from "../../hooks/useUrlPathName";
-
-export type TEventItem = {
-  id: string;
-  title: string;
-  avatar: string | undefined;
-  description: string | undefined;
-  followers: number;
-  location: string | undefined;
-  duration: number; //minutes
-  isOnline: boolean;
-  timeDiapason: string;
-  minimumNumberOfUsers: number;
-};
-
-export type TEventStatus = { id: string; selected: boolean };
+import { IEventItem, TEventList, TEventStatesList } from "../../types";
 
 interface IEventList {
-  eventList: TEventItem[];
-  eventStatesList: TEventStatus[];
-  setEventsStatesList: (newValue: TEventStatus[]) => void;
+  eventList: TEventList;
+  eventStatesList: TEventStatesList;
+  setEventsStatesList: (newValue: TEventStatesList) => void;
   openPopupWithMoreEvents: (e: React.SyntheticEvent<EventTarget>) => void;
-  currentPath: string;
   isPopupOpen: boolean;
 }
 
@@ -33,9 +17,8 @@ export function EventList({
   setEventsStatesList,
   openPopupWithMoreEvents,
   isPopupOpen,
-  currentPath,
 }: IEventList): ReactElement {
-  function takeFormValues(el: TEventItem) {
+  function takeFormValues(el: IEventItem) {
     const newData = eventStatesList.map((item) => {
       if (item.id === el.id) {
         item.selected = !item.selected;

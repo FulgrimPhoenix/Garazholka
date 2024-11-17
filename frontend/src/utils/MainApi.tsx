@@ -1,14 +1,16 @@
-type TUserLogData = {
-  email: string;
+import { IUserData } from "../types";
+
+export type TUserLogData = {
+  email?: string;
   password: string;
-  username: string;
+  login: string;
   name?: string | undefined;
   surname?: string | undefined;
   location?: string | undefined;
   groups?: number | undefined;
 };
 
-type TGroupData = {
+export type TGroupData = {
   id: string;
   title: string;
   avatar: string | undefined;
@@ -18,24 +20,7 @@ type TGroupData = {
   likeCounter: number | undefined;
 };
 
-type TUserData = {
-  id: number;
-  login: string;
-  email: string;
-  password: string;
-  name: string | undefined;
-  surname: string | undefined;
-  description: string | undefined;
-  avatar: string | undefined;
-  location: string | undefined;
-  groups: number | undefined;
-  event_preference: undefined;
-  work_schedule: Date | undefined;
-  way_time_preference: number;
-  online_events: boolean;
-};
-
-interface IRequestOptions {
+export interface IRequestOptions {
   method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
   headers: {
     ["Content-Type"]: "application/json";
@@ -44,7 +29,7 @@ interface IRequestOptions {
   body?: string;
 }
 
-class Api {
+export class Api {
   constructor(protected url: string) {}
   _checkResponse(res: any) {
     if (res.ok) {
@@ -64,21 +49,21 @@ class Api {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        username: args.username,
+        login: args.login,
         email: args.email,
         password: args.password,
       }),
     });
   }
 
-  public signin({ ...args }: TUserLogData): Promise<TUserData> {
+  public signin({ ...args }: TUserLogData): Promise<IUserData> {
     return this._request(this.url + "token/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        username: args.username,
+        login: args.login,
         password: args.password,
       }),
     });

@@ -1,14 +1,15 @@
 import React from "react";
 import "./GroupProfile.css";
-import { EventList, TEventItem, TEventStatus } from "../EventList/EventList";
+import { EventList } from "../EventList/EventList";
+import { IEventItem, TEventStatesList } from "../../types";
 
 interface IGroupProfile {
   title: string;
   aboutGroup: string;
   avatar: string;
-  eventList: TEventItem[];
-  eventStatesList: TEventStatus[];
-  setEventsStatesList: (newValue: TEventStatus[]) => void;
+  eventList: IEventItem[];
+  eventStatesList: TEventStatesList;
+  setEventsStatesList: (newValue: TEventStatesList) => void;
   openPopupWithMoreEvents: (e: React.SyntheticEvent<EventTarget>) => void;
   currentPath: string;
   isPopupOpen: boolean;
@@ -22,7 +23,6 @@ export function GroupProfile({
   eventStatesList,
   setEventsStatesList,
   openPopupWithMoreEvents,
-  currentPath,
   isPopupOpen,
 }: IGroupProfile): React.ReactElement {
   return (
@@ -36,7 +36,6 @@ export function GroupProfile({
       </div>
       <EventList
         isPopupOpen={isPopupOpen}
-        currentPath={currentPath}
         eventStatesList={eventStatesList}
         eventList={eventList}
         setEventsStatesList={setEventsStatesList}
