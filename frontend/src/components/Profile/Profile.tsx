@@ -1,10 +1,34 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import "./Profile.css";
 import { GroupList } from "../GroupList/GroupList";
 import { EventList } from "../EventList/EventList";
 import { MapBlock } from "../MapBlock/MapBlock";
 import { WayTimePreferenceBlock } from "../WayTimePreferenceBlock/WayTimePreferenceBlock";
 import { CalendarBlock } from "../CalendarBlock/CalendarBlock";
+import { IProfileData, TEventList, TEventStatesList } from "../../types";
+import {
+  constants,
+  ICalendarBlockData,
+  IGroupListData,
+  IMapBlockData,
+  IWayTimePreferenceBlockData,
+} from "../../utils/constants";
+
+interface IProfile {
+  profileData: IProfileData;
+  groupListData: IGroupListData;
+  calendarBlockData: ICalendarBlockData;
+  eventList: TEventList;
+  mapBlockData: IMapBlockData;
+  wayTimePreferenceBlockData: IWayTimePreferenceBlockData;
+  handlePopup: (newValue: boolean) => void;
+  eventStatesList: TEventStatesList;
+  setEventsStatesList: (newValue: TEventStatesList) => void;
+  setCurrentPopupMarkupTitle: (newValue: string) => void;
+  openPopupWithMoreEvents: (e: React.SyntheticEvent<EventTarget>) => void;
+  currentPath: string;
+  isPopupOpen: boolean;
+}
 
 export function Profile({
   profileData,
@@ -16,34 +40,37 @@ export function Profile({
   handlePopup,
   eventStatesList,
   setEventsStatesList,
-  setPopupMarkup,
   setCurrentPopupMarkupTitle,
   openPopupWithMoreEvents,
   currentPath,
   isPopupOpen,
-}) {
+}: IProfile): React.ReactElement {
   const [isGroupListOpen, setIsGroupListOpen] = useState(false);
-  const [currentChoice, setCurrentChoice] = useState();
+  const [currentChoice, setCurrentChoice] = useState<string>("");
 
-  function handlGroupMenu(e) {
+  function handlGroupMenu(e: React.SyntheticEvent<EventTarget>): void {
     e.preventDefault();
     setIsGroupListOpen(!isGroupListOpen);
   }
 
-  function handleListChoice(e) {
-    setCurrentChoice(e.target.id);
+  function handleListChoice(e: React.SyntheticEvent<EventTarget>) {
+    const target = e.target as HTMLElement;
+
+    if (target && target.id) {
+      setCurrentChoice(target.id);
+    }
   }
 
-  function openPopupWithBigMap(e) {
+  function openPopupWithBigMap(e: React.SyntheticEvent<EventTarget>): void {
     e.preventDefault();
-    setPopupMarkup("/bigMap");
     setCurrentPopupMarkupTitle("/bigMap");
     handlePopup(true);
   }
 
-  function openPopupWithBigCalendar(e) {
+  function openPopupWithBigCalendar(
+    e: React.SyntheticEvent<EventTarget>
+  ): void {
     e.preventDefault();
-    setPopupMarkup("/bigCalendar");
     setCurrentPopupMarkupTitle("/bigCalendar");
     handlePopup(true);
   }
@@ -83,7 +110,6 @@ export function Profile({
 
       <EventList
         isPopupOpen={isPopupOpen}
-        currentPath={currentPath}
         eventStatesList={eventStatesList}
         eventList={eventList}
         setEventsStatesList={setEventsStatesList}
