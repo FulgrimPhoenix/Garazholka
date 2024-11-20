@@ -104,6 +104,8 @@ const CustomCalendar = ({
                         onClick={() => {
                           functions.setSelecteDate(day);
                           setCurrentDate(day.date);
+                          console.log(1, currentDate);
+                          
                         }}
                         className={[
                           "calendar__day",
@@ -131,13 +133,13 @@ const CustomCalendar = ({
         {constants.calendarBlockData.timeRanges.ranges.map((range: Iranges) => {
           const currentRange: Date[] =
             constants.calendarBlockData.timeRanges.generateTimeRangeDates({
-              selectedDate: selectedDate,
+              selectedDate: currentDate,
               range: range.value,
             });
           const dateKey: string = [
-            selectedDate.getFullYear(),
-            selectedDate.getMonth(),
-            selectedDate.getDate(),
+            currentDate.getFullYear(),
+            currentDate.getMonth(),
+            currentDate.getDate(),
           ].join("-");
           const isSelectedRange = listOfUserSelectedDates[dateKey]
             ? listOfUserSelectedDates[dateKey].find(

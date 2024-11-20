@@ -12,16 +12,17 @@ import { Page } from "../Page/Page.js";
 import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute.js";
 import { Register } from "../Register/Register.js";
 import { Login } from "../Login/Login.js";
-import { Profile } from "../Profile/Profile.js";
+import { Profile } from "../Profile/Profile.tsx";
 import { Popup } from "../Popup/Popup.js";
 import { EventList } from "../EventList/EventList";
 import { SearchString } from "../SearchString/SearchString";
 import YandexMapApi from "../../utils/YandexMapApi.js";
 import { api, TUserLogData } from "../../utils/MainApi";
 import CustomCalendar from "../CustomCalendar/CustomCalendar";
-import { GroupProfile } from "../GroupProfile/GroupProfile";
+
 import { useUrlPathName } from "../../hooks/useUrlPathName";
 import { TEventList, TEventStatesList } from "../../types";
+import { GroupProfile } from "../GroupProfile/GroupProfile.tsx";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -190,14 +191,16 @@ function App() {
           path="/group-profile"
           element={
             <GroupProfile
-              title={constants.groupProfile.title}
-              aboutGroup={constants.groupProfile.aboutGroup}
+              groupTitle={constants.groupProfile.groupTitle}
+              id={constants.groupProfile.id}
+              followersNumber={constants.groupProfile.followersNumber}
+              followers={constants.groupProfile.followers}
+              description={constants.groupProfile.description}
               avatar={constants.groupProfile.avatar}
               eventList={abbreviatedEventStatesList}
               eventStatesList={eventStatesList}
               setEventsStatesList={setEventsStatesList}
               openPopupWithMoreEvents={openPopupWithMoreEvents}
-              currentPath={currentPath}
               isPopupOpen={isPopupOpen} //возможно лишнее свойство
             />
           }
