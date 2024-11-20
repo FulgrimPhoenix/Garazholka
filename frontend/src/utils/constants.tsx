@@ -15,7 +15,13 @@ import goblin from "../images/groups/group_list/avatars/goblin.PNG";
 import octo from "../images/groups/group_list/avatars/octo.PNG";
 import venom from "../images/groups/group_list/avatars/venom.PNG";
 import billieAvatar from "../images/groupProfile/BillieAvatar.jpg";
-import { IEventItem, IGroupData, IProfileData } from "../types";
+import testProfileUserAvatar from "../images/groupProfile/testavatar.jpg";
+import {
+  IEventItem,
+  IGroupFullData,
+  IGroupMainData,
+  IProfileData,
+} from "../types";
 
 export interface Iranges {
   title: string;
@@ -34,7 +40,7 @@ export interface IWayTimePreferenceBlockData {
 
 export interface IGroupListData {
   groupLinkImg: (arg?: string) => string;
-  groupList: IGroupData[];
+  groupList: IGroupMainData[];
 }
 
 export interface ICalendarBlockData {
@@ -81,11 +87,7 @@ interface IConstants {
   mapBlockData: IMapBlockData;
   calendarBlockData: ICalendarBlockData;
   wayTimePreferenceBlockData: IWayTimePreferenceBlockData;
-  groupProfile: {
-    title: string;
-    aboutGroup: string;
-    avatar: string;
-  };
+  groupProfile: IGroupFullData;
   intro: {
     title: string;
     interativeName: string;
@@ -132,12 +134,17 @@ export const constants: IConstants = {
       groupLinkImg: (state) =>
         state === "selected" ? show_more_arrow_focused : show_more_arrow,
       groupList: [
-        { avatar: rino, id: "1", title: "Первая", followersNumber: 3 },
-        { avatar: sterv, id: "2", title: "Вторая", followersNumber: 2 },
-        { avatar: elec, id: "3", title: "Третья", followersNumber: 4 },
-        { avatar: goblin, id: "4", title: "Четвертая", followersNumber: 0 },
-        { avatar: octo, id: "5", title: "Пятая", followersNumber: 1 },
-        { avatar: venom, id: "6", title: "Шестая", followersNumber: 7 },
+        { avatar: rino, id: "1", groupTitle: "Первая", followersNumber: 3 },
+        { avatar: sterv, id: "2", groupTitle: "Вторая", followersNumber: 2 },
+        { avatar: elec, id: "3", groupTitle: "Третья", followersNumber: 4 },
+        {
+          avatar: goblin,
+          id: "4",
+          groupTitle: "Четвертая",
+          followersNumber: 0,
+        },
+        { avatar: octo, id: "5", groupTitle: "Пятая", followersNumber: 1 },
+        { avatar: venom, id: "6", groupTitle: "Шестая", followersNumber: 7 },
       ],
     },
   },
@@ -320,9 +327,89 @@ export const constants: IConstants = {
     ],
   },
   groupProfile: {
-    title: "Gachi Club",
-    aboutGroup: "Welcome to the club buddy",
+    groupTitle: "Gachi Club",
+    id: "123456",
+    followersNumber: 11,
+    description:
+      "Welcome to the club buddy. Let's celebrate and suck some dick!",
     avatar: billieAvatar,
+    followers: [
+      {
+        id: "1111111",
+        login: "tester1",
+        email: "tester1@mail.ru",
+        password: "123456",
+        name: "Tester1",
+        surname: "Tost",
+        description: "I am tester",
+        avatar: testProfileUserAvatar,
+        location: "Мытищи",
+        groups: ["123456"],
+        event_preference: ["11", "55", "66"],
+        work_schedule: {
+          "2025-1-22": [
+            [new Date(2025, 1, 22, 10), new Date(2025, 1, 22, 16)],
+            [new Date(2025, 1, 22, 14), new Date(2025, 1, 22, 20)],
+          ],
+          "2025-1-23": [
+            [new Date(2025, 1, 23, 10), new Date(2025, 1, 23, 16)],
+            [new Date(2025, 1, 23, 14), new Date(2025, 1, 23, 20)],
+          ],
+        },
+        way_time_preference: 20,
+        online_events: true,
+      },
+      {
+        id: "222222",
+        login: "tester2",
+        email: "tester2@mail.ru",
+        password: "123456",
+        name: "Tester2",
+        surname: "Tost",
+        description: "I am tester2",
+        avatar: testProfileUserAvatar,
+        location: "Мытищи",
+        groups: ["123456"],
+        event_preference: ["11", "44", "77"],
+        work_schedule: {
+          "2025-1-22": [
+            [new Date(2025, 1, 22, 10), new Date(2025, 1, 22, 16)],
+            [new Date(2025, 1, 22, 14), new Date(2025, 1, 22, 20)],
+          ],
+          "2025-1-23": [
+            [new Date(2025, 1, 23, 10), new Date(2025, 1, 23, 16)],
+            [new Date(2025, 1, 23, 14), new Date(2025, 1, 23, 20)],
+          ],
+        },
+        way_time_preference: 60,
+        online_events: false,
+      },
+      {
+        id: "333333",
+        login: "tester3",
+        email: "tester3@mail.ru",
+        password: "123456",
+        name: "Tester3",
+        surname: "Tost",
+        description: "I am tester3",
+        avatar: testProfileUserAvatar,
+        location: "Мытищи",
+        groups: ["123456"],
+        event_preference: ["11", "33", "88"],
+        work_schedule: {
+          "2025-1-22": [
+            [new Date(2025, 1, 22, 10), new Date(2025, 1, 22, 16)],
+            [new Date(2025, 1, 22, 14), new Date(2025, 1, 22, 20)],
+          ],
+          "2025-1-23": [
+            [new Date(2025, 1, 23, 10), new Date(2025, 1, 23, 16)],
+            [new Date(2025, 1, 23, 14), new Date(2025, 1, 23, 20)],
+          ],
+        },
+        way_time_preference: null,
+        online_events: true,
+      },
+    ],
   },
   intro: {
     title: "Мероприятие дня:",

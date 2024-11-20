@@ -1,12 +1,12 @@
 import { NavLink } from "react-router-dom";
 import React, { ReactElement } from "react";
 import "./GroupList.css";
-import { IGroupData } from "../../types";
+import { IGroupMainData } from "../../types";
 
 interface IGroupList {
   groupListData: {
     groupLinkImg: (arg?: string) => string;
-    groupList: IGroupData[];
+    groupList: IGroupMainData[];
   };
   isGroupListOpen: boolean;
   handleListChoice: (e: React.SyntheticEvent<EventTarget>) => void;
@@ -64,7 +64,7 @@ export function GroupList({
                   alt="аватар"
                 />
                 <div className="group-list__item-group-info">
-                  <h2 className="group-list__item-title">{el.title}</h2>
+                  <h2 className="group-list__item-title">{el.groupTitle}</h2>
                   <p className="group-list__item-followersNumber-counter">
                     {el.followersNumber}
                     {` ${el.followersNumber === 1 ? "участник" : "участников"}`}

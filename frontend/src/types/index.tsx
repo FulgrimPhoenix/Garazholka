@@ -1,5 +1,5 @@
 export interface IUserData {
-  id: number;
+  id: string;
   login: string;
   email: string;
   password: string;
@@ -8,10 +8,10 @@ export interface IUserData {
   description: string | undefined;
   avatar: string | undefined;
   location: string | undefined;
-  groups: number | undefined;
-  event_preference: undefined;
-  work_schedule: Date | undefined;
-  way_time_preference: number;
+  groups: string[] | undefined;
+  event_preference: string[] | undefined;
+  work_schedule: Record<string, Date[][]> | undefined;
+  way_time_preference: 20 | 60 | null;
   online_events: boolean;
 }
 
@@ -36,16 +36,16 @@ export interface IEventState {
 }
 export type TEventStatesList = IEventState[];
 
-export interface IGroupData {
+export interface IGroupMainData {
   avatar: string;
   id: string;
-  title: string;
+  groupTitle: string;
   followersNumber: number;
 }
 
-export interface IGroupFullData extends IGroupData {
+export interface IGroupFullData extends IGroupMainData {
   description?: string;
-  followers?: IUserData;
+  followers: IUserData[];
 }
 
 export interface IProfileData {
@@ -57,6 +57,6 @@ export interface IProfileData {
   groupLinkImg: (arg?: string | undefined) => string;
   groupListData: {
     groupLinkImg: (arg?: string | undefined) => string;
-    groupList: IGroupData[];
+    groupList: IGroupMainData[];
   };
 }
