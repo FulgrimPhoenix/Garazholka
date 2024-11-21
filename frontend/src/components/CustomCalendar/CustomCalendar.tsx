@@ -29,9 +29,9 @@ const CustomCalendar = ({
     date: currentDate,
   });
 
-  useEffect(() => {
-    console.log(listOfUserSelectedDates);
-  }, [listOfUserSelectedDates]);
+  // useEffect(() => {
+  //   console.log(listOfUserSelectedDates);
+  // }, [listOfUserSelectedDates]);
 
   return (
     <div className="calendar">
@@ -103,9 +103,7 @@ const CustomCalendar = ({
                         key={`${day.dayNumber}-${day.monthIndex}-${day.year}`}
                         onClick={() => {
                           functions.setSelecteDate(day);
-                          setCurrentDate(day.date);
-                          console.log(1, currentDate);
-                          
+                          setCurrentDate(day.date);                          
                         }}
                         className={[
                           "calendar__day",

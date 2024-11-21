@@ -20,20 +20,18 @@ export function GroupList({
   currentListChoice,
 }: IGroupList): ReactElement {
   return (
-    <div key={"group-list"} className="group-list__form">
+    <div key={"987"} className="group-list__form">
       <form
-        key={"group-list__form"}
         className={`group-list__container ${
           isGroupListOpen ? "group-list__container_open" : ""
         }`}
       >
         {groupListData.groupList.map((el) => {
           return (
-            <>
+            <div key={el.id}>
               {(el.id as string) === currentListChoice ? (
                 <input
                   onClick={handleListChoice}
-                  key={`input${el.id}`}
                   id={el.id}
                   className="group-list__item-input"
                   type="radio"
@@ -44,7 +42,6 @@ export function GroupList({
               ) : (
                 <input
                   onClick={handleListChoice}
-                  key={`input${el.id}`}
                   id={el.id.toString()}
                   className="group-list__item-input"
                   type="radio"
@@ -53,12 +50,10 @@ export function GroupList({
                 />
               )}
               <label
-                key={`label${el.id}`}
                 htmlFor={el.id.toString()}
                 className="group-list__item-label"
               >
                 <img
-                  key={`img${el.id}`}
                   className="group-list__item-avatar"
                   src={el.avatar}
                   alt="аватар"
@@ -82,7 +77,7 @@ export function GroupList({
                   />
                 </NavLink>
               </label>
-            </>
+            </div>
           );
         })}
       </form>

@@ -107,14 +107,26 @@ export function Profile({
         handleListChoice={handleListChoice}
         currentListChoice={currentChoice}
       />
+      <div className="profile__events-block">
+        <button
+          onClick={(e) => openPopupWithMoreEvents(e)}
+          className={"profile__events-block-link"}
+        >
+          <h3 className="block-title">Что хочешь?</h3>
+          <img
+            className={`profile__events-block-link-arrow`}
+            src={constants.eventListData.linkMoreImg}
+            alt="стрелка статуса меню"
+          />
+        </button>
+        <EventList
+          isPopupOpen={isPopupOpen}
+          eventStatesList={eventStatesList}
+          eventList={eventList}
+          setEventsStatesList={setEventsStatesList}
+        />
+      </div>
 
-      <EventList
-        isPopupOpen={isPopupOpen}
-        eventStatesList={eventStatesList}
-        eventList={eventList}
-        setEventsStatesList={setEventsStatesList}
-        openPopupWithMoreEvents={openPopupWithMoreEvents}
-      />
       <MapBlock
         mapBlockData={mapBlockData}
         openPopupWithBigMap={openPopupWithBigMap}
