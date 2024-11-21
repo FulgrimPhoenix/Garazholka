@@ -29,7 +29,7 @@
   margin: 0;
   width: 93%;
   border-radius: 8px;
-  background-color: var(--accent-color-unselected);
+  background-color: var(--accent-color-crimson-unselected);
   color: var(--frame-text-color);
   padding: 10px;
   display: flex;
@@ -92,7 +92,7 @@
   font-size: 16px;
   font-weight: 400;
   border-radius: 8px;
-  background-color: var(--accent-color-unselected);
+  background-color: var(--accent-color-crimson-unselected);
   color: var(--frame-text-color);
   height: 36px;
   width: 36px;
@@ -108,15 +108,15 @@
 
 .calendar__day:hover {
   background-color: var(--accent-hover-background-color);
-  border: 1px solid var(--accent-color);
-  color: var(--accent-color);
+  border: 1px solid var(--accent-color-crimson);
+  color: var(--accent-color-crimson);
 }
 
 .calendar__additional-day {
   font-weight: 300;
   cursor: pointer;
   background-color: #fff;
-  color: var(--accent-color);
+  color: var(--accent-color-crimson);
 }
 
 .calendar__today-day {
@@ -125,7 +125,7 @@
 }
 
 .calendar__selected-day {
-  background-color: var(--accent-color);
+  background-color: var(--accent-color-crimson);
   color: var(--frame-text-color);
 }
 
@@ -133,7 +133,7 @@
   background-color: var(--accent-hover-background-color);
 }
 
-.calendar__day-with-selected-ranges{
+.calendar__day-with-selected-ranges {
   transform: scale(1.2);
 }
 
@@ -147,7 +147,7 @@
 
 .calendar__time-range-button {
   border-radius: 8px;
-  background-color: var(--accent-color-unselected);
+  background-color: var(--accent-color-crimson-unselected);
   padding: 8px;
   border: none;
   cursor: pointer;
@@ -162,7 +162,7 @@
   margin: 0 16px 16px 0;
 }
 
-.calendar__time-range-button_selected{
-  background-color: var(--accent-color);
+.calendar__time-range-button_selected {
+  background-color: var(--accent-color-crimson);
   color: var(--frame-text-color);
 }

@@ -1,5 +1,5 @@
 import "./Intro.css";
-import { constants } from "../../utils/constants.js";
+import { constants } from "../../utils/constants.tsx";
 
 export function Intro({ children }) {
   return (

@@ -1,14 +1,19 @@
+@import url(./vendor/fonts/fonts.css);
+@import url(./vendor/normalize.css);
+
 :root {
-  --backbround-color: #fff;
+  --background-color: #f6f6f6;
   --background-overlay-color: rgba(0, 0, 0, 0.5);
-  --frame-color: #d9d9d9;
+  --frame-color: #fff;
   --frame-accent--unselected-color: #adadad;
   --frame-accent-selected-color: #696969;
   --text-color: #000;
   --frame-text-color: #fff;
-  --accent-color: #c04476;
-  --accent-color-unselected: #bf869d;
-  --accent-hover-color: #c193a6;
+  --accent-color-crimson: #c04476;
+  --accent-color-blue: #03a2db;
+  --accent-color-crimson-unselected: #bf869d;
+  --accent-color-crimson-selected: #c04476;
+  --accent-hover-color-crimson: #c193a6;
   --accent-hover-background-color: #fff;
   --text-accent-color: #fff;
   --text-error-color: #ff8181;
@@ -29,15 +34,14 @@
 body {
   background-color: var(--background-color);
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: "Exo 2";
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-tap-highlight-color: transparent;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+  font-family: "Exo2", source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }

@@ -1,11 +1,34 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import "./Profile.css";
 import { GroupList } from "../GroupList/GroupList";
 import { EventList } from "../EventList/EventList";
 import { MapBlock } from "../MapBlock/MapBlock";
 import { WayTimePreferenceBlock } from "../WayTimePreferenceBlock/WayTimePreferenceBlock";
-import { constants } from "../../utils/constants";
 import { CalendarBlock } from "../CalendarBlock/CalendarBlock";
+import { IProfileData, TEventList, TEventStatesList } from "../../types";
+import {
+  constants,
+  ICalendarBlockData,
+  IGroupListData,
+  IMapBlockData,
+  IWayTimePreferenceBlockData,
+} from "../../utils/constants";
+
+interface IProfile {
+  profileData: IProfileData;
+  groupListData: IGroupListData;
+  calendarBlockData: ICalendarBlockData;
+  eventList: TEventList;
+  mapBlockData: IMapBlockData;
+  wayTimePreferenceBlockData: IWayTimePreferenceBlockData;
+  handlePopup: (newValue: boolean) => void;
+  eventStatesList: TEventStatesList;
+  setEventsStatesList: (newValue: TEventStatesList) => void;
+  setCurrentPopupMarkupTitle: (newValue: string) => void;
+  openPopupWithMoreEvents: (e: React.SyntheticEvent<EventTarget>) => void;
+  currentPath: string;
+  isPopupOpen: boolean;
+}
 
 export function Profile({
   profileData,
@@ -17,37 +40,37 @@ export function Profile({
   handlePopup,
   eventStatesList,
   setEventsStatesList,
-  setPopupMarkup,
   setCurrentPopupMarkupTitle,
-}) {
+  openPopupWithMoreEvents,
+  currentPath,
+  isPopupOpen,
+}: IProfile): React.ReactElement {
   const [isGroupListOpen, setIsGroupListOpen] = useState(false);
-  const [currentChoice, setCurrentChoice] = useState();
+  const [currentChoice, setCurrentChoice] = useState<string>("");
 
-  function handlGroupMenu(e) {
+  function handlGroupMenu(e: React.SyntheticEvent<EventTarget>): void {
     e.preventDefault();
     setIsGroupListOpen(!isGroupListOpen);
   }
 
-  function handleListChoice(e) {
-    setCurrentChoice(e.target.id);
+  function handleListChoice(e: React.SyntheticEvent<EventTarget>) {
+    const target = e.target as HTMLElement;
+
+    if (target && target.id) {
+      setCurrentChoice(target.id);
+    }
   }
 
-  function openPopupWithMoreEvents(e) {
+  function openPopupWithBigMap(e: React.SyntheticEvent<EventTarget>): void {
     e.preventDefault();
-    setPopupMarkup("/eventList");
-    setCurrentPopupMarkupTitle("/eventList");
-    handlePopup(true);
-  }
-  function openPopupWithBigMap(e) {
-    e.preventDefault();
-    setPopupMarkup("/bigMap");
     setCurrentPopupMarkupTitle("/bigMap");
     handlePopup(true);
   }
 
-  function openPopupWithBigCalendar(e) {
+  function openPopupWithBigCalendar(
+    e: React.SyntheticEvent<EventTarget>
+  ): void {
     e.preventDefault();
-    setPopupMarkup("/bigCalendar");
     setCurrentPopupMarkupTitle("/bigCalendar");
     handlePopup(true);
   }
@@ -84,25 +107,26 @@ export function Profile({
         handleListChoice={handleListChoice}
         currentListChoice={currentChoice}
       />
-      <div className="event-list">
+      <div className="profile__events-block">
         <button
           onClick={(e) => openPopupWithMoreEvents(e)}
-          className={"event-list__link"}
+          className={"profile__events-block-link"}
         >
-          <h3 className="block-title">{constants.eventListData.title}</h3>
+          <h3 className="block-title">Что хочешь?</h3>
           <img
-            className={`event-list__link-arrow`}
+            className={`profile__events-block-link-arrow`}
             src={constants.eventListData.linkMoreImg}
             alt="стрелка статуса меню"
           />
         </button>
         <EventList
+          isPopupOpen={isPopupOpen}
           eventStatesList={eventStatesList}
           eventList={eventList}
-          handlePopup={handlePopup}
           setEventsStatesList={setEventsStatesList}
         />
       </div>
+
       <MapBlock
         mapBlockData={mapBlockData}
         openPopupWithBigMap={openPopupWithBigMap}
