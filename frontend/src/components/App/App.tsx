@@ -77,7 +77,6 @@ function App() {
             eventStatesList={eventStatesList}
             eventList={filteredEventList}
             setEventsStatesList={setEventsStatesList}
-            openPopupWithMoreEvents={openPopupWithMoreEvents}
           />
         </SearchString>
       );
@@ -107,7 +106,7 @@ function App() {
   useEffect(() => {
     if (currentPopupMarkupTitle === "/eventList") {
       setPopupOption({
-        title: "Что хочешь?",
+        title: "Список мерпориятий в текущей группе",
         description: "Выберите интересующие вас мероприятия",
       });
     } else if (currentPopupMarkupTitle === "/bigMap") {
