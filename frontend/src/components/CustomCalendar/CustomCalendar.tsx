@@ -7,21 +7,18 @@ import { checkToday } from "../../utils/helpers/date/checkToday";
 import { checkDateIsEqual } from "../../utils/helpers/date/checkDateIsEqual";
 import { IgetWeekDayNamesReturnedData } from "../../utils/helpers/date/getWeekDaysNames";
 import { IFullDateData } from "../../utils/helpers/date/createDate";
-import { constants } from "../../utils/constants";
+import { constants, Iranges } from "../../utils/constants";
 
 interface ICustomCalendar {
   locale?: string;
   selectedDate: Date;
-  selectDate: (date: Date) => void;
 }
 
-interface Iranges {
-  title: string;
-  value: number[][];
-}
-
-const CustomCalendar = ({ locale }: ICustomCalendar): React.ReactElement => {
-  const [selectedDate, setSelectedDate] = React.useState(new Date());
+const CustomCalendar = ({
+  locale,
+  selectedDate,
+}: ICustomCalendar): React.ReactElement => {
+  const [currentDate, setCurrentDate] = React.useState(selectedDate);
   const [listOfUserSelectedDates, setListOfUserSelectedDates] = React.useState<
     Record<string, Date[][]>
   >({});
@@ -29,18 +26,15 @@ const CustomCalendar = ({ locale }: ICustomCalendar): React.ReactElement => {
   const { state, functions } = useCalendar({
     firstWeekDay: 2, //с какого дня начинается неделя
     locale,
-    date: selectedDate,
+    date: currentDate,
   });
 
-  useEffect(() => {
-    console.log(listOfUserSelectedDates);
-  }, [listOfUserSelectedDates]);
+  // useEffect(() => {
+  //   console.log(listOfUserSelectedDates);
+  // }, [listOfUserSelectedDates]);
 
   return (
     <div className="calendar">
-      <div className="caledar__date-container">
-        {formateDate({ date: selectedDate, format: "DD MM YYYY" })}
-      </div>
       <div className="calendar__container">
         <h2 className="calendar__header">
           <div
@@ -96,17 +90,20 @@ const CustomCalendar = ({ locale }: ICustomCalendar): React.ReactElement => {
                       day.date.getDate(),
                     ].join("-");
 
-                      const isDayRangesAreSelected = Boolean(Object.keys(listOfUserSelectedDates).find(
-                        (key) => key === dayNameKey
-                      )) ?? false;
-                      // решить вопрос с проблемами выбранных дат                      
+                    const isDayRangesAreSelected =
+                      Boolean(
+                        Object.keys(listOfUserSelectedDates).find(
+                          (key) => key === dayNameKey
+                        )
+                      ) ?? false;
+                    // решить вопрос с проблемами выбранных дат
 
                     return (
                       <div
                         key={`${day.dayNumber}-${day.monthIndex}-${day.year}`}
                         onClick={() => {
                           functions.setSelecteDate(day);
-                          setSelectedDate(day.date);
+                          setCurrentDate(day.date);                          
                         }}
                         className={[
                           "calendar__day",
@@ -134,13 +131,13 @@ const CustomCalendar = ({ locale }: ICustomCalendar): React.ReactElement => {
         {constants.calendarBlockData.timeRanges.ranges.map((range: Iranges) => {
           const currentRange: Date[] =
             constants.calendarBlockData.timeRanges.generateTimeRangeDates({
-              selectedDate: selectedDate,
+              selectedDate: currentDate,
               range: range.value,
             });
           const dateKey: string = [
-            selectedDate.getFullYear(),
-            selectedDate.getMonth(),
-            selectedDate.getDate(),
+            currentDate.getFullYear(),
+            currentDate.getMonth(),
+            currentDate.getDate(),
           ].join("-");
           const isSelectedRange = listOfUserSelectedDates[dateKey]
             ? listOfUserSelectedDates[dateKey].find(

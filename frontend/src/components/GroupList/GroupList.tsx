@@ -1,21 +1,16 @@
 import { NavLink } from "react-router-dom";
 import React, { ReactElement } from "react";
 import "./GroupList.css";
-
-type TGroupList = {
-  avatar: string;
-  id: number;
-  title: string;
-  followers: number;
-}[];
-
-type groupLinkImg = (arg?: string) => string;
+import { IGroupMainData } from "../../types";
 
 interface IGroupList {
-  groupListData: { groupLinkImg: groupLinkImg; groupList: TGroupList };
+  groupListData: {
+    groupLinkImg: (arg?: string) => string;
+    groupList: IGroupMainData[];
+  };
   isGroupListOpen: boolean;
   handleListChoice: (e: React.SyntheticEvent<EventTarget>) => void;
-  currentListChoice: number;
+  currentListChoice: string;
 }
 
 export function GroupList({
@@ -25,21 +20,19 @@ export function GroupList({
   currentListChoice,
 }: IGroupList): ReactElement {
   return (
-    <div key={"group-list"} className="group-list__form">
+    <div key={"987"} className="group-list__form">
       <form
-        key={"group-list__form"}
         className={`group-list__container ${
           isGroupListOpen ? "group-list__container_open" : ""
         }`}
       >
         {groupListData.groupList.map((el) => {
           return (
-            <>
-              {el.id === currentListChoice ? (
+            <div key={el.id}>
+              {(el.id as string) === currentListChoice ? (
                 <input
                   onClick={handleListChoice}
-                  key={`input${el.id}`}
-                  id={el.id.toString()}
+                  id={el.id}
                   className="group-list__item-input"
                   type="radio"
                   name={"selected_group"}
@@ -49,7 +42,6 @@ export function GroupList({
               ) : (
                 <input
                   onClick={handleListChoice}
-                  key={`input${el.id}`}
                   id={el.id.toString()}
                   className="group-list__item-input"
                   type="radio"
@@ -58,21 +50,19 @@ export function GroupList({
                 />
               )}
               <label
-                key={`label${el.id}`}
                 htmlFor={el.id.toString()}
                 className="group-list__item-label"
               >
                 <img
-                  key={`img${el.id}`}
                   className="group-list__item-avatar"
                   src={el.avatar}
                   alt="аватар"
                 />
                 <div className="group-list__item-group-info">
-                  <h2 className="group-list__item-title">{el.title}</h2>
-                  <p className="group-list__item-followers-counter">
-                    {el.followers}
-                    {` ${el.followers === 1 ? "участник" : "участников"}`}
+                  <h2 className="group-list__item-title">{el.groupTitle}</h2>
+                  <p className="group-list__item-followersNumber-counter">
+                    {el.followersNumber}
+                    {` ${el.followersNumber === 1 ? "участник" : "участников"}`}
                   </p>
                 </div>
                 <NavLink to={"#"} className="group-list__item-link">
@@ -87,7 +77,7 @@ export function GroupList({
                   />
                 </NavLink>
               </label>
-            </>
+            </div>
           );
         })}
       </form>

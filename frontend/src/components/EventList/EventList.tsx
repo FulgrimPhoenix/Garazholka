@@ -1,25 +1,13 @@
 import React, { ReactElement } from "react";
 import "./EventList.css";
-
-type EventItem = {
-  id: string;
-  title: string;
-  avatar: string | undefined;
-  description: string | undefined;
-  followers: number;
-  location: string | undefined;
-  duration: number; //minutes
-  isOnline: boolean;
-  timeDiapason: string;
-  minimumNumberOfUsers: number;
-};
-
-type EventStatus = { id: string; selected: boolean };
+import { constants } from "../../utils/constants";
+import { IEventItem, TEventList, TEventStatesList } from "../../types";
 
 interface IEventList {
-  eventList: EventItem[];
-  eventStatesList: EventStatus[];
-  setEventsStatesList: (newValue: EventStatus[]) => void;
+  eventList: TEventList;
+  eventStatesList: TEventStatesList;
+  setEventsStatesList: (newValue: TEventStatesList) => void;
+  isPopupOpen: boolean;
 }
 
 export function EventList({
@@ -27,7 +15,7 @@ export function EventList({
   eventStatesList,
   setEventsStatesList,
 }: IEventList): ReactElement {
-  function takeFormValues(el: EventItem) {
+  function takeFormValues(el: IEventItem) {
     const newData = eventStatesList.map((item) => {
       if (item.id === el.id) {
         item.selected = !item.selected;
@@ -41,7 +29,7 @@ export function EventList({
     <ul className="event-list__items">
       {eventList.map((el) => {
         return (
-          <li className="event-list__item">
+          <li key={el.id} className="event-list__item">
             <button
               onClick={() => {
                 takeFormValues(el);

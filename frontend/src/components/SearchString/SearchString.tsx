@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { ReactElement } from "react";
 import "./SearchString.css";
+import { TEventList, IEventItem } from "../../types";
 
 interface ISearchString {
-  searchParameter: string;
-  itemList: Record<string, string>[];
-  setEventList: (newValue: Record<string, string>[]) => void;
+  searchParameter: "title";
+  itemList: TEventList;
+  setEventList: (newValue: TEventList) => void;
   children: ReactElement;
 }
 
@@ -17,8 +18,8 @@ export function SearchString({
 }: ISearchString): ReactElement {
   const [searchValue, setSearchValue] = useState("");
 
-  const filteredItems = itemList.filter((item) =>
-    item[searchParameter].toLowerCase().includes(searchValue.toLowerCase()),
+  const filteredItems = itemList.filter((item: IEventItem) =>
+    item[searchParameter].toLowerCase().includes(searchValue.toLowerCase())
   );
 
   useEffect(() => {
