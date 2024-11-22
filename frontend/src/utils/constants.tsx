@@ -333,6 +333,7 @@ export const constants: IConstants = {
     description:
       "Welcome to the club buddy. Let's celebrate and suck some dick!",
     avatar: billieAvatar,
+    events: ["11", "22", "33", "44", "55", "66", "77", "88"],
     followers: [
       {
         id: "1111111",

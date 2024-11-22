@@ -193,6 +193,7 @@ function App() {
               groupTitle={constants.groupProfile.groupTitle}
               id={constants.groupProfile.id}
               followersNumber={constants.groupProfile.followersNumber}
+              events={constants.groupProfile.events}
               followers={constants.groupProfile.followers}
               description={constants.groupProfile.description}
               avatar={constants.groupProfile.avatar}

@@ -37,7 +37,7 @@ export interface IEventState {
 export type TEventStatesList = IEventState[];
 
 export interface IGroupMainData {
-  avatar: string;
+  avatar?: string;
   id: string;
   groupTitle: string;
   followersNumber: number;
@@ -45,6 +45,7 @@ export interface IGroupMainData {
 
 export interface IGroupFullData extends IGroupMainData {
   description?: string;
+  events: string[];
   followers: IUserData[];
 }
 
