@@ -1,9 +1,9 @@
 import { IUserData } from "../types";
 
 export type TUserLogData = {
-  email?: string;
+  email: string;
   password: string;
-  login: string;
+  login?: string;
   name?: string | undefined;
   surname?: string | undefined;
   location?: string | undefined;
@@ -49,7 +49,6 @@ export class Api {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        login: args.login,
         email: args.email,
         password: args.password,
       }),
