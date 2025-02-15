@@ -15,6 +15,6 @@ export interface IUserData {
   online_events: boolean;
 }
 
-export type TuserStatus = 'idle' | 'loading' | 'fetching' | 'fetched' | 'failed' | 'succeeded';
+export type TuserStatus = "idle" | "fetching" | "failed" | "succeeded";
 
 export type Tcolumn = { field: string; headerName: string; flex: number };
