@@ -5,8 +5,11 @@
     "module": "ESNext",
     "skipLibCheck": true,
     "types": ["@testing-library/jest-dom", "node"],
+    "allowSyntheticDefaultImports": true,
+    "allowJs": true,
+    "esModuleInterop": true,
     /* Bundler mode */
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -20,20 +23,7 @@
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
-    "strictFunctionTypes": true,
-    "baseUrl": "./",
-    "paths": {
-      "~components/*": ["./src/components/*"],
-      "~pages/*": ["./src/pages/*"],
-      "~features/*": ["./src/features/*"],
-      "~hooks/*": ["./src/hooks/*"],
-      "~constants/*": ["./src/constants/*"],
-      "~routes/*": ["./src/routes/*"],
-      "~styles/*": ["./src/styles/*"],
-      "~types/*": ["./src/types/*"],
-      "~utils/*": ["./src/utils/*"],
-      "~app/*": ["./src/app/*"]
-    }
+    "strictFunctionTypes": true
   },
-  "include": ["src", "craco.config.js"]
+  "include": ["src", "webpack.config.js"]
 }

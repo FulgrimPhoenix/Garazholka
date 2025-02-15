@@ -17,7 +17,7 @@ import { Popup } from "../Popup/Popup.js";
 import { EventList } from "../EventList/EventList";
 import { SearchString } from "../SearchString/SearchString";
 import YandexMapApi from "../../utils/YandexMapApi.js";
-import { api, TUserLogData } from "../../utils/MainApi";
+import { api, IUserAuth } from "../../utils/MainApi";
 import CustomCalendar from "../CustomCalendar/CustomCalendar";
 
 import { useUrlPathName } from "../../hooks/useUrlPathName";
@@ -48,14 +48,14 @@ function App() {
   );
   const currentPath = useUrlPathName();
 
-  function signup({ email, login, password }: TUserLogData) {
+  function signup({ email, login, password }: IUserAuth) {
     api.signup({ email, login, password }).then((res) => {
       console.log(res);
     });
   }
 
-  function signin({ login, password }: TUserLogData) {
-    api.signin({ login, password }).then((res) => {
+  function signin({ email, password }: IUserAuth) {
+    api.signin({ email, password }).then((res) => {
       console.log(res);
     });
   }
