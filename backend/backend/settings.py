@@ -146,7 +146,7 @@ DJOSER = {
 }
 
 # CSRF_TRUSTED_ORIGINS = [
-    # 'https://kittykittykitty.hopto.org',
+#   'https://kittykittykitty.hopto.org',
 # ]
 
 CORS_ALLOWED_ORIGINS = [

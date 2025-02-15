@@ -32,7 +32,7 @@ class MyUserSerializer(UserSerializer):
 class MemberSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source='member.username')
     avatar = serializers.CharField(source='member.avatar')
-    status = serializers.CharField(source='status')
+    status = serializers.CharField()
 
     class Meta:
         model = GroupMembership
@@ -41,9 +41,11 @@ class MemberSerializer(serializers.ModelSerializer):
 
 class GroupSerializer(serializers.ModelSerializer):
     title = serializers.CharField(max_length=MAX_CHARFIELD_LENGHT)
-    avatar = Base64ImageField()
+    avatar = Base64ImageField(required=False)
     slug = serializers.CharField(read_only=True)
-    description = serializers.CharField(allow_null=True, allow_blank=True)
+    description = serializers.CharField(
+        required=False,
+        allow_blank=True)
     members = serializers.SerializerMethodField()
 
     class Meta:
