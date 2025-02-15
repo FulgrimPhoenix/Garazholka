@@ -30,6 +30,8 @@ export const signUp = createAsyncThunk(
   "users/signup",
   async (data: IUserAuth): Promise<IUserData> => {
     const response = await api.signup(data);
+    console.log(response);
+
     return response;
   }
 );

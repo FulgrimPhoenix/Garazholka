@@ -30,7 +30,6 @@ export interface IRequestOptions {
     "Content-Type": "application/json";
     Authorization?: string;
   };
-  credentials?: "include";
   body?: string;
 }
 
@@ -49,7 +48,7 @@ export class Api {
       ...options,
       headers: {
         ...options.headers,
-        Authorization: token ? `Bearer ${token}` : "",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
       },
     }).then(this._checkResponse.bind(api));
   }
@@ -110,4 +109,4 @@ export class Api {
   }
 }
 
-export const api = new Api("http://127.0.0.1:8000/");
+export const api = new Api("http://127.0.0.1:8000/api/");

@@ -19,7 +19,6 @@ import { SearchString } from "../SearchString/SearchString";
 import YandexMapApi from "../../utils/YandexMapApi.js";
 import { api, IUserAuth } from "../../utils/MainApi";
 import CustomCalendar from "../CustomCalendar/CustomCalendar";
-
 import { useUrlPathName } from "../../hooks/useUrlPathName";
 import { TEventList, TEventStatesList } from "../../types";
 import { GroupProfile } from "../GroupProfile/GroupProfile.tsx";
@@ -48,11 +47,11 @@ function App() {
   );
   const currentPath = useUrlPathName();
 
-  function signup({ email, login, password }: IUserAuth) {
-    api.signup({ email, login, password }).then((res) => {
-      console.log(res);
-    });
-  }
+  // function signup({ email, login, password }: IUserAuth) {
+  //   api.signup({ email, login, password }).then((res) => {
+  //     console.log(res);
+  //   });
+  // }
 
   function signin({ email, password }: IUserAuth) {
     api.signin({ email, password }).then((res) => {
@@ -215,7 +214,7 @@ function App() {
             <NavLink to={"/profile"}>Профиль</NavLink>
             <NavLink to={"/group-profile"}>Профиль группы</NavLink>
             <Register
-              signup={signup}
+              // signup={signup}
               registerFormData={constants.registerFormData}
               // handleSetIsLoggedIn={handleSetIsLoggedIn}
             />

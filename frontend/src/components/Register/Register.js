@@ -4,8 +4,11 @@ import { LogRegForm } from "../LogRegForm/LogRegForm";
 import { LogRegInput } from "../LogRegInput/LogRegInput";
 import { useForm } from "../../hooks/useForm";
 import { useUrlPathName } from "../../hooks/useUrlPathName";
+import { useAppSelector } from "../../app/store";
+import { signUp } from "../../features/users/usersThunks";
 
 export function Register({ registerFormData, signup }) {
+  const {} = useAppSelector((state) => state.user);
   const { values, onChange, setValues } = useForm({});
   const [isValid, setIsValid] = useState({
     username: false,
@@ -63,7 +66,7 @@ export function Register({ registerFormData, signup }) {
       setCurrentRegPage(!currentRegPage);
       return;
     }
-    signup(values);
+    signUp(values);
 
     return;
   }
