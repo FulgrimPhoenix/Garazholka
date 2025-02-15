@@ -3,6 +3,9 @@ import base64
 from django.core.files.base import ContentFile
 from djoser.serializers import UserSerializer
 from rest_framework import serializers
+from groups.models import Group, GroupMembership
+
+MAX_CHARFIELD_LENGHT = 150
 
 
 class Base64ImageField(serializers.ImageField):
@@ -18,7 +21,6 @@ class Base64ImageField(serializers.ImageField):
 
 class MyUserSerializer(UserSerializer):
 
-    is_subscribed = serializers.SerializerMethodField()
     avatar = Base64ImageField()
 
     class Meta(UserSerializer.Meta):
@@ -26,8 +28,30 @@ class MyUserSerializer(UserSerializer):
             'avatar',
         )
 
-    def get_is_subscribed(self, obj):
-        user = self.context['request'].user
-        if user.is_authenticated:
-            return user.subscriptions.filter(subscribed_to=obj).exists()
-        return False
+
+class MemberSerializer(serializers.ModelSerializer):
+    username = serializers.CharField(source='member.username')
+    avatar = serializers.CharField(source='member.avatar')
+    status = serializers.CharField(source='status')
+
+    class Meta:
+        model = GroupMembership
+        fields = ['username', 'avatar', 'status']
+
+
+class GroupSerializer(serializers.ModelSerializer):
+    title = serializers.CharField(max_length=MAX_CHARFIELD_LENGHT)
+    avatar = Base64ImageField()
+    slug = serializers.CharField(read_only=True)
+    description = serializers.CharField(allow_null=True, allow_blank=True)
+    members = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Group
+        fields = ['title', 'avatar', 'slug', 'description', 'members']
+
+    def get_members(self, obj):
+        """Возвращает информацию об участниках группы"""
+        memberships = GroupMembership.objects.filter(group=obj)
+        serializer = MemberSerializer(memberships, many=True)
+        return serializer.data
