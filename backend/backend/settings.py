@@ -23,9 +23,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+    'corsheaders',
     'users.apps.UsersConfig',
     'events.apps.EventsConfig',
     'api.apps.ApiConfig',
+    'groups.apps.GroupsConfig',
     'djoser',
 
 ]
@@ -33,6 +35,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -145,3 +148,7 @@ DJOSER = {
 # CSRF_TRUSTED_ORIGINS = [
     # 'https://kittykittykitty.hopto.org',
 # ]
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+]
