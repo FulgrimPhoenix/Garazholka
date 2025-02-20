@@ -1,25 +1,17 @@
 import { Route, Routes } from "react-router-dom";
-import { routes } from "./routes";
+import ProtectedRoute from "./ProtectedRoute";
+import { Intro } from "../components/Intro/Intro";
+import { Login, Register } from "../pages";
 
 export const AppRoutes = () => {
   return (
     <Routes>
-      {routes.map((route, index) => (
-        <Route
-          key={index}
-          path={route.path}
-          element={route.component} // Используем component как element
-        >
-          {route.children &&
-            route.children.map((childRoute, idx) => (
-              <Route
-                key={idx}
-                path={childRoute.path}
-                element={childRoute.component} // Рендерим вложенные компоненты
-              />
-            ))}
-        </Route>
-      ))}
+      <Route
+        index
+        element={<ProtectedRoute component={Intro} isAuthenticated={true} />}
+      />
+      <Route path="/signup" element={<Register />} />
+      <Route path="/signin" element={<Login />} />
     </Routes>
   );
 };

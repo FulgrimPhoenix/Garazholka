@@ -22,7 +22,7 @@ const theme = createTheme({
       light: "#fff",
     },
     secondary: {
-      main: "#232323",
+      main: "#09BEFF",
     },
     action: {
       active: "#fff",
@@ -36,9 +36,6 @@ const theme = createTheme({
     background: {
       default: "#101010",
       paper: "#232323",
-    },
-    error: {
-      main: "#AC2FFF",
     },
   },
   breakpoints: {

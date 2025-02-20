@@ -15,6 +15,12 @@ export interface IUserData {
   online_events: boolean;
 }
 
+export interface IAuthData {
+  login?: string;
+  email: string;
+  password: string;
+}
+
 export type TuserStatus = "idle" | "fetching" | "failed" | "succeeded";
 
 export type Tcolumn = { field: string; headerName: string; flex: number };

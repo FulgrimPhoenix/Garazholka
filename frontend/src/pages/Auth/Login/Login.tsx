@@ -1,21 +1,13 @@
-import React, { FC } from "react";
 import { Box } from "@mui/material";
-import { INPUT_LIST } from "./Register.const";
-import { MemoizedInput } from "../../../ui/MemoizedInput/MemoizedInput";
+import { CustomForm } from "../../../components/index";
+import { INPUT_LIST } from "./Login.const";
+import { MemoizedInput } from "src/ui/MemoizedInput/MemoizedInput";
 import { useFormik } from "formik";
-import { api } from "../../../utils/MainApi";
-import { IAuthData } from "src/types/user.types";
+import { IAuthData } from "../../../types/user.types";
 import * as Yup from "yup";
-import { CustomForm } from "../../../components";
-
-export interface IRegisterData extends IAuthData {
-  repeatPassword: string;
-  name: string;
-  surname: string;
-}
+import { api } from "../../../utils/MainApi";
 
 const validationSchema = Yup.object({
-  login: Yup.string().required("Введите логин"),
   email: Yup.string()
     .email("Введите корректную почту")
     .required("Введите почту"),
@@ -30,27 +22,17 @@ const validationSchema = Yup.object({
       "Пароль должен содержать хотя бы один специальный символ (@, $, !, %, *, ?, &)"
     )
     .required("Введите пароль"),
-  repeatPassword: Yup.string()
-    .oneOf([Yup.ref("password")], "Пароли должны совпадать")
-    .required("Подтвердите пароль"),
-  name: Yup.string(),
-  surname: Yup.string(),
 });
 
-const Register: FC = () => {
-  const formik = useFormik<IRegisterData>({
+const Login = () => {
+  const formik = useFormik<IAuthData>({
     initialValues: {
-      login: "",
       email: "",
       password: "",
-      repeatPassword: "",
-      name: "",
-      surname: "",
     },
     validationSchema,
-    validateOnMount: true,
     onSubmit: (values) => {
-      api.signup(values);
+      api.signin(values);
     },
   });
 
@@ -60,11 +42,10 @@ const Register: FC = () => {
 
   return (
     <CustomForm
-      title="Регистрация"
+      title="Вход"
       logo="Лого"
-      submiteButtonText="Зарегестрироваться"
+      submiteButtonText="Войти"
       handleSubmit={handleSubmit}
-      disabled={formik.isValid}
     >
       <Box sx={{ margin: "20px auto 52px" }}>
         {INPUT_LIST.map((el) => (
@@ -86,4 +67,4 @@ const Register: FC = () => {
   );
 };
 
-export default Register;
+export default Login;
