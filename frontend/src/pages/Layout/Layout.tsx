@@ -8,10 +8,8 @@ export const Layout: FC = () => {
   return (
     <LayoutRoot>
       <Header />
-      <Box sx={{ display: "flex" }}>
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-          <Outlet />
-        </Box>
+      <Box component="main" sx={{ flexGrow: 1, p: 0, display: "flex" }}>
+        <Outlet />
       </Box>
     </LayoutRoot>
   );

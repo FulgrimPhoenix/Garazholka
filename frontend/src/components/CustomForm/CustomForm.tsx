@@ -36,6 +36,8 @@ const CustomForm: FC<ICustonForm> = React.memo(
     disabled,
     ...props
   }) => {
+    console.log("form");
+
     return (
       <FormRoot>
         <FormContaeiner {...props}>
@@ -57,7 +59,7 @@ const CustomForm: FC<ICustonForm> = React.memo(
           <SubmitButton
             variant="contained"
             onClick={handleSubmit}
-            disabled={disabled ? false : true}
+            disabled={!disabled}
           >
             {submiteButtonText}
           </SubmitButton>

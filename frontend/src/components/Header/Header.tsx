@@ -1,11 +1,11 @@
-import { Badge, Box, IconButton, Toolbar, Typography } from "@mui/material";
+import { Badge, Box, IconButton, Toolbar } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { HeaderRoot, PageTitle } from "./Header.styles";
+import { HeaderRoot, HeaderToolbar, PageTitle } from "./Header.styles";
 
 const Header = () => {
   return (
     <HeaderRoot position="relative">
-      <Toolbar>
+      <HeaderToolbar>
         <PageTitle as="h2">Профиль</PageTitle>
         <Box sx={{ flexGrow: 1 }} />
         <IconButton>
@@ -13,7 +13,7 @@ const Header = () => {
             <MenuIcon fontSize="large" />
           </Badge>
         </IconButton>
-      </Toolbar>
+      </HeaderToolbar>
     </HeaderRoot>
   );
 };
