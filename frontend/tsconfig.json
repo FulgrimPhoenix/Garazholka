@@ -5,11 +5,8 @@
     "module": "ESNext",
     "skipLibCheck": true,
     "types": ["@testing-library/jest-dom", "node"],
-    "allowSyntheticDefaultImports": true,
-    "allowJs": true,
-    "esModuleInterop": true,
     /* Bundler mode */
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -23,7 +20,19 @@
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
-    "strictFunctionTypes": true
+    "strictFunctionTypes": true,
+    "baseUrl": "./",
+    "paths": {
+      "~app/*": ["src/app/*"],
+      "~components/*": ["src/components/*"],
+      "~features/*": ["src/features/*"],
+      "~hooks/*": ["src/hooks/*"],
+      "~pages/*": ["src/pages/*"],
+      "~routes/*": ["src/routes/*"],
+      "~services/*": ["src/services/*"],
+      "~styles/*": ["src/styles/*"],
+      "~utils/*": ["src/utils/*"]
+    }
   },
-  "include": ["src", "webpack.config.js"]
+  "include": ["src"]
 }
