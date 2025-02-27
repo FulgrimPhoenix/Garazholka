@@ -1,4 +1,4 @@
-import { Badge, Box, IconButton, Toolbar } from "@mui/material";
+import { Badge, Box, IconButton } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { HeaderRoot, HeaderToolbar, PageTitle } from "./Header.styles";
 

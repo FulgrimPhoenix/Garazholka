@@ -6,7 +6,7 @@ import { Header } from "../../components";
 
 export const Layout: FC = () => {
   return (
-    <LayoutRoot>
+    <LayoutRoot maxWidth="sm">
       <Header />
       <Box component="main" sx={{ flexGrow: 1, p: 0, display: "flex" }}>
         <Outlet />

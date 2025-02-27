@@ -13,13 +13,14 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: '"Exo 2", "Arial", sans-serif', // Укажи свой шрифт
+    fontFamily: '"Exo 2", "Arial", sans-serif',
   },
   palette: {
     primary: {
       main: "#9F0040",
       contrastText: "#000",
       light: "#fff",
+      dark: "#005E81",
     },
     secondary: {
       main: "#09BEFF",
