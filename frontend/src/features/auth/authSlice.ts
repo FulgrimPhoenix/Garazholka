@@ -2,15 +2,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface IinitialState {
   isAuthenticated: boolean;
-  userId: string | null;
-  loading: boolean;
+  accessToken: string | null;
   error: string | null;
 }
 
 const initialState: IinitialState = {
-  isAuthenticated: !!localStorage.getItem("token"),
-  userId: null,
-  loading: false,
+  accessToken: localStorage.getItem("accessToken"),
+  isAuthenticated: !!localStorage.getItem("accessToken"),
   error: null,
 };
 
@@ -18,26 +16,23 @@ export const authSlice = createSlice({
   name: "auth",
   initialState: initialState,
   reducers: {
-    loginRequest: (state) => {
-      state.loading = true;
-      state.error = null;
-    },
-    loginSuccess: (state, action: PayloadAction<string>) => {
-      state.loading = false;
+    setAccessToken: (state, action: PayloadAction<string>) => {
+      state.accessToken = action.payload;
       state.isAuthenticated = true;
-      localStorage.setItem("token", action.payload);
+      state.error = null;
+      localStorage.setItem("accessToken", action.payload);
     },
-    loginFailure: (state, action: PayloadAction<string>) => {
-      state.loading = false;
+    setAuthError: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
     },
+
     logout: (state) => {
-      localStorage.removeItem("token");
+      state.accessToken = null;
       state.isAuthenticated = false;
-      state.userId = null;
+      state.error = null;
+      localStorage.removeItem("accessToken");
     },
   },
 });
 
-export const { loginRequest, loginSuccess, loginFailure, logout } =
-  authSlice.actions;
+export const { setAccessToken, logout, setAuthError } = authSlice.actions;
