@@ -33,14 +33,13 @@ class ModeratorOrReadOnly(permissions.BasePermission):
                 group=obj.group
             )
             return (
-                user_membership.status == 'owner'
-                or user_membership.status == 'moderator'
+                user_membership.status == 'group_admin'
             )
         elif isinstance(obj, Group):  # Проверка на объект группы
             user_membership = GroupMembership.objects.get(
                 member=request.user,
                 group=obj.group
             )
-            return user_membership.status == 'owner'
+            return user_membership.status == 'group_admin'
         else:
             return False

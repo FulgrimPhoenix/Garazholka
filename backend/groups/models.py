@@ -33,8 +33,7 @@ class Group(models.Model):
 
 class GroupMembership(models.Model):
     STATUS_CHOICES = {
-        'owner': 'админ',
-        'moderator': 'модератор',
+        'group_admin': 'админ',
         'member': 'участник',
     }
     member = models.ForeignKey(
