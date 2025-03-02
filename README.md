@@ -25,3 +25,14 @@ feat: - наименования для фичи
 fix: - наименование для фикса
 refactor - наименования для рефакторинга
 ```
+
+## Запуск части Backend
+
+*Запуск для windows*
+
+После предварительной учтановки `Python 3.x.x` папке `./backend` в терминале запустить по порядку следующие команды:
+
+1. `python -m venv venv`;
+2. `venv\Scripts\Activate.ps1`;
+3. `pip install -r requirement.txt`;
+4. `python manage.py runserver`
