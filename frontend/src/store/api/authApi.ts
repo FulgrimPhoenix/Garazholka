@@ -1,42 +1,35 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-// import { TAppState } from "../store";
-import { IAuthData } from "src/types/user.types";
+import { IAuthData } from "../../types/user.types";
 import { setAccessToken, setAuthError } from "../../features/auth/authSlice";
-
-// const getAccessToken = () => localStorage.getItem("accessToken");
-
-// const clearAccessToken = () => localStorage.removeItem("accessToken");
-
-// const baseQuery = fetchBaseQuery({
-//   baseUrl: "https://api.example.com",
-//   prepareHeaders: (headers, { getState }) => {
-//     const token = (getState() as TAppState).auth.accessToken;
-
-//     if (token) {
-//       headers.set("Authorization", `Bearer ${token}`);
-//     }
-
-//     return headers;
-//   },
-// });
 
 export const authApi = createApi({
   reducerPath: "authApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "https://api.example.com" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "http://127.0.0.1:8000/api/" }),
   tagTypes: ["AuthApi"],
   endpoints: (builder) => ({
-    login: builder.mutation<{ token: string }, IAuthData>({
+    login: builder.mutation<{ auth_token: string }, IAuthData>({
       query: (credentials) => ({
-        url: "/users/",
+        url: "auth/token/login/",
         method: "POST",
         body: credentials,
       }),
-      async onQueryStarted(args, { queryFulfilled }) {
+      async onQueryStarted(args, { queryFulfilled, dispatch }) {
+        console.log("qery");
+
         try {
-          const { data } = await queryFulfilled;
-          setAccessToken(data.token);
+          const { data } = await queryFulfilled; // Ожидаем разрешения промиса
+          console.log("token", data);
+
+          // Диспатчим токен
+          dispatch(setAccessToken(data.auth_token));
         } catch (error) {
-          setAuthError(JSON.stringify(error));
+          // Ловим ошибки запроса
+          console.error("Ошибка при получении токена", error);
+          dispatch(
+            setAuthError(
+              error instanceof Error ? error.message : "Неизвестная ошибка"
+            )
+          );
         }
       },
     }),

@@ -5,26 +5,24 @@ import { MemoizedInput } from "src/ui/MemoizedInput/MemoizedInput";
 import { useFormik } from "formik";
 import { IAuthData } from "../../../types/user.types";
 import * as Yup from "yup";
-import { api } from "../../../utils/MainApi";
+import { useLoginMutation } from "src/store/api/authApi";
+import { useAppSelector } from "../../../app/store";
 
 const validationSchema = Yup.object({
   email: Yup.string()
     .email("Введите корректную почту")
     .required("Введите почту"),
   password: Yup.string()
-    .min(8, "Пароль должен содержать минимум 8 символов")
+    .min(7, "Пароль должен содержать минимум 7 символов")
     .max(24, "Пароль не должен превышать 24 символа")
-    .matches(/[A-Z]/, "Пароль должен содержать хотя бы одну заглавную букву")
-    .matches(/[a-z]/, "Пароль должен содержать хотя бы одну строчную букву")
-    .matches(/\d/, "Пароль должен содержать хотя бы одну цифру")
-    .matches(
-      /[@$!%*?&]/,
-      "Пароль должен содержать хотя бы один специальный символ (@, $, !, %, *, ?, &)"
-    )
     .required("Введите пароль"),
 });
 
 const Login = () => {
+  const [login, { isLoading }] = useLoginMutation();
+  const authdata = useAppSelector((state) => state.auth);
+  console.log(authdata);
+
   const formik = useFormik<IAuthData>({
     initialValues: {
       email: "",
@@ -32,7 +30,14 @@ const Login = () => {
     },
     validationSchema,
     onSubmit: (values) => {
-      api.signin(values);
+      login(values)
+        .unwrap()
+        .then((response) => {
+          console.log("Token received:", response.auth_token); // Здесь ты получаешь токен
+        })
+        .catch((error) => {
+          console.error("Error:", error); // Здесь ты ловишь ошибку
+        });
     },
   });
 
@@ -46,6 +51,7 @@ const Login = () => {
       logo="Лого"
       submiteButtonText="Войти"
       handleSubmit={handleSubmit}
+      disabled={formik.isValid}
     >
       <Box sx={{ margin: "20px auto 52px" }}>
         {INPUT_LIST.map((el) => (

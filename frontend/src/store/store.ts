@@ -4,9 +4,9 @@ import { authApi } from "./api/authApi";
 import { useDispatch, useSelector } from "react-redux";
 
 export const store = configureStore({
-  reducer: rootReducer,
+  reducer: rootReducer, // Включаем редьюсер, включая authApi и userApi
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(authApi.middleware),
+    getDefaultMiddleware().concat(authApi.middleware), // Добавляем middleware для RTK Query
 });
 
 export type TAppState = ReturnType<typeof store.getState>;

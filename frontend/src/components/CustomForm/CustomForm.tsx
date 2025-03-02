@@ -36,8 +36,6 @@ const CustomForm: FC<ICustonForm> = React.memo(
     disabled,
     ...props
   }) => {
-    console.log("form");
-
     return (
       <FormRoot>
         <FormContaeiner {...props}>
