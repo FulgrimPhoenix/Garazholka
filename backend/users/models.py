@@ -22,6 +22,12 @@ class MyUser(AbstractUser):
         'Фамилия',
         max_length=MAX_CHARFIELD_LENGHT
     )
+    location = models.CharField(
+        'Локация',
+        max_length=MAX_CHARFIELD_LENGHT,
+        null=True,
+        default=None
+    )
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
 

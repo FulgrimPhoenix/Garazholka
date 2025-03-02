@@ -22,11 +22,22 @@ class Base64ImageField(serializers.ImageField):
 class MyUserSerializer(UserSerializer):
 
     avatar = Base64ImageField()
+    group_list = serializers.SerializerMethodField()
 
     class Meta(UserSerializer.Meta):
         fields = UserSerializer.Meta.fields + (
             'avatar',
+            'first_name',
+            'last_name',
+            'location',
+            'group_list',
         )
+
+    def get_group_list(self, obj):
+        """Возвращает информацию об участниках группы"""
+        groups = Group.objects.filter(group__member=obj)
+        serializer = GroupSerializer(groups, many=True)
+        return serializer.data
 
 
 class MemberSerializer(serializers.ModelSerializer):
