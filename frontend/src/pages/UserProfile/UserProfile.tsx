@@ -1,12 +1,13 @@
 import { ListItemAvatar, ListItemText, Typography } from "@mui/material";
-import { ProfileInfoCard } from "../../components/index";
+import { ProfileInfoCard } from "@/components/index";
 import { ItemAvatar, ListItem, UserProfileRoot } from "./UserProfile.styles";
-import { DropDownList } from "../../ui";
 import { testGroups } from "./UserProfile.const";
-import { MainButton } from "../../ui/";
+import { MainButton, DropDownList } from "@/ui";
+// import { useUserMeQuery } from "src/store/api/userApi";
 
 const UserProfile = () => {
-  console.log("pr");
+  // const { data, isLoading } = useUserMeQuery();
+  // console.log(data);
 
   return (
     <UserProfileRoot>

@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
-import { Login, Register } from "../pages";
+// import { Login, Register } from "../pages";
 import { Layout } from "../pages/Layout/Layout";
 import { UserProfile } from "../pages/";
 
@@ -17,8 +17,8 @@ export const AppRoutes = () => {
       >
         <Route path="/profile" element={<UserProfile />} />
       </Route>
-      <Route path="/signup" element={<Register />} />
-      <Route path="/signin" element={<Login />} />
+      {/* <Route path="/signup" element={<Register />} />
+      <Route path="/signin" element={<Login />} /> */}
     </Routes>
   );
 };

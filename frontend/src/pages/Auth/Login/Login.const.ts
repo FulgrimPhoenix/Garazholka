@@ -1,4 +1,4 @@
-import { IAuthData } from "src/types/user.types";
+import { IAuthData } from "@/types/user.types";
 
 interface Iinput_list {
   label: string;

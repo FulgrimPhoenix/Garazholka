@@ -2,7 +2,7 @@ import { BrowserRouter } from "react-router-dom";
 import "./App.css";
 import { AppRoutes } from "./routes/AppRoutes.tsx";
 import { Provider } from "react-redux";
-import { store } from "./app/store.ts";
+import { store } from "./store/store.ts";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import theme from "./styles/theme.ts";
 
