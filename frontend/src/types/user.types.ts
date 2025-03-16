@@ -4,7 +4,7 @@ export interface IUserData {
   email: string;
   password: string;
   name: string | undefined;
-  surname: string | undefined;
+  lastName: string | undefined;
   description: string | undefined;
   avatar: string | undefined;
   location: string | undefined;

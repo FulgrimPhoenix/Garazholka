@@ -1,14 +1,14 @@
-import { Collapse, List } from "@mui/material";
+import { Collapse, List, ListProps } from "@mui/material";
 import { FC, ReactNode, useState } from "react";
-import MainButton from "../MainButton/MainButton";
 import { DropDownListRoot } from "./DropDownList.styles";
+import MainButton from "../MainButton/MainButton";
 
-interface IDropDownList {
+interface IDropDownList extends ListProps {
   title: string;
   children?: ReactNode[];
 }
 
-const DropDownList: FC<IDropDownList> = ({ title, children }) => {
+const DropDownList: FC<IDropDownList> = ({ title, children, ...props }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleIsOpenList = () => {
@@ -30,6 +30,7 @@ const DropDownList: FC<IDropDownList> = ({ title, children }) => {
           component="div"
           disablePadding
           sx={{ maxHeight: "505px", overflow: "auto" }}
+          {...props}
         >
           {children}
         </List>

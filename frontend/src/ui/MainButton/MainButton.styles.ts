@@ -18,4 +18,11 @@ export const MainButtonRoot = styled(Button, {
     buttonColor === "primary"
       ? theme.palette.primary.main
       : theme.palette.primary.dark,
+  "&:focus, &:focus-visible": {
+    backgroundColor:
+      buttonColor === "primary"
+        ? theme.palette.primary.main
+        : theme.palette.primary.dark,
+    outline: "none",
+  },
 }));

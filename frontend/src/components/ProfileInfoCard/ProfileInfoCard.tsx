@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { ContainerProps, Typography } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import {
   ProfileInfoCardAvatar,
@@ -6,21 +6,29 @@ import {
   ProfileInfoCardRoot,
   ProfileInfoCardSettingButton,
 } from "./ProfileInfoCard.style";
+import { IUserData } from "@/types/user.types";
+import { FC } from "react";
 
-const ProfileInfoCard = () => {
+interface IProfileInfoCard extends ContainerProps {
+  cardParams: Pick<IUserData, "avatar" | "description" | "name" | "lastName">;
+}
+
+const ProfileInfoCard: FC<IProfileInfoCard> = ({ cardParams, ...props }) => {
   return (
-    <ProfileInfoCardRoot>
-      <ProfileInfoCardAvatar />
+    <ProfileInfoCardRoot {...props}>
+      <ProfileInfoCardAvatar
+        src={cardParams.avatar}
+        alt={`${cardParams.name} аватар`}
+      />
       <ProfileInfoCardSettingButton>
         <SettingsIcon />
       </ProfileInfoCardSettingButton>
       <ProfileInfoCardDescription>
         <Typography variant="h6" align="center" component="h6" gutterBottom>
-          Райан Гослинг
+          {cardParams.name} {cardParams.lastName}
         </Typography>
         <Typography component="p" align="center">
-          Кенодостаточен. Известен по ролям в независимых фильмах и крупных
-          студийных проектах разных жанров.
+          {cardParams.description}
         </Typography>
       </ProfileInfoCardDescription>
     </ProfileInfoCardRoot>

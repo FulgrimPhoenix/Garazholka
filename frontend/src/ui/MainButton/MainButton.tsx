@@ -1,4 +1,4 @@
-import { ButtonProps, Typography, useTheme } from "@mui/material";
+import { ButtonProps, Typography } from "@mui/material";
 import React, { FC } from "react";
 import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
 import { MainButtonRoot } from "./MainButton.styles";
@@ -12,8 +12,6 @@ interface IMainButton extends ButtonProps {
 
 const MainButton: FC<IMainButton> = React.memo(
   ({ title, functionType, isOpen, buttonColor, ...props }) => {
-    const theme = useTheme();
-
     return (
       <>
         {functionType === "simple" ? (
