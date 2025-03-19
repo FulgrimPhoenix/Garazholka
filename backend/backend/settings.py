@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'api.apps.ApiConfig',
     'groups.apps.GroupsConfig',
     'djoser',
+    'drf_yasg',
 
 ]
 
