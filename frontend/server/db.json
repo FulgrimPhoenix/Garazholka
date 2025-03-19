@@ -20,6 +20,36 @@
       "title": "Группа 2",
       "avatar": "#",
       "members": 11
+    },
+    {
+      "id": "3",
+      "title": "Группа 3",
+      "avatar": "#",
+      "members": 9
+    },
+    {
+      "id": "4",
+      "title": "Группа 4",
+      "avatar": "#",
+      "members": 24
+    },
+    {
+      "id": "5",
+      "title": "Группа 5",
+      "avatar": "#",
+      "members": 17
+    },
+    {
+      "id": "6",
+      "title": "Группа 6",
+      "avatar": "#",
+      "members": 17
+    },
+    {
+      "id": "7",
+      "title": "Группа 7",
+      "avatar": "#",
+      "members": 17
     }
   ]
 }

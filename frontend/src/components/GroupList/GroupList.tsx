@@ -10,13 +10,17 @@ import {
 import { useGetMyGroupsTagsQuery } from "@/store/api/userApi";
 import { IGroupTag } from "@/types/group.types";
 
-const GroupList: FC<ListProps> = (props) => {
+interface IGroupList extends ListProps {
+  size?: { sm: number; md: number; lg: number };
+}
+
+const GroupList: FC<IGroupList> = ({ size, ...props }) => {
   const { data: groupList = [], isLoading } = useGetMyGroupsTagsQuery();
 
   if (isLoading) return <span>Loading...</span>;
 
   return (
-    <DropDownList title="Мои группы" {...props}>
+    <DropDownList title="Мои группы" {...props} size={size}>
       {groupList.map((el: IGroupTag, i: number) => (
         <>
           <ListItem key={el.id}>

@@ -1,4 +1,4 @@
-import { ContainerProps, Typography } from "@mui/material";
+import { GridProps, Typography } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import {
   ProfileInfoCardAvatar,
@@ -9,7 +9,7 @@ import {
 import { IUserData } from "@/types/user.types";
 import { FC } from "react";
 
-interface IProfileInfoCard extends ContainerProps {
+interface IProfileInfoCard extends GridProps {
   cardParams: Pick<IUserData, "avatar" | "description" | "name" | "lastName">;
 }
 

@@ -1,6 +1,7 @@
-import { Avatar, Box, Container, IconButton, styled } from "@mui/material";
+import { Avatar, Box, IconButton, styled } from "@mui/material";
+import Grid2 from "@mui/material/Unstable_Grid2";
 
-export const ProfileInfoCardRoot = styled(Container)(({ theme }) => ({
+export const ProfileInfoCardRoot = styled(Grid2)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
   borderRadius: "12px",
 

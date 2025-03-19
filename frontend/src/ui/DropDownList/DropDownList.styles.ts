@@ -1,5 +1,5 @@
-import { Box, styled } from "@mui/material";
+import { Grid, styled } from "@mui/material";
 
-export const DropDownListRoot = styled(Box)(({ theme }) => ({
-  margin: "32px auto",
+export const DropDownListRoot = styled(Grid)(() => ({
+  margin: "0 auto",
 }));

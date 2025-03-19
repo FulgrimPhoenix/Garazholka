@@ -6,9 +6,15 @@ import MainButton from "../MainButton/MainButton";
 interface IDropDownList extends ListProps {
   title: string;
   children?: ReactNode[];
+  size?: { sm: number; md: number; lg: number };
 }
 
-const DropDownList: FC<IDropDownList> = ({ title, children, ...props }) => {
+const DropDownList: FC<IDropDownList> = ({
+  title,
+  children,
+  size,
+  ...props
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleIsOpenList = () => {
@@ -16,7 +22,13 @@ const DropDownList: FC<IDropDownList> = ({ title, children, ...props }) => {
   };
 
   return (
-    <DropDownListRoot>
+    <DropDownListRoot
+      item
+      xs={size?.sm}
+      sm={size?.sm}
+      md={size?.md}
+      lg={size?.lg}
+    >
       <MainButton
         onClick={toggleIsOpenList}
         title={title}
