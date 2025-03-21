@@ -5,25 +5,71 @@ import {
   ProfileInfoCardDescription,
   ProfileInfoCardRoot,
   ProfileInfoCardSettingButton,
-} from "./ProfileInfoCard.style";
-import { IUserData } from "@/types/user.types";
+} from "./ProfileInfoCard.styles";
 import { FC } from "react";
+import { Input } from "@/ui";
+import { useFormik } from "formik";
+import { INPUT_LIST, TCardParams } from "./ProfileInfoCard.consts";
+import { validationSchema } from "./ProfileInfoCard.validation";
+import { useModalContext } from "@/hooks/usePopup";
+import Popup from "../Popup/Popup";
 
 interface IProfileInfoCard extends GridProps {
-  cardParams: Pick<
-    IUserData,
-    "avatar" | "description" | "first_name" | "last_name"
-  >;
+  cardParams: TCardParams;
 }
 
+const initialValues: TCardParams = {
+  avatar: "",
+  description: "",
+  first_name: "",
+  last_name: "",
+};
+
 const ProfileInfoCard: FC<IProfileInfoCard> = ({ cardParams, ...props }) => {
+  const formik = useFormik<TCardParams>({
+    initialValues,
+    validationSchema,
+    onSubmit: () => {
+      handleSubmit();
+    },
+  });
+
+  const handleSubmit = () => {
+    formik.handleSubmit();
+  };
+
+  const { open } = useModalContext();
+
+  const openPopup = () => {
+    open(({ close }) => (
+      <Popup onClose={close} title="Редактировать профиль">
+        <form>
+          {INPUT_LIST.map((el) => (
+            <Input
+              type={el.type}
+              placeholder={el.helperText}
+              key={el.name}
+              name={el.name}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values[el.name]}
+              required={el.required}
+              error={formik.errors[el.name]}
+              touched={formik.touched[el.name]}
+            />
+          ))}
+        </form>
+      </Popup>
+    ));
+  };
+
   return (
-    <ProfileInfoCardRoot {...props}>
+    <ProfileInfoCardRoot item xs={12} {...props}>
       <ProfileInfoCardAvatar
         src={cardParams.avatar}
         alt={`${cardParams.first_name} аватар`}
       />
-      <ProfileInfoCardSettingButton>
+      <ProfileInfoCardSettingButton onClick={openPopup}>
         <SettingsIcon />
       </ProfileInfoCardSettingButton>
       <ProfileInfoCardDescription>

@@ -1,7 +1,7 @@
 // import React, { FC } from "react";
 // import { Box } from "@mui/material";
 // import { INPUT_LIST } from "./Register.const";
-// import { MemoizedInput } from "../../../ui/MemoizedInput/MemoizedInput";
+// import { Input } from "../../../ui/Input/Input";
 // import { useFormik } from "formik";
 // import { api } from "../../../utils/MainApi";
 // import { IAuthData } from "src/types/user.types";
@@ -68,7 +68,7 @@
 //     >
 //       <Box sx={{ margin: "20px auto 52px" }}>
 //         {INPUT_LIST.map((el) => (
-//           <MemoizedInput
+//           <Input
 //             type={el.type}
 //             placeholder={el.helperText}
 //             key={el.name}

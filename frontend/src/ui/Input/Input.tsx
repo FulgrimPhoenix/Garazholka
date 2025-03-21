@@ -1,4 +1,4 @@
-import { CustomInput } from "./MemoizedInput.styles";
+import { CustomInput } from "./Input.styles";
 import React, {
   DetailedHTMLProps,
   FC,
@@ -48,13 +48,12 @@ const Input: FC<IInput> = ({
   );
 };
 
-export const MemoizedInput: FC<IInput> = React.memo(
-  Input,
-  (prevProps, nextProps) => {
-    return (
-      prevProps.value === nextProps.value &&
-      prevProps.error === nextProps.error &&
-      prevProps.touched === nextProps.touched
-    );
-  }
-);
+const MemoizedInput: FC<IInput> = React.memo(Input, (prevProps, nextProps) => {
+  return (
+    prevProps.value === nextProps.value &&
+    prevProps.error === nextProps.error &&
+    prevProps.touched === nextProps.touched
+  );
+});
+
+export default MemoizedInput;

@@ -1,14 +1,14 @@
 import { Box } from "@mui/material";
 import { CustomForm } from "../../../components/index";
-import { INPUT_LIST } from "./Login.const";
+import { INPUT_LIST } from "./Login.consts";
 import { useFormik } from "formik";
 import { IAuthData } from "../../../types/user.types";
 import * as Yup from "yup";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 
 import { useLoginMutation } from "@/store/api/authApi";
-import { MemoizedInput } from "@/ui/MemoizedInput/MemoizedInput";
 import { setAccessToken } from "@/features/auth/authSlice";
+import { Input } from "@/ui";
 
 const validationSchema = Yup.object({
   email: Yup.string()
@@ -55,7 +55,7 @@ const Login = () => {
     >
       <Box sx={{ margin: "20px auto 52px" }}>
         {INPUT_LIST.map((el) => (
-          <MemoizedInput
+          <Input
             type={el.type}
             placeholder={el.helperText}
             key={el.name}
