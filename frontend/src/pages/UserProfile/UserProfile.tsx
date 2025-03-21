@@ -10,8 +10,8 @@ import TitledBox from "@/ui/TitledBox/TitledBox";
 const UserProfile = () => {
   const {
     data = {
-      name: "Произошла ошибка...",
-      lastName: "",
+      first_name: "Произошла ошибка...",
+      last_name: "",
       avatar: "#",
       description: "Произошла ошибка...",
     },

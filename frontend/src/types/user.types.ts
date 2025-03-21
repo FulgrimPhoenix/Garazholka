@@ -1,10 +1,10 @@
 export interface IUserData {
   id: string;
-  login: string;
+  username: string;
   email: string;
   password: string;
-  name: string | undefined;
-  lastName: string | undefined;
+  first_name: string | undefined;
+  last_name: string | undefined;
   description: string | undefined;
   avatar: string | undefined;
   location: string | undefined;
