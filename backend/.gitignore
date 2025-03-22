@@ -4,5 +4,9 @@
 venv/
 
 # pycache and migration
-
+backend/__pycache__/
+groups/__pycache__/
+events/__pycache__/
+users/__pycache__/
+api/__pycache__/
 db.sqlite3
