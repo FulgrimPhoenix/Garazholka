@@ -2,6 +2,7 @@
 
 # ENV
 venv/
+venv/
 
 # pycache and migration
 __pycache__/
