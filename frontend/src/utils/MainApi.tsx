@@ -61,7 +61,7 @@ export class Api {
       },
       body: JSON.stringify({
         email: credentials.email,
-        login: credentials.login,
+        username: credentials.login,
         password: credentials.password,
       }),
     });
