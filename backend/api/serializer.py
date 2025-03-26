@@ -50,6 +50,19 @@ class MemberSerializer(serializers.ModelSerializer):
         fields = ['username', 'avatar', 'status']
 
 
+class LiteGroupSerializer(serializers.ModelSerializer):
+    title = serializers.CharField(max_length=MAX_CHARFIELD_LENGHT)
+    avatar = Base64ImageField(required=False)
+    slug = serializers.CharField(read_only=True)
+    description = serializers.CharField(
+        required=False,
+        allow_blank=True)
+
+    class Meta:
+        model = Group
+        fields = ['title', 'avatar', 'slug', 'description']
+
+
 class GroupSerializer(serializers.ModelSerializer):
     title = serializers.CharField(max_length=MAX_CHARFIELD_LENGHT)
     avatar = Base64ImageField(required=False)
