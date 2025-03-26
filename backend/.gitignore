@@ -2,7 +2,9 @@
 
 # ENV
 venv/
+venv/
 
 # pycache and migration
-
+__pycache__/
 db.sqlite3
+

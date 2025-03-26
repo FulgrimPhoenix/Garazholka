@@ -13,7 +13,7 @@ urlpatterns = [
 
 schema_view = get_schema_view(
    openapi.Info(
-      title="Cats API",
+      title="AnonSyst API",
       default_version='v1',
       description="Документация для проекта AnonSyst",
       # terms_of_service="URL страницы с пользовательским соглашением",

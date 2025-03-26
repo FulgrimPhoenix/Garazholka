@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 MAX_CHARFIELD_LENGHT = 150
+MAX_TEXTFIELD_LENGHT = 1000
 
 
 class MyUser(AbstractUser):
@@ -25,6 +26,12 @@ class MyUser(AbstractUser):
     location = models.CharField(
         'Локация',
         max_length=MAX_CHARFIELD_LENGHT,
+        null=True,
+        default=None
+    )
+    description = models.TextField(
+        'Описание',
+        max_length=MAX_TEXTFIELD_LENGHT,
         null=True,
         default=None
     )
