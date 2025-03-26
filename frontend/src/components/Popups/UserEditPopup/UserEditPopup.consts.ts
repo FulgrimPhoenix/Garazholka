@@ -2,13 +2,13 @@ import { IUserData } from "@/types/user.types";
 
 export type TCardParams = Pick<
   IUserData,
-  "avatar" | "description" | "first_name" | "last_name"
->;
+  "description" | "first_name" | "last_name"
+> & { avatar: File | null };
 
 interface Iinput_list {
   label: string;
   name: keyof TCardParams;
-  type: "text" | "email";
+  type: "text" | "file";
   required: boolean;
   helperText: string;
 }
@@ -35,11 +35,11 @@ export const INPUT_LIST: Iinput_list[] = [
     required: false,
     helperText: "Напишите о себе",
   },
-  {
-    label: "Аватар",
-    name: "avatar",
-    type: "text",
-    required: false,
-    helperText: "Загрузите свое фото",
-  },
+  // {
+  //   label: "Аватар",
+  //   name: "avatar",
+  //   type: "file",
+  //   required: false,
+  //   helperText: "Загрузите свое фото",
+  // },
 ];

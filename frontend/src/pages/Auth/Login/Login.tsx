@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from "@/store/store";
 import { useLoginMutation } from "@/store/api/authApi";
 import { setAccessToken } from "@/features/auth/authSlice";
 import { Input } from "@/ui";
+import { useNavigate } from "react-router-dom";
 
 const validationSchema = Yup.object({
   email: Yup.string()
@@ -24,7 +25,7 @@ const Login = () => {
   const [login] = useLoginMutation();
   const authdata = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
-  console.log(authdata);
+  const navigate = useNavigate();
 
   const formik = useFormik<IAuthData>({
     initialValues: {
@@ -37,6 +38,7 @@ const Login = () => {
         .unwrap()
         .then((response) => {
           dispatch(setAccessToken(response.auth_token));
+          navigate("/profile");
         });
     },
   });
