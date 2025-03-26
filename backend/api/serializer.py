@@ -31,6 +31,7 @@ class MyUserSerializer(UserSerializer):
             'last_name',
             'location',
             'group_list',
+            'description',
         )
 
     def get_group_list(self, obj):
