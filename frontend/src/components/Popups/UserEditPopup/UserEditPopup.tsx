@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   DialogActions,
   DialogContent,
@@ -13,6 +12,8 @@ import { INPUT_LIST, TCardParams } from "./UserEditPopup.consts";
 import { Input } from "@/ui";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { usePatchUsersMeMutation } from "@/store/api/userApi";
+import { IUserData } from "@/types/user.types";
 
 interface IUserEditPopup {
   title: string;
@@ -28,6 +29,7 @@ const initialValues: TCardParams = {
 
 const UserEditPopup: FC<IUserEditPopup> = ({ title, onClose }) => {
   const currentTheme = useTheme();
+  const [patchUserMe] = usePatchUsersMeMutation();
   const formik = useFormik<TCardParams>({
     initialValues,
     validationSchema: Yup.object({
@@ -37,13 +39,16 @@ const UserEditPopup: FC<IUserEditPopup> = ({ title, onClose }) => {
       last_name: Yup.string()
         .min(2, "Введите хотя бы 2 символа")
         .max(32, "Длина не может быть больше 16 символов"),
-      describetion: Yup.string().max(12),
+      description: Yup.string().max(128),
       avatar: Yup.mixed()
-
+        .nullable()
+        .notRequired()
         .test("fileSize", "Файл слишком большой", (value) => {
+          if (!value) return true;
           return value instanceof File && value.size <= 5 * 1024 * 1024; // Ограничение 5MB
         })
         .test("fileType", "Разрешены только изображения", (value) => {
+          if (!value) return true;
           return (
             value instanceof File &&
             ["image/jpeg", "image/png", "image/gif"].includes(
@@ -52,14 +57,26 @@ const UserEditPopup: FC<IUserEditPopup> = ({ title, onClose }) => {
           );
         }),
     }),
-    onSubmit: () => {
-      handleSubmit();
+    onSubmit: (values) => {
+      const formData = new FormData();
+      if (values.first_name) {
+        formData.append("first_name", values.first_name || "");
+      }
+      if (values.last_name) {
+        formData.append("last_name", values.last_name || "");
+      }
+      if (values.description) {
+        formData.append("description", values.description || "");
+      }
+      if (values.avatar instanceof File) {
+        formData.append("avatar", values.avatar);
+      }
+
+      patchUserMe(formData as Partial<IUserData>).then(() => {
+        onClose();
+      });
     },
   });
-
-  const handleSubmit = () => {
-    formik.handleSubmit();
-  };
 
   return (
     <PopupRoot open onClose={onClose}>
@@ -97,7 +114,11 @@ const UserEditPopup: FC<IUserEditPopup> = ({ title, onClose }) => {
             />
             {/* Кастомная кнопка */}
             <label htmlFor="upload-file">
-              <Button variant="contained" component="span">
+              <Button
+                variant="contained"
+                component="span"
+                sx={{ color: currentTheme.palette.text.primary }}
+              >
                 Выбрать файл
               </Button>
             </label>
@@ -120,6 +141,7 @@ const UserEditPopup: FC<IUserEditPopup> = ({ title, onClose }) => {
           <Button
             sx={{ color: currentTheme.palette.text.primary }}
             variant="contained"
+            type="submit"
           >
             Сохранить
           </Button>

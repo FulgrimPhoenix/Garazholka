@@ -26,6 +26,14 @@ export const userApi = createApi({
       query: () => "users/me",
       providesTags: [{ type: "User", id: "USER" }],
     }),
+    patchUsersMe: builder.mutation<IUserData, Partial<IUserData>>({
+      query: (body) => ({
+        url: "users/me/",
+        method: "PATCH",
+        body,
+      }),
+      invalidatesTags: [{ type: "User", id: "USER" }],
+    }),
     getMyGroupsTags: builder.query<IGroupTag[], void>({
       query: () => "groupsTags/",
       providesTags: [{ type: "User", id: "GROUPS_TAGS" }],
@@ -33,4 +41,8 @@ export const userApi = createApi({
   }),
 });
 
-export const { useUserMeQuery, useGetMyGroupsTagsQuery } = userApi;
+export const {
+  useUserMeQuery,
+  useGetMyGroupsTagsQuery,
+  usePatchUsersMeMutation,
+} = userApi;
