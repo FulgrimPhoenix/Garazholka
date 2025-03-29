@@ -23,10 +23,7 @@ const ProfileInfoCard: FC<IProfileInfoCard> = ({ cardParams, ...props }) => {
 
   const openPopup = () => {
     open(({ close }) => (
-      <UserEditPopup
-        onClose={close}
-        title="Редактировать профиль"
-      ></UserEditPopup>
+      <UserEditPopup onClose={close} title="Редактировать профиль" />
     ));
   };
 
