@@ -11,7 +11,7 @@ import {
   SubmitButton,
 } from "./CustomForm.styles";
 import { ButtonGroup, Typography } from "@mui/material";
-import { NavigationButton } from "src/ui/NavigationButton/NavigationButton";
+import { NavigationButton } from "@/ui/NavigationButton/NavigationButton";
 
 interface ICustonForm
   extends DetailedHTMLProps<
@@ -57,7 +57,7 @@ const CustomForm: FC<ICustonForm> = React.memo(
           <SubmitButton
             variant="contained"
             onClick={handleSubmit}
-            disabled={disabled ? false : true}
+            disabled={!disabled}
           >
             {submiteButtonText}
           </SubmitButton>

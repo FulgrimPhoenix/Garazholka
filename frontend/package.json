@@ -5,34 +5,37 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
-    "@mui/icons-material": "^6.4.4",
-    "@mui/material": "^6.4.4",
+    "@mui/icons-material": "^5.16.14",
+    "@mui/material": "^5.16.14",
+    "@mui/x-date-pickers": "^7.27.3",
     "@pbe/react-yandex-maps": "^1.2.5",
-    "@reduxjs/toolkit": "^2.5.1",
+    "@reduxjs/toolkit": "^2.5.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "@types/yandex-maps": "^2.1.36",
+    "@vitejs/plugin-react": "^4.3.4",
+    "dayjs": "^1.11.13",
     "formik": "^2.4.6",
+    "json-server": "^1.0.0-beta.3",
     "react": "^18.3.1",
     "react-big-calendar": "^1.14.1",
     "react-calendar": "^5.0.0",
     "react-dom": "^18.3.1",
-    "react-redux": "^9.2.0",
-    "react-router-dom": "^6.26.1",
-    "react-scripts": "5.0.1",
+    "react-redux": "^8.1.0",
+    "react-router-dom": "^6.27.0",
+    "swiper": "^11.2.5",
+    "vite": "^5.4.14",
     "web-vitals": "^2.1.4",
     "ymaps": "^0.2.1",
     "yup": "^1.6.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "buildTS": "tsc src/index.ts --declaration --incremental",
-    "build:dev": "tsc src/index.ts --sourceMap",
-    "watch": "tsc src/index.ts --watch"
+    "start": "vite",
+    "dev": "concurrently \"vite\" \"json-server --watch ./server/db.json --port 3001\"",
+    "server": "json-server --watch ./server/db.json --port 3001",
+    "build": "tsc && vite build",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
   },
   "eslintConfig": {
     "extends": [
@@ -53,10 +56,21 @@
     ]
   },
   "devDependencies": {
+    "@types/node": "^22.13.10",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@types/swiper": "^5.4.3",
+    "@types/yandex-maps": "^2.1.36",
+    "@vitejs/plugin-react": "^4.3.4",
     "@yandex/ymaps3-types": "^0.0.28",
+    "concurrently": "^9.1.2",
+    "css-loader": "^7.1.2",
     "eslint": "^8.52.0",
     "prettier": "^3.1.0",
     "prettier-eslint": "^16.1.2",
-    "typescript": "^4.9.5"
+    "sass": "^1.85.1",
+    "style-loader": "^4.0.0",
+    "typescript": "~5.7.2",
+    "vite": "^6.1.0"
   }
 }

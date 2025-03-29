@@ -1,10 +1,4 @@
-import {
-  Button,
-  ButtonProps,
-  Container,
-  styled,
-  Typography,
-} from "@mui/material";
+import { Button, Container, styled, Typography } from "@mui/material";
 
 export const FormRoot = styled(Container)({
   display: "flex",

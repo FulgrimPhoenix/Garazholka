@@ -1,30 +1,32 @@
 import { Box } from "@mui/material";
 import { CustomForm } from "../../../components/index";
-import { INPUT_LIST } from "./Login.const";
-import { MemoizedInput } from "src/ui/MemoizedInput/MemoizedInput";
+import { INPUT_LIST } from "./Login.consts";
 import { useFormik } from "formik";
 import { IAuthData } from "../../../types/user.types";
 import * as Yup from "yup";
-import { api } from "../../../utils/MainApi";
+import { useAppDispatch, useAppSelector } from "@/store/store";
+
+import { useLoginMutation } from "@/store/api/authApi";
+import { setAccessToken } from "@/features/auth/authSlice";
+import { Input } from "@/ui";
+import { useNavigate } from "react-router-dom";
 
 const validationSchema = Yup.object({
   email: Yup.string()
     .email("Введите корректную почту")
     .required("Введите почту"),
   password: Yup.string()
-    .min(8, "Пароль должен содержать минимум 8 символов")
+    .min(7, "Пароль должен содержать минимум 7 символов")
     .max(24, "Пароль не должен превышать 24 символа")
-    .matches(/[A-Z]/, "Пароль должен содержать хотя бы одну заглавную букву")
-    .matches(/[a-z]/, "Пароль должен содержать хотя бы одну строчную букву")
-    .matches(/\d/, "Пароль должен содержать хотя бы одну цифру")
-    .matches(
-      /[@$!%*?&]/,
-      "Пароль должен содержать хотя бы один специальный символ (@, $, !, %, *, ?, &)"
-    )
     .required("Введите пароль"),
 });
 
 const Login = () => {
+  const [login] = useLoginMutation();
+  const authdata = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
   const formik = useFormik<IAuthData>({
     initialValues: {
       email: "",
@@ -32,7 +34,12 @@ const Login = () => {
     },
     validationSchema,
     onSubmit: (values) => {
-      api.signin(values);
+      login(values)
+        .unwrap()
+        .then((response) => {
+          dispatch(setAccessToken(response.auth_token));
+          navigate("/profile");
+        });
     },
   });
 
@@ -46,10 +53,11 @@ const Login = () => {
       logo="Лого"
       submiteButtonText="Войти"
       handleSubmit={handleSubmit}
+      disabled={formik.isValid}
     >
       <Box sx={{ margin: "20px auto 52px" }}>
         {INPUT_LIST.map((el) => (
-          <MemoizedInput
+          <Input
             type={el.type}
             placeholder={el.helperText}
             key={el.name}

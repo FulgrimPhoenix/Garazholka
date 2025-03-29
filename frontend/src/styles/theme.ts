@@ -12,14 +12,18 @@ const theme = createTheme({
       },
     },
   },
+  shape: {
+    borderRadius: 12,
+  },
   typography: {
-    fontFamily: '"Exo 2", "Arial", sans-serif', // Укажи свой шрифт
+    fontFamily: '"Exo 2", "Arial", sans-serif',
   },
   palette: {
     primary: {
       main: "#9F0040",
       contrastText: "#000",
       light: "#fff",
+      dark: "#005E81",
     },
     secondary: {
       main: "#09BEFF",
@@ -41,7 +45,7 @@ const theme = createTheme({
   breakpoints: {
     values: {
       xs: 0,
-      sm: 425,
+      sm: 375,
       md: 768,
       lg: 1024,
       xl: 1280,
